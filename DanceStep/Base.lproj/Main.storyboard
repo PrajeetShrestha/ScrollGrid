@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -15,11 +16,228 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QCc-Eo-eAR">
+                                <rect key="frame" x="16" y="556" width="99" height="28"/>
+                                <color key="backgroundColor" red="1" green="0.4091615052" blue="0.36919273339999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                <state key="normal" title="Vertical Align">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="alignVertically:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qPS-8g-jCO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mCc-t0-L38">
+                                <rect key="frame" x="125" y="556" width="118" height="28"/>
+                                <color key="backgroundColor" red="0.35209944679999999" green="0.50850614729999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                <state key="normal" title="Horizontal Align">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="alignHorizontally:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bHx-p7-Qz0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Z6-7A-2oM">
+                                <rect key="frame" x="251" y="556" width="107" height="28"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                <state key="normal" title="Equi-distant V">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="makeEquidistantVertically:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aOQ-DA-XcG"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jlq-ze-86L">
+                                <rect key="frame" x="366" y="556" width="109" height="28"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                <state key="normal" title="Equi-distant H">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="makeEquidistantHorizontally:" destination="BYZ-38-t0r" eventType="touchUpInside" id="x4T-0a-uY8"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Wh-z6-tUI">
+                                <rect key="frame" x="389" y="556" width="74" height="28"/>
+                                <color key="backgroundColor" red="0.39885475553161243" green="0.70444775132275139" blue="0.30591725018894028" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                <state key="normal" title="Select All">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="selectAll:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oaK-aF-yck"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EiA-25-eez">
+                                <rect key="frame" x="477" y="556" width="91" height="28"/>
+                                <color key="backgroundColor" red="0.73976934523809523" green="0.19352235544800972" blue="0.21513054945872823" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                <state key="normal" title="Deselect All">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="deselectAll:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XgJ-jT-W86"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="owy-QC-qAQ">
+                                <rect key="frame" x="16" y="512" width="91" height="28"/>
+                                <color key="backgroundColor" red="0.90672536375661372" green="0.30912772679916783" blue="0.058054732949207745" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                <state key="normal" title="Accumulate">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="accumulate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BNN-0z-cf4"/>
+                                    <action selector="alignVertically:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YIg-1i-e0v"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VmM-LG-ELq">
+                                <rect key="frame" x="483" y="556" width="50" height="28"/>
+                                <color key="backgroundColor" red="0.68644558450000004" green="0.40288689430000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                <state key="normal" title="Circle">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="circle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4Yp-2t-xt1"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hV6-T3-Etu">
+                                <rect key="frame" x="528" y="506" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="QRw-1M-jdk"/>
+                                    <constraint firstAttribute="width" constant="40" id="vZL-PF-PJd"/>
+                                </constraints>
+                                <state key="normal" image="color_picker.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="colorPicker:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2jv-rT-jr2"/>
+                                    <segue destination="dR3-1y-gdY" kind="popoverPresentation" popoverAnchorView="hV6-T3-Etu" id="wnC-St-JrN">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CZ5-TY-T0X">
+                                <rect key="frame" x="116" y="512" width="92" height="28"/>
+                                <color key="backgroundColor" red="0.3921568627" green="0.69803921570000005" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                <state key="normal" title="Add Dancer">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addDancer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gD1-ke-7fR"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mlN-XG-aMa">
+                                <rect key="frame" x="154" y="20" width="300" height="300"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="Bel-5y-mA5"/>
+                                    <constraint firstAttribute="height" constant="300" id="QYv-Rp-1UX"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="EiA-25-eez" firstAttribute="leading" secondItem="4Wh-z6-tUI" secondAttribute="trailing" constant="14" id="1Wl-mi-lJa"/>
+                            <constraint firstItem="owy-QC-qAQ" firstAttribute="leading" secondItem="QCc-Eo-eAR" secondAttribute="leading" id="3Z7-3j-iqQ"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="QCc-Eo-eAR" secondAttribute="bottom" constant="16" id="44v-Ka-R3Z"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="EiA-25-eez" secondAttribute="bottom" constant="16" id="7ya-fi-3yV"/>
+                            <constraint firstItem="9Z6-7A-2oM" firstAttribute="centerY" secondItem="Jlq-ze-86L" secondAttribute="centerY" id="8Ch-fB-nw9"/>
+                            <constraint firstItem="QCc-Eo-eAR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="ALB-sp-CWU"/>
+                            <constraint firstItem="mlN-XG-aMa" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="AMg-yo-iOk"/>
+                            <constraint firstItem="Jlq-ze-86L" firstAttribute="leading" secondItem="9Z6-7A-2oM" secondAttribute="trailing" constant="8" id="JR4-hQ-vxS"/>
+                            <constraint firstItem="EiA-25-eez" firstAttribute="top" secondItem="hV6-T3-Etu" secondAttribute="bottom" constant="10" id="Jcd-8k-Ydd"/>
+                            <constraint firstItem="4Wh-z6-tUI" firstAttribute="centerY" secondItem="EiA-25-eez" secondAttribute="centerY" id="KBd-8W-kzD"/>
+                            <constraint firstItem="mCc-t0-L38" firstAttribute="leading" secondItem="QCc-Eo-eAR" secondAttribute="trailing" constant="10" id="KOH-eF-nv0"/>
+                            <constraint firstItem="EiA-25-eez" firstAttribute="trailing" secondItem="hV6-T3-Etu" secondAttribute="trailing" id="MT1-a8-2SG"/>
+                            <constraint firstItem="mCc-t0-L38" firstAttribute="centerY" secondItem="QCc-Eo-eAR" secondAttribute="centerY" id="Qx7-22-NgZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="EiA-25-eez" secondAttribute="trailing" constant="16" id="Sby-uZ-MEx"/>
+                            <constraint firstItem="9Z6-7A-2oM" firstAttribute="leading" secondItem="mCc-t0-L38" secondAttribute="trailing" constant="8" id="TOA-D2-WvQ"/>
+                            <constraint firstItem="VmM-LG-ELq" firstAttribute="leading" secondItem="Jlq-ze-86L" secondAttribute="trailing" constant="8" id="f8x-Tv-rX7"/>
+                            <constraint firstItem="QCc-Eo-eAR" firstAttribute="top" secondItem="owy-QC-qAQ" secondAttribute="bottom" constant="16" id="kaW-px-ewZ"/>
+                            <constraint firstItem="CZ5-TY-T0X" firstAttribute="leading" secondItem="owy-QC-qAQ" secondAttribute="trailing" constant="9" id="myX-If-cy4"/>
+                            <constraint firstItem="mCc-t0-L38" firstAttribute="centerY" secondItem="9Z6-7A-2oM" secondAttribute="centerY" id="sCB-67-3Kc"/>
+                            <constraint firstItem="owy-QC-qAQ" firstAttribute="centerY" secondItem="CZ5-TY-T0X" secondAttribute="centerY" id="wu4-DF-uRq"/>
+                            <constraint firstItem="VmM-LG-ELq" firstAttribute="centerY" secondItem="Jlq-ze-86L" secondAttribute="centerY" id="yzc-UY-Noa"/>
+                            <constraint firstAttribute="centerX" secondItem="mlN-XG-aMa" secondAttribute="centerX" constant="-4" id="zV5-aH-5WZ"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="containerView" destination="mlN-XG-aMa" id="Et2-dF-pTl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-492" y="115"/>
+        </scene>
+        <!--Color Picker-->
+        <scene sceneID="NE5-Eh-qFl">
+            <objects>
+                <viewController id="dR3-1y-gdY" customClass="ColorPicker" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="euI-sM-dd3"/>
+                        <viewControllerLayoutGuide type="bottom" id="y3i-4G-Faa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2gW-E8-Dui">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="AjN-tK-xZN">
+                                <rect key="frame" x="10" y="10" width="580" height="580"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Nhq-ZH-5UY">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ColorCell" id="1sn-4Q-vog">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="dR3-1y-gdY" id="bIm-iy-PtI"/>
+                                    <outlet property="delegate" destination="dR3-1y-gdY" id="2TQ-8X-I9X"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="y3i-4G-Faa" firstAttribute="top" secondItem="AjN-tK-xZN" secondAttribute="bottom" constant="10" id="4m9-vS-HfS"/>
+                            <constraint firstItem="AjN-tK-xZN" firstAttribute="leading" secondItem="2gW-E8-Dui" secondAttribute="leading" constant="10" id="HBh-1o-HPZ"/>
+                            <constraint firstAttribute="trailing" secondItem="AjN-tK-xZN" secondAttribute="trailing" constant="10" id="OnX-Go-wyA"/>
+                            <constraint firstItem="AjN-tK-xZN" firstAttribute="top" secondItem="2gW-E8-Dui" secondAttribute="top" constant="10" id="VC7-d0-tqQ"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5ho-dt-w5g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="143" y="115"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="color_picker.png" width="80" height="80"/>
+    </resources>
 </document>
