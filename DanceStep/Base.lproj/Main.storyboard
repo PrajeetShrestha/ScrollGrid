@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -143,17 +144,17 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mlN-XG-aMa">
-                                <rect key="frame" x="154" y="20" width="300" height="300"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="432"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="Bel-5y-mA5"/>
-                                    <constraint firstAttribute="height" constant="300" id="QYv-Rp-1UX"/>
+                                    <constraint firstAttribute="width" secondItem="mlN-XG-aMa" secondAttribute="height" multiplier="10:7.2" id="NkQ-9v-1fQ"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="EiA-25-eez" firstAttribute="leading" secondItem="4Wh-z6-tUI" secondAttribute="trailing" constant="14" id="1Wl-mi-lJa"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mlN-XG-aMa" secondAttribute="trailing" constant="-16" id="2lK-EN-9WB"/>
                             <constraint firstItem="owy-QC-qAQ" firstAttribute="leading" secondItem="QCc-Eo-eAR" secondAttribute="leading" id="3Z7-3j-iqQ"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="QCc-Eo-eAR" secondAttribute="bottom" constant="16" id="44v-Ka-R3Z"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="EiA-25-eez" secondAttribute="bottom" constant="16" id="7ya-fi-3yV"/>
@@ -165,6 +166,7 @@
                             <constraint firstItem="4Wh-z6-tUI" firstAttribute="centerY" secondItem="EiA-25-eez" secondAttribute="centerY" id="KBd-8W-kzD"/>
                             <constraint firstItem="mCc-t0-L38" firstAttribute="leading" secondItem="QCc-Eo-eAR" secondAttribute="trailing" constant="10" id="KOH-eF-nv0"/>
                             <constraint firstItem="EiA-25-eez" firstAttribute="trailing" secondItem="hV6-T3-Etu" secondAttribute="trailing" id="MT1-a8-2SG"/>
+                            <constraint firstItem="mlN-XG-aMa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="PxX-eo-u8V"/>
                             <constraint firstItem="mCc-t0-L38" firstAttribute="centerY" secondItem="QCc-Eo-eAR" secondAttribute="centerY" id="Qx7-22-NgZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="EiA-25-eez" secondAttribute="trailing" constant="16" id="Sby-uZ-MEx"/>
                             <constraint firstItem="9Z6-7A-2oM" firstAttribute="leading" secondItem="mCc-t0-L38" secondAttribute="trailing" constant="8" id="TOA-D2-WvQ"/>
@@ -174,7 +176,6 @@
                             <constraint firstItem="mCc-t0-L38" firstAttribute="centerY" secondItem="9Z6-7A-2oM" secondAttribute="centerY" id="sCB-67-3Kc"/>
                             <constraint firstItem="owy-QC-qAQ" firstAttribute="centerY" secondItem="CZ5-TY-T0X" secondAttribute="centerY" id="wu4-DF-uRq"/>
                             <constraint firstItem="VmM-LG-ELq" firstAttribute="centerY" secondItem="Jlq-ze-86L" secondAttribute="centerY" id="yzc-UY-Noa"/>
-                            <constraint firstAttribute="centerX" secondItem="mlN-XG-aMa" secondAttribute="centerX" constant="-4" id="zV5-aH-5WZ"/>
                         </constraints>
                     </view>
                     <connections>
@@ -183,7 +184,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-492" y="115"/>
+            <point key="canvasLocation" x="-569" y="109"/>
         </scene>
         <!--Color Picker-->
         <scene sceneID="NE5-Eh-qFl">
