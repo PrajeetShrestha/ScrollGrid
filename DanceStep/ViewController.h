@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Grid.h"
 
 @interface ViewController : UIViewController
-
+@property (nonatomic) NSMutableArray *grids;
 
 @end
+
 

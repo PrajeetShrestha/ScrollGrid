@@ -12,7 +12,6 @@
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
 @interface ViewController ()<ColorPicker>
 {
-    NSMutableArray *gridPoints;
     float gridSize;
     NSMutableArray *alphabetArray;
     NSMutableArray *viewCoordinateMap;
@@ -34,6 +33,7 @@
     self.selectedViews = [NSMutableArray new];
     viewCoordinateMap = [NSMutableArray new];
     reservedIndexes = [NSMutableArray new];
+    self.grids = [NSMutableArray new];
     [self alphabetArray];
 }
 
@@ -44,7 +44,10 @@
         [alphabetArray addObject:[NSString stringWithFormat:@"%c", a]];
     }
 }
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 
+}
 - (void)viewDidLayoutSubviews {
     [self createImaginaryGrid];
 }
@@ -89,9 +92,7 @@
         [UIView animateWithDuration:0.2 animations:^{
             self.activeView.transform = CGAffineTransformMakeScale(1, 1);
         }];
-
     }
-
 }
 
 #pragma mark - Touch Delegate
@@ -105,6 +106,30 @@
                     self.activeView.backgroundColor = [UIColor blueColor];
                     self.activeView.alpha = 1.0f;
                 }];
+                for (Grid *grid in self.grids){
+                    if ([grid.content isEqual:self.activeView]) {
+                        grid.isOccupied = NO;
+                    }
+                }
+//                for (NSDictionary *dictionary in viewCoordinateMap){
+//
+//                    id view = dictionary[@"view"];
+//                    if ([view isEqual:self.activeView]) {
+//                        NSNumber *number = dictionary[@"index"];
+//                        if (viewCoordinateMap != nil) {
+//                            for (NSDictionary *dic in viewCoordinateMap){
+//                                if ([dic[@"view"] isEqual:self.activeView]) {
+//                                    [viewCoordinateMap removeObject:dic];
+//                                    break;
+//                                }
+//                            }
+//                        }
+//
+//                        [reservedIndexes removeObject:number];
+//
+//                        break;
+//                    }
+//                }
             }
         }
     }
@@ -123,14 +148,6 @@
             self.activeView = [touch view];
         } else {
             if ([self isViewMovable]) {
-                for (NSDictionary *dictionary in viewCoordinateMap){
-                    id view = dictionary[@"view"];
-                    if ([view isEqual:self.activeView]) {
-                        NSNumber *number = dictionary[@"index"];
-                        [reservedIndexes removeObject:number];
-                        NSLog(@"Removed");
-                    }
-                }
                 [self dispatchTouchEvent:self.activeView toPosition:[touch locationInView:self.containerView]];
             }
         }
@@ -146,54 +163,40 @@
     //Snap to Grid
     if ([self isViewMovable]) {
         CGFloat distance = 0;
-        CGPoint nearestEmptyPoint;
-        NSUInteger index = 0;
-        //BOOL isViewOverLappedInPoint = NO;
-        for (NSDictionary *dictionary in gridPoints) {
-            //CGFloat xPos = dictionary[@"x"]
-            CGPoint point = CGPointMake([dictionary[@"x"] floatValue], [dictionary[@"y"] floatValue]);
-            //Check if point is empty
-
-            //Calculate near points
-            CGFloat xDist = (self.activeView.center.x - point.x);
-            CGFloat yDist = (self.activeView.center.y - point.y);
-            CGFloat tempDistance = sqrt((xDist * xDist) + (yDist * yDist)) ;
-
-            if (distance == 0) {
-                distance = tempDistance;
-                nearestEmptyPoint = CGPointMake([dictionary[@"x"] floatValue], [dictionary[@"y"] floatValue]);
-            }
-            if (tempDistance < distance) {
-                index = [gridPoints indexOfObject:dictionary];
-                // Do not change the nearest distance if the index is reserved.
-                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self == %@",[NSNumber numberWithInteger:index]];
-                NSArray *array = [reservedIndexes filteredArrayUsingPredicate:predicate];
-                if (array.count == 0) {
+        Grid *nearestUnoccupiedGrid = [Grid new];
+        for (Grid *grid in self.grids) {
+            if (!grid.isOccupied) {
+                CGFloat xDist = (self.activeView.center.x - grid.position.x);
+                CGFloat yDist = (self.activeView.center.y - grid.position.y);
+                CGFloat tempDistance = sqrt((xDist * xDist) + (yDist * yDist)) ;
+                if (distance == 0) {
                     distance = tempDistance;
-                    nearestEmptyPoint = CGPointMake([dictionary[@"x"] floatValue], [dictionary[@"y"] floatValue]);
+                    nearestUnoccupiedGrid = grid;
+                } else {
+                    if (tempDistance < distance) {
+                        distance = tempDistance;
+                        nearestUnoccupiedGrid = grid;
+                    }
                 }
             }
         }
-        //Snap view to the pint
-        if (distance != 0 ) {
 
-            [UIView animateWithDuration:0.2 animations:^{
-                self.activeView.center = nearestEmptyPoint;
-                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self == %@",[NSNumber numberWithInteger:index]];
-                NSArray *array = [reservedIndexes filteredArrayUsingPredicate:predicate];
-                if (array.count == 0) {
-                    [reservedIndexes addObject:[NSNumber numberWithInteger:index]];
-                    [viewCoordinateMap addObject:@{@"view":self.activeView,
-                                                  @"index":[NSNumber numberWithInteger:index]
-                                                  }];
-                }
-            }];
-        }
+        [UIView animateWithDuration:0.2 animations:^{
+            if (nearestUnoccupiedGrid != nil) {
+                self.activeView.center = nearestUnoccupiedGrid.position;
+                nearestUnoccupiedGrid.isOccupied = YES;
+                nearestUnoccupiedGrid.content = self.activeView;
+                NSLog(@"Transcendencing to %@ %hhd",NSStringFromCGPoint(nearestUnoccupiedGrid.position),nearestUnoccupiedGrid.isOccupied);
+            }
+        }];
+
+        //LOG
+//        for (Grid *grid in self.grids) {
+//            NSLog(@"**********Grid content:%@------Grid Position:%@------Grid isOccupied:%hhd",grid.content,NSStringFromCGPoint(grid.position),grid.isOccupied);
+//        }
     }
-    NSLog(@"Reserved Slots %@",reservedIndexes);
-    //Snap End test
+    //Snap End
     self.activeView = nil;
-    //NSLog(@"Reserved Slots %@",viewCoordinateMap);
 }
 
 - (BOOL)isViewMovable {
@@ -382,7 +385,7 @@
 
 }
 - (IBAction)addDancer:(id)sender {
-    if (self.movableViews.count != 26) {
+    if ([self canMoreViewBeAdded]) {
         UIView *newDancer = [[UIView alloc]initWithFrame:CGRectMake(10, 10, gridSize-1, gridSize-1)];
         newDancer.backgroundColor = [UIColor orangeColor];
         newDancer.tag = self.movableViews.count;
@@ -397,33 +400,65 @@
         viewTag.center = CGPointMake(newDancer.bounds.size.width/2, newDancer.bounds.size.height/2);
         [newDancer addSubview:viewTag];
         [self.containerView addSubview:newDancer];
-
         [self.movableViews addObject:newDancer];
         [self addLongPressGestures];
     }
 }
 
+- (BOOL)canMoreViewBeAdded {
+    BOOL isAllSlotsOccupied = NO;
+    int count = 0;
+    for (Grid *grid in self.grids) {
+        if (grid.isOccupied) {
+            count ++;
+        }
+    }
+    if (count == self.grids.count) {
+        isAllSlotsOccupied = YES;
+    }
+    BOOL isAllAlphabetOccupied = NO;
+    if (self.movableViews.count != 26) {
+        isAllAlphabetOccupied = NO;
+    } else {
+        isAllAlphabetOccupied = YES;
+    }
+    return !isAllSlotsOccupied && !isAllAlphabetOccupied;
+
+}
+
 - (void)createImaginaryGrid {
-    gridPoints = [NSMutableArray new];
+
     UIGraphicsBeginImageContextWithOptions(self.containerView.bounds.size, NO, 0);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     gridSize = self.containerView.bounds.size.width/11;
     for (float i = gridSize; i < self.containerView.bounds.size.width; i += gridSize) {
+
         for (float j = gridSize; j < self.containerView.bounds.size.height; j += gridSize) {
             CGRect dotFrameHorizontal = CGRectMake(i, j, 2, 2);
-
             CGContextSetFillColorWithColor(ctx, [UIColor groupTableViewBackgroundColor].CGColor);
             CGContextFillEllipseInRect(ctx, CGRectInset(dotFrameHorizontal, 0, 0));
-            NSDictionary *point = @{@"x":[NSNumber numberWithFloat:i],
-                                    @"y":[NSNumber numberWithFloat:j]
-                                    };
-            [gridPoints addObject:point];
-            NSLog(@"POInt %@",point);
+            CGPoint point = CGPointMake(i, j);
+            if (![self isPointAlreadyStoredInGrid:point]) {
+                Grid *grid = [Grid new];
+                grid.position = CGPointMake(i, j);
+                grid.isOccupied = NO;
+                grid.content = nil;
+                [self.grids addObject:grid];
+            }
         }
     }
-    
     self.containerView.layer.contents = (id)UIGraphicsGetImageFromCurrentImageContext().CGImage;
     UIGraphicsEndImageContext();
+}
+
+-(BOOL)isPointAlreadyStoredInGrid:(CGPoint)point {
+    for (Grid *grd in self.grids){
+        if(grd.position.x == point.x && grd.position.y == point.y) {
+            return YES;
+        }
+    }
+    return NO;
+
 }
 
 
