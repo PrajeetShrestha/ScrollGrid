@@ -14,8 +14,6 @@
 {
     float gridSize;
     NSMutableArray *alphabetArray;
-    NSMutableArray *viewCoordinateMap;
-    NSMutableArray *reservedIndexes;
 }
 @property (nonatomic) NSMutableArray *movableViews;
 
@@ -31,8 +29,6 @@
     [super viewDidLoad];
     self.movableViews = [NSMutableArray new];
     self.selectedViews = [NSMutableArray new];
-    viewCoordinateMap = [NSMutableArray new];
-    reservedIndexes = [NSMutableArray new];
     self.grids = [NSMutableArray new];
     [self alphabetArray];
 }
@@ -46,10 +42,13 @@
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [self createImaginaryGrid];
 
 }
+
 - (void)viewDidLayoutSubviews {
-    [self createImaginaryGrid];
+    //[self.grids removeAllObjects];
+
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -103,7 +102,7 @@
             if ([self isViewMovable]) {
                 [UIView animateWithDuration:0.2 animations:^{
                     self.activeView.transform = CGAffineTransformMakeScale(1.5, 1.5);
-                    self.activeView.backgroundColor = [UIColor blueColor];
+                    self.activeView.backgroundColor = [UIColor blackColor];
                     self.activeView.alpha = 1.0f;
                 }];
                 for (Grid *grid in self.grids){
@@ -186,7 +185,7 @@
                 self.activeView.center = nearestUnoccupiedGrid.position;
                 nearestUnoccupiedGrid.isOccupied = YES;
                 nearestUnoccupiedGrid.content = self.activeView;
-                NSLog(@"Transcendencing to %@ %hhd",NSStringFromCGPoint(nearestUnoccupiedGrid.position),nearestUnoccupiedGrid.isOccupied);
+                NSLog(@"Transcendenting to %@ %hhd",NSStringFromCGPoint(nearestUnoccupiedGrid.position),nearestUnoccupiedGrid.isOccupied);
             }
         }];
 
@@ -196,6 +195,10 @@
 //        }
     }
     //Snap End
+    NSLog(@"Begin Tracking ");
+    for (Grid *grid in self.grids) {
+        NSLog(@"Grid View %hhd",grid.isOccupied);
+    }
     self.activeView = nil;
 }
 
@@ -291,7 +294,7 @@
         }
     }
     UIView *sampleView = [sortedView firstObject];
-    CGFloat distantBetweenViews = 40 + sampleView.frame.size.height/2;
+    CGFloat distantBetweenViews = gridSize;
     CGFloat positionOfFirstView = sampleView.center.y;
     int count = 0 ;
     for (UIView *view in sortedView){
@@ -325,7 +328,7 @@
     }
 
     UIView *sampleView = [sortedView firstObject];
-    CGFloat distantBetweenViews = 40 + sampleView.frame.size.width/2;
+    CGFloat distantBetweenViews = gridSize;
     CGFloat positionOfFirstView = sampleView.center.x;
     int count = 0 ;
     for (UIView *view in sortedView){
@@ -402,6 +405,8 @@
         [self.containerView addSubview:newDancer];
         [self.movableViews addObject:newDancer];
         [self addLongPressGestures];
+    } else {
+        NSLog(@"Move view can not be added!");
     }
 }
 
@@ -458,6 +463,60 @@
         }
     }
     return NO;
+
+}
+- (IBAction)changePositions:(id)sender {
+
+    NSArray *animationSequence = @[@{@"startGrid":self.grids[0],
+                                     @"destinationGrid":self.grids[4]
+                                     },
+                                   @{@"startGrid":self.grids[4],
+                                     @"destinationGrid":self.grids[10]
+                                     },
+                                   @{@"startGrid":self.grids[5],
+                                     @"destinationGrid":self.grids[11]
+                                     },
+                                   @{@"startGrid":self.grids[2],
+                                     @"destinationGrid":self.grids[3]
+                                     },
+                                   @{@"startGrid":self.grids[6],
+                                     @"destinationGrid":self.grids[14]
+                                     },
+                                   @{@"startGrid":self.grids[7],
+                                     @"destinationGrid":self.grids[8]
+                                     }
+                                   ];
+    for (NSDictionary *dic in animationSequence){
+        [self shiftGridContentOf:dic[@"startGrid"] toNewPosition:dic[@"destinationGrid"]];
+    }
+
+    [self upDateGridContents];
+
+}
+
+- (void)shiftGridContentOf:(Grid *)initGrid toNewPosition:(Grid *)destGrid {
+    if (initGrid.content != nil) {
+        UIView *viewReference = (UIView *)initGrid.content;
+        [UIView animateWithDuration:0.3 animations:^{
+            viewReference.center = destGrid.position;
+        }];
+    }
+}
+
+- (void)upDateGridContents {
+    for (Grid *grid in self.grids){
+        BOOL isThereAnyViewInGridPosition = NO;
+        for (UIView *view in self.movableViews) {
+            if (view.center.x == grid.position.x && view.center.y == grid.position.y) {
+                grid.content = view;
+                isThereAnyViewInGridPosition = YES;
+            }
+        }
+        if (!isThereAnyViewInGridPosition) {
+            grid.isOccupied = NO;
+            grid.content = nil;
+        }
+    }
 
 }
 
