@@ -68,157 +68,31 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Gestures
-- (void)addLongPressGestures {
-    for (UIView *aView in self.movableViews){
-
-        UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGestures:)];
-        lpgr.minimumPressDuration = 0.3;
-        [aView addGestureRecognizer:lpgr];
-
-        UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget: self action:@selector(doubleTapped:)];
-        doubleTap.numberOfTapsRequired = 2;
-        [aView addGestureRecognizer:doubleTap];
-    }
-}
-
-- (void)doubleTapped:(UITapGestureRecognizer *)recognizer {
-    NSLog(@"Double Tapped");
-}
-
-- (void)handleLongPressGestures:(UILongPressGestureRecognizer *)sender
-{
-    if (sender.state == UIGestureRecognizerStateBegan)
-    {
-        UIView *view = [sender view];
-        if ([self.selectedViews containsObject:view]) {
-            view.layer.borderColor = [UIColor clearColor].CGColor;
-            view.layer.borderWidth = 0.0f;
-            [self.selectedViews removeObject:view];
-        } else {
-            view.layer.borderColor = [UIColor blueColor].CGColor;
-            view.layer.borderWidth = 2.0f;
-            [self.selectedViews addObject:view];
-        }
-
-        [UIView animateWithDuration:0.2 animations:^{
-            self.activeView.transform = CGAffineTransformMakeScale(1, 1);
-        }];
-    }
-}
-
-#pragma mark - Touch Delegate
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-
-    for (UITouch *touch in touches){
-        if (self.activeView == nil) {
-            self.activeView = (GridView *)[touch view];
-            if ([self isViewMovable]) {
-                self.activeView.previousPosition = self.activeView.center;
-                [UIView animateWithDuration:0.2 animations:^{
-                    self.activeView.transform = CGAffineTransformMakeScale(1.5, 1.5);
-                    self.activeView.backgroundColor = [UIColor blackColor];
-                    self.activeView.alpha = 1.0f;
-                }];
-                for (Grid *grid in self.grids){
-                    if ([grid.content isEqual:self.activeView]) {
-                        grid.isOccupied = NO;
-                    }
-                }
-            }
-        }
-    }
-}
-
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-
-}
-
--(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    // Enumerates through all touch objects
-    for (UITouch *touch in touches) {
-
-        if (self.activeView == nil) {
-            self.activeView = (GridView *)[touch view];
-        } else {
-            if ([self isViewMovable]) {
-                [self dispatchTouchEvent:self.activeView toPosition:[touch locationInView:self.containerView]];
-            }
-        }
-    }
-}
-
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [UIView animateWithDuration:0.2 animations:^{
-        self.activeView.transform = CGAffineTransformMakeScale(1, 1);
-    }];
-
-    //Snap to Grid
-    if ([self isViewMovable]) {
-        CGFloat distance = 0;
-        Grid *nearestUnoccupiedGrid = [Grid new];
-        for (Grid *grid in self.grids) {
-            if (!grid.isOccupied) {
-                CGFloat xDist = (self.activeView.center.x - grid.position.x);
-                CGFloat yDist = (self.activeView.center.y - grid.position.y);
-                CGFloat tempDistance = sqrt((xDist * xDist) + (yDist * yDist)) ;
-                if (distance == 0) {
-                    distance = tempDistance;
-                    nearestUnoccupiedGrid = grid;
-                } else {
-                    if (tempDistance < distance) {
-                        distance = tempDistance;
-                        nearestUnoccupiedGrid = grid;
-                    }
-                }
-            }
-        }
-
-        [UIView animateWithDuration:0.2 animations:^{
-            if (nearestUnoccupiedGrid != nil) {
-                [self setCenter:nearestUnoccupiedGrid.position forView:self.activeView];
-                //self.activeView.center = nearestUnoccupiedGrid.position;
-                nearestUnoccupiedGrid.viewTag = self.activeView.tag;
-                nearestUnoccupiedGrid.isOccupied = YES;
-                nearestUnoccupiedGrid.content = self.activeView;
-                // NSLog(@"Transcendenting to %@ %d %d",NSStringFromCGPoint(nearestUnoccupiedGrid.position),nearestUnoccupiedGrid.isOccupied,self.activeView.tag);
-            }
-        }];
-        [self upDateGridContents:self.grids];
-    }
-    //Snap End
-    self.activeView = nil;
-
-}
-
-#pragma mark - Undomanager Methods
-- (void)setCenter:(CGPoint)newCenter forView:(GridView *)view {
-
-    CGPoint currentCenter = view.previousPosition;
-    if (!(view.center.x == newCenter.x && view.center.y == newCenter.y) ) {
-        [[undoManager prepareWithInvocationTarget:self] setCenter:currentCenter forView:view];
-        [UIView animateWithDuration:0.2 animations:^{
-            view.previousPosition = newCenter;
-            view.center = newCenter;
-        } completion:^(BOOL finished) {
-            [self upDateGridContents:self.grids];
-        }];
-    } else {
-        NSLog(@"Equal");
-    }
-}
-
-- (IBAction)undoMove:(id)sender {
-    [undoManager undo];
-}
-- (IBAction)redoMove:(id)sender {
-    [undoManager redo];
-}
-
-
 #pragma mark - Actions
+
+- (IBAction)addDancer:(id)sender {
+    if ([self canMoreViewBeAdded]) {
+        GridView *newDancer = [[GridView alloc]initWithFrame:CGRectMake(10, 10, gridSize-1, gridSize-1)];
+        newDancer.backgroundColor = [UIColor orangeColor];
+        newDancer.tag = self.movableViews.count;
+        newDancer.layer.cornerRadius = newDancer.frame.size.width/2;
+        newDancer.clipsToBounds = YES;
+        newDancer.alpha = 0.8f;
+
+        UILabel *viewLabel = [[UILabel alloc]init];
+        viewLabel.text = alphabetArray[newDancer.tag];//[NSString stringWithFormat:@"%ld",(long)newDancer.tag];
+        [viewLabel sizeToFit];
+        viewLabel.textColor = [UIColor whiteColor];
+        viewLabel.center = CGPointMake(newDancer.bounds.size.width/2, newDancer.bounds.size.height/2);
+        [newDancer addSubview:viewLabel];
+        [self.containerView addSubview:newDancer];
+        [self.movableViews addObject:newDancer];
+        [self addLongPressGestures];
+    } else {
+        NSLog(@"Move view can not be added!");
+    }
+}
+
 - (IBAction)alignVertically:(id)sender {
     __block CGFloat topmostYPosition = 0;
     for (UIView *view in self.selectedViews) {
@@ -375,28 +249,6 @@
 }
 
 
-- (IBAction)addDancer:(id)sender {
-    if ([self canMoreViewBeAdded]) {
-        GridView *newDancer = [[GridView alloc]initWithFrame:CGRectMake(10, 10, gridSize-1, gridSize-1)];
-        newDancer.backgroundColor = [UIColor orangeColor];
-        newDancer.tag = self.movableViews.count;
-        newDancer.layer.cornerRadius = newDancer.frame.size.width/2;
-        newDancer.clipsToBounds = YES;
-        newDancer.alpha = 0.8f;
-
-        UILabel *viewLabel = [[UILabel alloc]init];
-        viewLabel.text = alphabetArray[newDancer.tag];//[NSString stringWithFormat:@"%ld",(long)newDancer.tag];
-        [viewLabel sizeToFit];
-        viewLabel.textColor = [UIColor whiteColor];
-        viewLabel.center = CGPointMake(newDancer.bounds.size.width/2, newDancer.bounds.size.height/2);
-        [newDancer addSubview:viewLabel];
-        [self.containerView addSubview:newDancer];
-        [self.movableViews addObject:newDancer];
-        [self addLongPressGestures];
-    } else {
-        NSLog(@"Move view can not be added!");
-    }
-}
 
 - (IBAction)changePositions:(id)sender {
 
@@ -422,11 +274,158 @@
     for (NSDictionary *dic in animationSequence){
         [self shiftGridContentOf:dic[@"startGrid"] toNewPosition:dic[@"destinationGrid"]];
     }
-
+    
     [self upDateGridContents:self.grids];
+    
+}
+
+#pragma mark - Gestures
+- (void)addLongPressGestures {
+    for (UIView *aView in self.movableViews){
+
+        UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGestures:)];
+        lpgr.minimumPressDuration = 0.3;
+        [aView addGestureRecognizer:lpgr];
+
+        UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget: self action:@selector(doubleTapped:)];
+        doubleTap.numberOfTapsRequired = 2;
+        [aView addGestureRecognizer:doubleTap];
+    }
+}
+
+- (void)doubleTapped:(UITapGestureRecognizer *)recognizer {
+    NSLog(@"Double Tapped");
+}
+
+- (void)handleLongPressGestures:(UILongPressGestureRecognizer *)sender
+{
+    if (sender.state == UIGestureRecognizerStateBegan)
+    {
+        UIView *view = [sender view];
+        if ([self.selectedViews containsObject:view]) {
+            view.layer.borderColor = [UIColor clearColor].CGColor;
+            view.layer.borderWidth = 0.0f;
+            [self.selectedViews removeObject:view];
+        } else {
+            view.layer.borderColor = [UIColor blueColor].CGColor;
+            view.layer.borderWidth = 2.0f;
+            [self.selectedViews addObject:view];
+        }
+
+        [UIView animateWithDuration:0.2 animations:^{
+            self.activeView.transform = CGAffineTransformMakeScale(1, 1);
+        }];
+    }
+}
+
+#pragma mark - Touch Delegate
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    for (UITouch *touch in touches){
+        if (self.activeView == nil) {
+            self.activeView = (GridView *)[touch view];
+            if ([self isViewMovable]) {
+                self.activeView.previousPosition = self.activeView.center;
+                [UIView animateWithDuration:0.2 animations:^{
+                    self.activeView.transform = CGAffineTransformMakeScale(1.5, 1.5);
+                    self.activeView.backgroundColor = [UIColor blackColor];
+                    self.activeView.alpha = 1.0f;
+                }];
+                for (Grid *grid in self.grids){
+                    if ([grid.content isEqual:self.activeView]) {
+                        grid.isOccupied = NO;
+                    }
+                }
+            }
+        }
+    }
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
 
 }
 
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    // Enumerates through all touch objects
+    for (UITouch *touch in touches) {
+
+        if (self.activeView == nil) {
+            self.activeView = (GridView *)[touch view];
+        } else {
+            if ([self isViewMovable]) {
+                [self dispatchTouchEvent:self.activeView toPosition:[touch locationInView:self.containerView]];
+            }
+        }
+    }
+}
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [UIView animateWithDuration:0.2 animations:^{
+        self.activeView.transform = CGAffineTransformMakeScale(1, 1);
+    }];
+
+    //Snap to Grid
+    if ([self isViewMovable]) {
+        CGFloat distance = 0;
+        Grid *nearestUnoccupiedGrid = [Grid new];
+        for (Grid *grid in self.grids) {
+            if (!grid.isOccupied) {
+                CGFloat xDist = (self.activeView.center.x - grid.position.x);
+                CGFloat yDist = (self.activeView.center.y - grid.position.y);
+                CGFloat tempDistance = sqrt((xDist * xDist) + (yDist * yDist)) ;
+                if (distance == 0) {
+                    distance = tempDistance;
+                    nearestUnoccupiedGrid = grid;
+                } else {
+                    if (tempDistance < distance) {
+                        distance = tempDistance;
+                        nearestUnoccupiedGrid = grid;
+                    }
+                }
+            }
+        }
+
+        [UIView animateWithDuration:0.2 animations:^{
+            if (nearestUnoccupiedGrid != nil) {
+                [self setCenter:nearestUnoccupiedGrid.position forView:self.activeView];
+                //self.activeView.center = nearestUnoccupiedGrid.position;
+                nearestUnoccupiedGrid.viewTag = self.activeView.tag;
+                nearestUnoccupiedGrid.isOccupied = YES;
+                nearestUnoccupiedGrid.content = self.activeView;
+                // NSLog(@"Transcendenting to %@ %d %d",NSStringFromCGPoint(nearestUnoccupiedGrid.position),nearestUnoccupiedGrid.isOccupied,self.activeView.tag);
+            }
+        }];
+        [self upDateGridContents:self.grids];
+    }
+    //Snap End
+    self.activeView = nil;
+
+}
+
+#pragma mark - Undomanager Methods
+- (void)setCenter:(CGPoint)newCenter forView:(GridView *)view {
+
+    CGPoint currentCenter = view.previousPosition;
+    if (!(view.center.x == newCenter.x && view.center.y == newCenter.y) ) {
+        [[undoManager prepareWithInvocationTarget:self] setCenter:currentCenter forView:view];
+        [UIView animateWithDuration:0.2 animations:^{
+            view.previousPosition = newCenter;
+            view.center = newCenter;
+        } completion:^(BOOL finished) {
+            [self upDateGridContents:self.grids];
+        }];
+    } else {
+        NSLog(@"Equal");
+    }
+}
+
+- (IBAction)undoMove:(id)sender {
+    [undoManager undo];
+}
+- (IBAction)redoMove:(id)sender {
+    [undoManager redo];
+}
 
 #pragma mark - Private Methods
 - (BOOL)isViewMovable {
@@ -507,7 +506,6 @@
         }
     }
     return NO;
-
 }
 
 - (void)shiftGridContentOf:(Grid *)initGrid toNewPosition:(Grid *)destGrid {
@@ -548,7 +546,4 @@
     viewController.delegate = self;
     
 }
-
-
-
 @end

@@ -14,5 +14,6 @@
 @property (nonatomic) CGPoint position;
 @property (nonatomic) id content;
 @property (nonatomic) NSUInteger viewTag;
+
 - (BOOL)isEquivalentTo:(Grid *)grid;
 @end
