@@ -14,6 +14,8 @@
 {
     float gridSize;
     NSMutableArray *alphabetArray;
+    NSMutableArray *viewStates;
+    NSUndoManager *undoManager;
 }
 @property (nonatomic) NSMutableArray *movableViews;
 
@@ -27,9 +29,11 @@
 #pragma mark - View Life Cycle
 -(void)viewDidLoad {
     [super viewDidLoad];
+    undoManager = [NSUndoManager new];
     self.movableViews = [NSMutableArray new];
     self.selectedViews = [NSMutableArray new];
     self.grids = [NSMutableArray new];
+    viewStates = [NSMutableArray new];
     [self alphabetArray];
 }
 
@@ -110,25 +114,6 @@
                         grid.isOccupied = NO;
                     }
                 }
-//                for (NSDictionary *dictionary in viewCoordinateMap){
-//
-//                    id view = dictionary[@"view"];
-//                    if ([view isEqual:self.activeView]) {
-//                        NSNumber *number = dictionary[@"index"];
-//                        if (viewCoordinateMap != nil) {
-//                            for (NSDictionary *dic in viewCoordinateMap){
-//                                if ([dic[@"view"] isEqual:self.activeView]) {
-//                                    [viewCoordinateMap removeObject:dic];
-//                                    break;
-//                                }
-//                            }
-//                        }
-//
-//                        [reservedIndexes removeObject:number];
-//
-//                        break;
-//                    }
-//                }
             }
         }
     }
@@ -183,22 +168,15 @@
         [UIView animateWithDuration:0.2 animations:^{
             if (nearestUnoccupiedGrid != nil) {
                 self.activeView.center = nearestUnoccupiedGrid.position;
+                nearestUnoccupiedGrid.viewTag = self.activeView.tag;
                 nearestUnoccupiedGrid.isOccupied = YES;
                 nearestUnoccupiedGrid.content = self.activeView;
-                NSLog(@"Transcendenting to %@ %hhd",NSStringFromCGPoint(nearestUnoccupiedGrid.position),nearestUnoccupiedGrid.isOccupied);
+                NSLog(@"Transcendenting to %@ %d %d",NSStringFromCGPoint(nearestUnoccupiedGrid.position),nearestUnoccupiedGrid.isOccupied,self.activeView.tag);
             }
         }];
-
-        //LOG
-//        for (Grid *grid in self.grids) {
-//            NSLog(@"**********Grid content:%@------Grid Position:%@------Grid isOccupied:%hhd",grid.content,NSStringFromCGPoint(grid.position),grid.isOccupied);
-//        }
+        [self upDateGridContents:self.grids];
     }
     //Snap End
-    NSLog(@"Begin Tracking ");
-    for (Grid *grid in self.grids) {
-        NSLog(@"Grid View %hhd",grid.isOccupied);
-    }
     self.activeView = nil;
 }
 
@@ -396,12 +374,12 @@
         newDancer.clipsToBounds = YES;
         newDancer.alpha = 0.8f;
 
-        UILabel *viewTag = [[UILabel alloc]init];
-        viewTag.text = alphabetArray[newDancer.tag];//[NSString stringWithFormat:@"%ld",(long)newDancer.tag];
-        [viewTag sizeToFit];
-        viewTag.textColor = [UIColor whiteColor];
-        viewTag.center = CGPointMake(newDancer.bounds.size.width/2, newDancer.bounds.size.height/2);
-        [newDancer addSubview:viewTag];
+        UILabel *viewLabel = [[UILabel alloc]init];
+        viewLabel.text = alphabetArray[newDancer.tag];//[NSString stringWithFormat:@"%ld",(long)newDancer.tag];
+        [viewLabel sizeToFit];
+        viewLabel.textColor = [UIColor whiteColor];
+        viewLabel.center = CGPointMake(newDancer.bounds.size.width/2, newDancer.bounds.size.height/2);
+        [newDancer addSubview:viewLabel];
         [self.containerView addSubview:newDancer];
         [self.movableViews addObject:newDancer];
         [self addLongPressGestures];
@@ -435,7 +413,7 @@
 
     UIGraphicsBeginImageContextWithOptions(self.containerView.bounds.size, NO, 0);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    gridSize = self.containerView.bounds.size.width/11;
+    gridSize = self.containerView.bounds.size.width/4;
     for (float i = gridSize; i < self.containerView.bounds.size.width; i += gridSize) {
 
         for (float j = gridSize; j < self.containerView.bounds.size.height; j += gridSize) {
@@ -448,6 +426,7 @@
                 grid.position = CGPointMake(i, j);
                 grid.isOccupied = NO;
                 grid.content = nil;
+                grid.viewTag = -1;
                 [self.grids addObject:grid];
             }
         }
@@ -490,7 +469,7 @@
         [self shiftGridContentOf:dic[@"startGrid"] toNewPosition:dic[@"destinationGrid"]];
     }
 
-    [self upDateGridContents];
+    [self upDateGridContents:self.grids];
 
 }
 
@@ -498,26 +477,71 @@
     if (initGrid.content != nil) {
         UIView *viewReference = (UIView *)initGrid.content;
         [UIView animateWithDuration:0.3 animations:^{
-            viewReference.center = destGrid.position;
+            if (destGrid.isOccupied) {
+                NSLog(@"Destination grid has already content can't move");
+            } else {
+                viewReference.center = destGrid.position;
+            }
         }];
     }
 }
 
-- (void)upDateGridContents {
+- (void)upDateGridContents:(NSMutableArray *)gridColleciton {
     for (Grid *grid in self.grids){
         BOOL isThereAnyViewInGridPosition = NO;
         for (UIView *view in self.movableViews) {
             if (view.center.x == grid.position.x && view.center.y == grid.position.y) {
+
+                Grid *newGrid = [Grid new];
+                newGrid.content = view;
+                newGrid.isOccupied = YES;
+                newGrid.viewTag = view.tag;
+
+                [self setGridObject:newGrid forOldGrid:grid]; 
+
+
                 grid.content = view;
+                grid.isOccupied = YES;
+                grid.viewTag = view.tag;
                 isThereAnyViewInGridPosition = YES;
+
             }
         }
         if (!isThereAnyViewInGridPosition) {
             grid.isOccupied = NO;
             grid.content = nil;
+            grid.viewTag = -1;
         }
     }
+}
 
+- (void)setGridObject:(Grid *)newValue forOldGrid:(Grid*)oldValue{;
+
+    if (![newValue isEquivalentTo:oldValue]) {
+        [[undoManager prepareWithInvocationTarget:self]setGridObject:newValue forOldGrid:oldValue];
+        oldValue = newValue;
+
+    }
+
+
+}
+- (IBAction)captureStates:(id)sender {
+//    - (void)setMyObjPosition:(CGPoint)newPosition {
+//        CGPoint currentPosition = self.myObj.position;
+//        if (!(currentPosition.x == newPosition.x && currentPosition.y == newPosition.y)) {
+//            [[undoManager prepareWithInvocationTarget:self]setMyObjPosition:currentPosition];
+//            self.myObj.position = newPosition;
+//        }
+//        self.positionValue.text = NSStringFromCGPoint(self.myObj.position);
+//    }
+
+}
+
+- (IBAction)undoMove:(id)sender {
+    [undoManager undo];
+}
+- (IBAction)redoMove:(id)sender {
+    [undoManager redo];
 }
 
 

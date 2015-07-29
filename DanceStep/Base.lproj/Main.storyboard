@@ -162,6 +162,30 @@
                                     <action selector="changePositions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QuB-uK-0OD"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Qc-qk-85N">
+                                <rect key="frame" x="347" y="512" width="48" height="28"/>
+                                <color key="backgroundColor" red="0.3921568627" green="0.69803921570000005" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                <state key="normal" title="Undo">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="undoMove:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fbf-Sc-RcC"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lk3-xS-e4W">
+                                <rect key="frame" x="403" y="512" width="47" height="28"/>
+                                <color key="backgroundColor" red="0.3921568627" green="0.69803921570000005" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                <state key="normal" title="Redo">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="redoMove:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WUd-Vr-2EK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -174,20 +198,24 @@
                             <constraint firstItem="QCc-Eo-eAR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="ALB-sp-CWU"/>
                             <constraint firstItem="mlN-XG-aMa" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="AMg-yo-iOk"/>
                             <constraint firstItem="X4U-hD-gHt" firstAttribute="leading" secondItem="CZ5-TY-T0X" secondAttribute="trailing" constant="8" id="EcB-zW-FMt"/>
+                            <constraint firstItem="X4U-hD-gHt" firstAttribute="centerY" secondItem="1Qc-qk-85N" secondAttribute="centerY" id="JJp-Il-RKW"/>
                             <constraint firstItem="Jlq-ze-86L" firstAttribute="leading" secondItem="9Z6-7A-2oM" secondAttribute="trailing" constant="8" id="JR4-hQ-vxS"/>
                             <constraint firstItem="EiA-25-eez" firstAttribute="top" secondItem="hV6-T3-Etu" secondAttribute="bottom" constant="10" id="Jcd-8k-Ydd"/>
                             <constraint firstItem="4Wh-z6-tUI" firstAttribute="centerY" secondItem="EiA-25-eez" secondAttribute="centerY" id="KBd-8W-kzD"/>
                             <constraint firstItem="mCc-t0-L38" firstAttribute="leading" secondItem="QCc-Eo-eAR" secondAttribute="trailing" constant="10" id="KOH-eF-nv0"/>
                             <constraint firstItem="EiA-25-eez" firstAttribute="trailing" secondItem="hV6-T3-Etu" secondAttribute="trailing" id="MT1-a8-2SG"/>
+                            <constraint firstItem="lk3-xS-e4W" firstAttribute="leading" secondItem="1Qc-qk-85N" secondAttribute="trailing" constant="8" id="Mkd-bO-ILt"/>
                             <constraint firstItem="mlN-XG-aMa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="PxX-eo-u8V"/>
                             <constraint firstItem="mCc-t0-L38" firstAttribute="centerY" secondItem="QCc-Eo-eAR" secondAttribute="centerY" id="Qx7-22-NgZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="EiA-25-eez" secondAttribute="trailing" constant="16" id="Sby-uZ-MEx"/>
                             <constraint firstItem="9Z6-7A-2oM" firstAttribute="leading" secondItem="mCc-t0-L38" secondAttribute="trailing" constant="8" id="TOA-D2-WvQ"/>
                             <constraint firstItem="VmM-LG-ELq" firstAttribute="leading" secondItem="Jlq-ze-86L" secondAttribute="trailing" constant="8" id="f8x-Tv-rX7"/>
+                            <constraint firstItem="lk3-xS-e4W" firstAttribute="centerY" secondItem="1Qc-qk-85N" secondAttribute="centerY" id="img-dO-tDZ"/>
                             <constraint firstItem="QCc-Eo-eAR" firstAttribute="top" secondItem="owy-QC-qAQ" secondAttribute="bottom" constant="16" id="kaW-px-ewZ"/>
                             <constraint firstItem="CZ5-TY-T0X" firstAttribute="leading" secondItem="owy-QC-qAQ" secondAttribute="trailing" constant="9" id="myX-If-cy4"/>
                             <constraint firstItem="X4U-hD-gHt" firstAttribute="centerY" secondItem="CZ5-TY-T0X" secondAttribute="centerY" id="rnV-O4-360"/>
                             <constraint firstItem="mCc-t0-L38" firstAttribute="centerY" secondItem="9Z6-7A-2oM" secondAttribute="centerY" id="sCB-67-3Kc"/>
+                            <constraint firstItem="1Qc-qk-85N" firstAttribute="leading" secondItem="X4U-hD-gHt" secondAttribute="trailing" constant="8" id="w6u-cY-oHS"/>
                             <constraint firstItem="owy-QC-qAQ" firstAttribute="centerY" secondItem="CZ5-TY-T0X" secondAttribute="centerY" id="wu4-DF-uRq"/>
                             <constraint firstItem="VmM-LG-ELq" firstAttribute="centerY" secondItem="Jlq-ze-86L" secondAttribute="centerY" id="yzc-UY-Noa"/>
                         </constraints>
