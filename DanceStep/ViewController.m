@@ -179,11 +179,11 @@
         [UIView animateWithDuration:0.2 animations:^{
             if (nearestUnoccupiedGrid != nil) {
                 [self setCenter:nearestUnoccupiedGrid.position forView:self.activeView];
-               //self.activeView.center = nearestUnoccupiedGrid.position;
+                //self.activeView.center = nearestUnoccupiedGrid.position;
                 nearestUnoccupiedGrid.viewTag = self.activeView.tag;
                 nearestUnoccupiedGrid.isOccupied = YES;
                 nearestUnoccupiedGrid.content = self.activeView;
-               // NSLog(@"Transcendenting to %@ %d %d",NSStringFromCGPoint(nearestUnoccupiedGrid.position),nearestUnoccupiedGrid.isOccupied,self.activeView.tag);
+                // NSLog(@"Transcendenting to %@ %d %d",NSStringFromCGPoint(nearestUnoccupiedGrid.position),nearestUnoccupiedGrid.isOccupied,self.activeView.tag);
             }
         }];
         [self upDateGridContents:self.grids];
@@ -193,41 +193,32 @@
 
 }
 
+#pragma mark - Undomanager Methods
 - (void)setCenter:(CGPoint)newCenter forView:(GridView *)view {
 
     CGPoint currentCenter = view.previousPosition;
     if (!(view.center.x == newCenter.x && view.center.y == newCenter.y) ) {
         [[undoManager prepareWithInvocationTarget:self] setCenter:currentCenter forView:view];
-
         [UIView animateWithDuration:0.2 animations:^{
             view.previousPosition = newCenter;
             view.center = newCenter;
         } completion:^(BOOL finished) {
             [self upDateGridContents:self.grids];
-
         }];
-
     } else {
         NSLog(@"Equal");
     }
 }
 
-- (BOOL)isViewMovable {
-    if ([self.movableViews containsObject:self.activeView]) {
-        return YES;
-    } else {
-        return NO;
-    }
+- (IBAction)undoMove:(id)sender {
+    [undoManager undo];
+}
+- (IBAction)redoMove:(id)sender {
+    [undoManager redo];
 }
 
--(void)dispatchTouchEvent:(UIView *)theView toPosition:(CGPoint)position
-{
-    // Check to see which view, or views,  the point is in and then move to that position.
-    if (CGRectContainsPoint([self.activeView frame], position)) {
-        self.activeView.center = position;
-    }
-}
 
+#pragma mark - Actions
 - (IBAction)alignVertically:(id)sender {
     __block CGFloat topmostYPosition = 0;
     for (UIView *view in self.selectedViews) {
@@ -249,18 +240,6 @@
         }
     }
     //[self clearSelectedViews];
-}
-
-- (void)clearSelectedViews {
-
-    for (UIView *view in self.selectedViews){
-        view.layer.borderColor = [UIColor clearColor].CGColor;
-        view.layer.borderWidth = 0.0f;
-
-    }
-    [self.selectedViews removeAllObjects];
-
-
 }
 - (IBAction)alignHorizontally:(id)sender {
 
@@ -284,6 +263,8 @@
     }
     //[self clearSelectedViews];
 }
+
+
 - (IBAction)makeEquidistantVertically:(id)sender {
     NSMutableArray *arrayOfYPosition = [NSMutableArray new];
     //Sort Views based on vertical distance from top
@@ -376,9 +357,10 @@
         view.layer.borderColor = [UIColor clearColor].CGColor;
         view.layer.borderWidth = 0.0f;
         [self.selectedViews removeObject:view];
-
     }
 }
+
+
 
 - (IBAction)accumulate:(id)sender {
     [self alignHorizontally:nil];
@@ -392,11 +374,7 @@
     }
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    ColorPicker *viewController = (ColorPicker *)segue.destinationViewController;
-    viewController.delegate = self;
 
-}
 - (IBAction)addDancer:(id)sender {
     if ([self canMoreViewBeAdded]) {
         GridView *newDancer = [[GridView alloc]initWithFrame:CGRectMake(10, 10, gridSize-1, gridSize-1)];
@@ -419,6 +397,62 @@
         NSLog(@"Move view can not be added!");
     }
 }
+
+- (IBAction)changePositions:(id)sender {
+
+    NSArray *animationSequence = @[@{@"startGrid":self.grids[0],
+                                     @"destinationGrid":self.grids[4]
+                                     },
+                                   @{@"startGrid":self.grids[4],
+                                     @"destinationGrid":self.grids[10]
+                                     },
+                                   @{@"startGrid":self.grids[5],
+                                     @"destinationGrid":self.grids[11]
+                                     },
+                                   @{@"startGrid":self.grids[2],
+                                     @"destinationGrid":self.grids[3]
+                                     },
+                                   @{@"startGrid":self.grids[6],
+                                     @"destinationGrid":self.grids[14]
+                                     },
+                                   @{@"startGrid":self.grids[7],
+                                     @"destinationGrid":self.grids[8]
+                                     }
+                                   ];
+    for (NSDictionary *dic in animationSequence){
+        [self shiftGridContentOf:dic[@"startGrid"] toNewPosition:dic[@"destinationGrid"]];
+    }
+
+    [self upDateGridContents:self.grids];
+
+}
+
+
+#pragma mark - Private Methods
+- (BOOL)isViewMovable {
+    if ([self.movableViews containsObject:self.activeView]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+-(void)dispatchTouchEvent:(UIView *)theView toPosition:(CGPoint)position
+{
+    // Check to see which view, or views,  the point is in and then move to that position.
+    if (CGRectContainsPoint([self.activeView frame], position)) {
+        self.activeView.center = position;
+    }
+}
+- (void)clearSelectedViews {
+    for (UIView *view in self.selectedViews){
+        view.layer.borderColor = [UIColor clearColor].CGColor;
+        view.layer.borderWidth = 0.0f;
+    }
+    [self.selectedViews removeAllObjects];
+}
+
+
 
 - (BOOL)canMoreViewBeAdded {
     BOOL isAllSlotsOccupied = NO;
@@ -447,7 +481,6 @@
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     gridSize = self.containerView.bounds.size.width/11;
     for (float i = gridSize; i < self.containerView.bounds.size.width; i += gridSize) {
-
         for (float j = gridSize; j < self.containerView.bounds.size.height; j += gridSize) {
             CGRect dotFrameHorizontal = CGRectMake(i, j, 2, 2);
             CGContextSetFillColorWithColor(ctx, [UIColor groupTableViewBackgroundColor].CGColor);
@@ -474,34 +507,6 @@
         }
     }
     return NO;
-
-}
-- (IBAction)changePositions:(id)sender {
-
-    NSArray *animationSequence = @[@{@"startGrid":self.grids[0],
-                                     @"destinationGrid":self.grids[4]
-                                     },
-                                   @{@"startGrid":self.grids[4],
-                                     @"destinationGrid":self.grids[10]
-                                     },
-                                   @{@"startGrid":self.grids[5],
-                                     @"destinationGrid":self.grids[11]
-                                     },
-                                   @{@"startGrid":self.grids[2],
-                                     @"destinationGrid":self.grids[3]
-                                     },
-                                   @{@"startGrid":self.grids[6],
-                                     @"destinationGrid":self.grids[14]
-                                     },
-                                   @{@"startGrid":self.grids[7],
-                                     @"destinationGrid":self.grids[8]
-                                     }
-                                   ];
-    for (NSDictionary *dic in animationSequence){
-        [self shiftGridContentOf:dic[@"startGrid"] toNewPosition:dic[@"destinationGrid"]];
-    }
-
-    [self upDateGridContents:self.grids];
 
 }
 
@@ -536,24 +541,14 @@
         }
     }
 }
-- (IBAction)captureStates:(id)sender {
-    //    - (void)setMyObjPosition:(CGPoint)newPosition {
-    //        CGPoint currentPosition = self.myObj.position;
-    //        if (!(currentPosition.x == newPosition.x && currentPosition.y == newPosition.y)) {
-    //            [[undoManager prepareWithInvocationTarget:self]setMyObjPosition:currentPosition];
-    //            self.myObj.position = newPosition;
-    //        }
-    //        self.positionValue.text = NSStringFromCGPoint(self.myObj.position);
-    //    }
+
+#pragma mark - Navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    ColorPicker *viewController = (ColorPicker *)segue.destinationViewController;
+    viewController.delegate = self;
     
 }
 
-- (IBAction)undoMove:(id)sender {
-    [undoManager undo];
-}
-- (IBAction)redoMove:(id)sender {
-    [undoManager redo];
-}
 
 
 @end
