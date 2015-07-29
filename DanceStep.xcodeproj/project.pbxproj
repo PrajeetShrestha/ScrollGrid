@@ -17,6 +17,7 @@
 		25691D6B1B60965200D28FDD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25691D6A1B60965200D28FDD /* Images.xcassets */; };
 		25691D6E1B60965200D28FDD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25691D6C1B60965200D28FDD /* LaunchScreen.xib */; };
 		25691D7A1B60965200D28FDD /* DanceStepTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 25691D791B60965200D28FDD /* DanceStepTests.m */; };
+		256E7AA21B68D25D000C1208 /* GridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 256E7AA11B68D25D000C1208 /* GridView.m */; };
 		25ECB09A1B67321800B649A0 /* Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = 25ECB0991B67321800B649A0 /* Grid.m */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,8 @@
 		25691D731B60965200D28FDD /* DanceStepTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DanceStepTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		25691D781B60965200D28FDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		25691D791B60965200D28FDD /* DanceStepTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DanceStepTests.m; sourceTree = "<group>"; };
+		256E7AA01B68D25D000C1208 /* GridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridView.h; sourceTree = "<group>"; };
+		256E7AA11B68D25D000C1208 /* GridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridView.m; sourceTree = "<group>"; };
 		25ECB0981B67321800B649A0 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
 		25ECB0991B67321800B649A0 /* Grid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Grid.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -95,6 +98,8 @@
 				25691D5F1B60965200D28FDD /* AppDelegate.m */,
 				25691D641B60965200D28FDD /* ViewController.h */,
 				25691D651B60965200D28FDD /* ViewController.m */,
+				256E7AA01B68D25D000C1208 /* GridView.h */,
+				256E7AA11B68D25D000C1208 /* GridView.m */,
 				25ECB0981B67321800B649A0 /* Grid.h */,
 				25ECB0991B67321800B649A0 /* Grid.m */,
 				2539AAF31B60EB2800C92B8C /* ColorPicker.h */,
@@ -238,6 +243,7 @@
 			files = (
 				2539AAF51B60EB2800C92B8C /* ColorPicker.m in Sources */,
 				25ECB09A1B67321800B649A0 /* Grid.m in Sources */,
+				256E7AA21B68D25D000C1208 /* GridView.m in Sources */,
 				25691D601B60965200D28FDD /* AppDelegate.m in Sources */,
 				25691D631B60965200D28FDD /* DanceStep.xcdatamodeld in Sources */,
 				25691D661B60965200D28FDD /* ViewController.m in Sources */,

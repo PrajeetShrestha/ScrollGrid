@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "ColorPicker.h"
+#import "GridView.h"
 
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
 @interface ViewController ()<ColorPicker>
@@ -16,11 +17,12 @@
     NSMutableArray *alphabetArray;
     NSMutableArray *viewStates;
     NSUndoManager *undoManager;
+    CGPoint previousCenter;
 }
 @property (nonatomic) NSMutableArray *movableViews;
 
 @property (nonatomic) NSMutableArray *selectedViews;
-@property (nonatomic) UIView *activeView;
+@property (nonatomic) GridView *activeView;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @end
 
@@ -29,12 +31,19 @@
 #pragma mark - View Life Cycle
 -(void)viewDidLoad {
     [super viewDidLoad];
+    self.activeView = [GridView new];
     undoManager = [NSUndoManager new];
     self.movableViews = [NSMutableArray new];
     self.selectedViews = [NSMutableArray new];
     self.grids = [NSMutableArray new];
     viewStates = [NSMutableArray new];
     [self alphabetArray];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notify) name:NSUndoManagerCheckpointNotification object:nil];
+}
+
+- (void)notify {
+    //NSLog(@"Notification received");
 }
 
 - (void)alphabetArray {
@@ -100,10 +109,12 @@
 
 #pragma mark - Touch Delegate
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+
     for (UITouch *touch in touches){
         if (self.activeView == nil) {
-            self.activeView = [touch view];
+            self.activeView = (GridView *)[touch view];
             if ([self isViewMovable]) {
+                self.activeView.previousPosition = self.activeView.center;
                 [UIView animateWithDuration:0.2 animations:^{
                     self.activeView.transform = CGAffineTransformMakeScale(1.5, 1.5);
                     self.activeView.backgroundColor = [UIColor blackColor];
@@ -129,7 +140,7 @@
     for (UITouch *touch in touches) {
 
         if (self.activeView == nil) {
-            self.activeView = [touch view];
+            self.activeView = (GridView *)[touch view];
         } else {
             if ([self isViewMovable]) {
                 [self dispatchTouchEvent:self.activeView toPosition:[touch locationInView:self.containerView]];
@@ -167,17 +178,38 @@
 
         [UIView animateWithDuration:0.2 animations:^{
             if (nearestUnoccupiedGrid != nil) {
-                self.activeView.center = nearestUnoccupiedGrid.position;
+                [self setCenter:nearestUnoccupiedGrid.position forView:self.activeView];
+               //self.activeView.center = nearestUnoccupiedGrid.position;
                 nearestUnoccupiedGrid.viewTag = self.activeView.tag;
                 nearestUnoccupiedGrid.isOccupied = YES;
                 nearestUnoccupiedGrid.content = self.activeView;
-                NSLog(@"Transcendenting to %@ %d %d",NSStringFromCGPoint(nearestUnoccupiedGrid.position),nearestUnoccupiedGrid.isOccupied,self.activeView.tag);
+               // NSLog(@"Transcendenting to %@ %d %d",NSStringFromCGPoint(nearestUnoccupiedGrid.position),nearestUnoccupiedGrid.isOccupied,self.activeView.tag);
             }
         }];
         [self upDateGridContents:self.grids];
     }
     //Snap End
     self.activeView = nil;
+
+}
+
+- (void)setCenter:(CGPoint)newCenter forView:(GridView *)view {
+
+    CGPoint currentCenter = view.previousPosition;
+    if (!(view.center.x == newCenter.x && view.center.y == newCenter.y) ) {
+        [[undoManager prepareWithInvocationTarget:self] setCenter:currentCenter forView:view];
+
+        [UIView animateWithDuration:0.2 animations:^{
+            view.previousPosition = newCenter;
+            view.center = newCenter;
+        } completion:^(BOOL finished) {
+            [self upDateGridContents:self.grids];
+
+        }];
+
+    } else {
+        NSLog(@"Equal");
+    }
 }
 
 - (BOOL)isViewMovable {
@@ -367,7 +399,7 @@
 }
 - (IBAction)addDancer:(id)sender {
     if ([self canMoreViewBeAdded]) {
-        UIView *newDancer = [[UIView alloc]initWithFrame:CGRectMake(10, 10, gridSize-1, gridSize-1)];
+        GridView *newDancer = [[GridView alloc]initWithFrame:CGRectMake(10, 10, gridSize-1, gridSize-1)];
         newDancer.backgroundColor = [UIColor orangeColor];
         newDancer.tag = self.movableViews.count;
         newDancer.layer.cornerRadius = newDancer.frame.size.width/2;
@@ -413,7 +445,7 @@
 
     UIGraphicsBeginImageContextWithOptions(self.containerView.bounds.size, NO, 0);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    gridSize = self.containerView.bounds.size.width/4;
+    gridSize = self.containerView.bounds.size.width/11;
     for (float i = gridSize; i < self.containerView.bounds.size.width; i += gridSize) {
 
         for (float j = gridSize; j < self.containerView.bounds.size.height; j += gridSize) {
@@ -491,20 +523,10 @@
         BOOL isThereAnyViewInGridPosition = NO;
         for (UIView *view in self.movableViews) {
             if (view.center.x == grid.position.x && view.center.y == grid.position.y) {
-
-                Grid *newGrid = [Grid new];
-                newGrid.content = view;
-                newGrid.isOccupied = YES;
-                newGrid.viewTag = view.tag;
-
-                [self setGridObject:newGrid forOldGrid:grid]; 
-
-
                 grid.content = view;
                 grid.isOccupied = YES;
                 grid.viewTag = view.tag;
                 isThereAnyViewInGridPosition = YES;
-
             }
         }
         if (!isThereAnyViewInGridPosition) {
@@ -514,27 +536,16 @@
         }
     }
 }
-
-- (void)setGridObject:(Grid *)newValue forOldGrid:(Grid*)oldValue{;
-
-    if (![newValue isEquivalentTo:oldValue]) {
-        [[undoManager prepareWithInvocationTarget:self]setGridObject:newValue forOldGrid:oldValue];
-        oldValue = newValue;
-
-    }
-
-
-}
 - (IBAction)captureStates:(id)sender {
-//    - (void)setMyObjPosition:(CGPoint)newPosition {
-//        CGPoint currentPosition = self.myObj.position;
-//        if (!(currentPosition.x == newPosition.x && currentPosition.y == newPosition.y)) {
-//            [[undoManager prepareWithInvocationTarget:self]setMyObjPosition:currentPosition];
-//            self.myObj.position = newPosition;
-//        }
-//        self.positionValue.text = NSStringFromCGPoint(self.myObj.position);
-//    }
-
+    //    - (void)setMyObjPosition:(CGPoint)newPosition {
+    //        CGPoint currentPosition = self.myObj.position;
+    //        if (!(currentPosition.x == newPosition.x && currentPosition.y == newPosition.y)) {
+    //            [[undoManager prepareWithInvocationTarget:self]setMyObjPosition:currentPosition];
+    //            self.myObj.position = newPosition;
+    //        }
+    //        self.positionValue.text = NSStringFromCGPoint(self.myObj.position);
+    //    }
+    
 }
 
 - (IBAction)undoMove:(id)sender {
