@@ -338,8 +338,6 @@
         }
     }
 }
-
-
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     //Snap to Grid
@@ -348,6 +346,7 @@
         Grid *nearestUnoccupiedGrid = [self findNearestUnoccupiedGrid];
         [UIView animateWithDuration:0.2 animations:^{
             if (nearestUnoccupiedGrid != nil) {
+                //Undomanager setup
                 [self setCenter:nearestUnoccupiedGrid.position forView:self.activeView];
                 nearestUnoccupiedGrid.viewTag = self.activeView.tag;
                 nearestUnoccupiedGrid.isOccupied = YES;
@@ -388,9 +387,9 @@
 
 - (void)setCenter:(CGPoint)newCenter forView:(GridView *)view {
 
-    CGPoint currentCenter = view.previousPosition;
+    CGPoint previousPosition = view.previousPosition;
     if (!(view.center.x == newCenter.x && view.center.y == newCenter.y) ) {
-        [[undoManager prepareWithInvocationTarget:self] setCenter:currentCenter forView:view];
+        [[undoManager prepareWithInvocationTarget:self] setCenter:previousPosition forView:view];
         [UIView animateWithDuration:0.2 animations:^{
             view.previousPosition = newCenter;
             view.center = newCenter;
