@@ -1,0 +1,14 @@
+//
+//  PrefixHeader.pch
+//  DanceStep
+//
+//  Created by Prajeet Shrestha on 7/30/15.
+//  Copyright (c) 2015 EK Solutions Pvt Ltd. All rights reserved.
+//
+
+#ifndef DanceStep_PrefixHeader_pch
+#define DanceStep_PrefixHeader_pch
+
+#import "Constant.h"
+
+#endif

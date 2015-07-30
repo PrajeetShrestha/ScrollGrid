@@ -11,4 +11,5 @@
 @interface GridView : UIView
 @property (nonatomic) CGPoint previousPosition;
 @property (nonatomic) CGPoint latestPosition;
+@property (nonatomic) BOOL isColorSet;
 @end

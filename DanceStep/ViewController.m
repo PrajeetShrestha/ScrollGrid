@@ -10,7 +10,7 @@
 #import "ColorPicker.h"
 #import "GridView.h"
 
-#define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
+
 @interface ViewController ()<ColorPicker>
 {
     float gridSize;
@@ -20,7 +20,6 @@
     CGPoint previousCenter;
 }
 @property (nonatomic) NSMutableArray *movableViews;
-
 @property (nonatomic) NSMutableArray *selectedViews;
 @property (nonatomic) GridView *activeView;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
@@ -38,31 +37,17 @@
     self.grids = [NSMutableArray new];
     viewStates = [NSMutableArray new];
     [self alphabetArray];
-
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notify) name:NSUndoManagerCheckpointNotification object:nil];
 }
 
 - (void)notify {
     //NSLog(@"Notification received");
 }
-
-- (void)alphabetArray {
-    alphabetArray = [NSMutableArray new];
-    for (char a = 'A'; a <= 'Z'; a++)
-    {
-        [alphabetArray addObject:[NSString stringWithFormat:@"%c", a]];
-    }
-}
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self createImaginaryGrid];
-
 }
 
-- (void)viewDidLayoutSubviews {
-    //[self.grids removeAllObjects];
-
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -226,6 +211,7 @@
         [self.selectedViews addObject:view];
     }
 }
+
 - (IBAction)deselectAll:(id)sender {
     for (UIView *view in self.movableViews){
         view.layer.borderColor = [UIColor clearColor].CGColor;
@@ -234,12 +220,11 @@
     }
 }
 
-
-
 - (IBAction)accumulate:(id)sender {
     [self alignHorizontally:nil];
     [self alignVertically:nil];
 }
+
 - (IBAction)colorPicker:(id)sender {
 }
 - (void)pickedColor:(UIColor *)color {
@@ -247,8 +232,6 @@
         view.backgroundColor = color;
     }
 }
-
-
 
 - (IBAction)changePositions:(id)sender {
 
@@ -281,17 +264,7 @@
 
 #pragma mark - Gestures
 - (void)addLongPressGestures {
-    for (UIView *aView in self.movableViews){
-
-        UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGestures:)];
-        lpgr.minimumPressDuration = 0.3;
-        [aView addGestureRecognizer:lpgr];
-
-        UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget: self action:@selector(doubleTapped:)];
-        doubleTap.numberOfTapsRequired = 2;
-        [aView addGestureRecognizer:doubleTap];
     }
-}
 
 - (void)doubleTapped:(UITapGestureRecognizer *)recognizer {
     NSLog(@"Double Tapped");
@@ -301,21 +274,25 @@
 {
     if (sender.state == UIGestureRecognizerStateBegan)
     {
-        UIView *view = [sender view];
-        if ([self.selectedViews containsObject:view]) {
-            view.layer.borderColor = [UIColor clearColor].CGColor;
-            view.layer.borderWidth = 0.0f;
-            [self.selectedViews removeObject:view];
-        } else {
-            view.layer.borderColor = [UIColor blueColor].CGColor;
-            view.layer.borderWidth = 2.0f;
-            [self.selectedViews addObject:view];
-        }
 
-        [UIView animateWithDuration:0.2 animations:^{
-            self.activeView.transform = CGAffineTransformMakeScale(1, 1);
-        }];
     }
+}
+
+- (void)selectView {
+    UIView *view = self.activeView  ;
+    if ([self.selectedViews containsObject:view]) {
+        view.layer.borderColor = [UIColor clearColor].CGColor;
+        view.layer.borderWidth = 0.0f;
+        [self.selectedViews removeObject:view];
+    } else {
+        view.layer.borderColor = [UIColor blueColor].CGColor;
+        view.layer.borderWidth = 2.0f;
+        [self.selectedViews addObject:view];
+    }
+
+    [UIView animateWithDuration:0.2 animations:^{
+        self.activeView.transform = CGAffineTransformMakeScale(1, 1);
+    }];
 }
 
 #pragma mark - Touch Delegate
@@ -327,9 +304,13 @@
                 self.activeView.previousPosition = self.activeView.center;
                 [UIView animateWithDuration:0.2 animations:^{
                     self.activeView.transform = CGAffineTransformMakeScale(1.5, 1.5);
-                    self.activeView.backgroundColor = [UIColor blackColor];
+                    if(!self.activeView.isColorSet) {
+                        self.activeView.backgroundColor = [UIColor blackColor];
+                        self.activeView.isColorSet = YES;
+                    }
                     self.activeView.alpha = 1.0f;
                 }];
+//                [self upDateGridContents:self.grids];
                 for (Grid *grid in self.grids){
                     if ([grid.content isEqual:self.activeView]) {
                         grid.isOccupied = NO;
@@ -404,6 +385,8 @@
 }
 
 #pragma mark - Undomanager Methods
+
+
 - (void)setCenter:(CGPoint)newCenter forView:(GridView *)view {
 
     CGPoint currentCenter = view.previousPosition;
@@ -428,6 +411,7 @@
 }
 
 #pragma mark - Private Methods
+
 - (BOOL)isViewMovable {
     if ([self.movableViews containsObject:self.activeView]) {
         return YES;
@@ -436,6 +420,7 @@
     }
 }
 
+// To make view draggable on move touch event
 -(void)dispatchTouchEvent:(UIView *)theView toPosition:(CGPoint)position
 {
     // Check to see which view, or views,  the point is in and then move to that position.
@@ -450,8 +435,6 @@
     }
     [self.selectedViews removeAllObjects];
 }
-
-
 
 - (BOOL)canMoreViewBeAdded {
     BOOL isAllSlotsOccupied = NO;
@@ -471,33 +454,9 @@
         isAllAlphabetOccupied = YES;
     }
     return !isAllSlotsOccupied && !isAllAlphabetOccupied;
-
 }
 
-- (void)createImaginaryGrid {
 
-    UIGraphicsBeginImageContextWithOptions(self.containerView.bounds.size, NO, 0);
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    gridSize = self.containerView.bounds.size.width/11;
-    for (float i = gridSize; i < self.containerView.bounds.size.width; i += gridSize) {
-        for (float j = gridSize; j < self.containerView.bounds.size.height; j += gridSize) {
-            CGRect dotFrameHorizontal = CGRectMake(i, j, 2, 2);
-            CGContextSetFillColorWithColor(ctx, [UIColor groupTableViewBackgroundColor].CGColor);
-            CGContextFillEllipseInRect(ctx, CGRectInset(dotFrameHorizontal, 0, 0));
-            CGPoint point = CGPointMake(i, j);
-            if (![self isPointAlreadyStoredInGrid:point]) {
-                Grid *grid = [Grid new];
-                grid.position = CGPointMake(i, j);
-                grid.isOccupied = NO;
-                grid.content = nil;
-                grid.viewTag = -1;
-                [self.grids addObject:grid];
-            }
-        }
-    }
-    self.containerView.layer.contents = (id)UIGraphicsGetImageFromCurrentImageContext().CGImage;
-    UIGraphicsEndImageContext();
-}
 
 -(BOOL)isPointAlreadyStoredInGrid:(CGPoint)point {
     for (Grid *grd in self.grids){
@@ -522,9 +481,10 @@
 }
 
 - (void)upDateGridContents:(NSMutableArray *)gridColleciton {
+           NSLog(@"New start");
     for (Grid *grid in self.grids){
         BOOL isThereAnyViewInGridPosition = NO;
-        for (UIView *view in self.movableViews) {
+        for (GridView *view in self.movableViews) {
             if (view.center.x == grid.position.x && view.center.y == grid.position.y) {
                 grid.content = view;
                 grid.isOccupied = YES;
@@ -537,8 +497,47 @@
             grid.content = nil;
             grid.viewTag = -1;
         }
+
+        NSLog(@"Grid %hhd ",grid.isOccupied);
     }
 }
+
+- (void)alphabetArray {
+    alphabetArray = [NSMutableArray new];
+    for (char a = 'A'; a <= 'Z'; a++)
+    {
+        [alphabetArray addObject:[NSString stringWithFormat:@"%c", a]];
+    }
+}
+//Plot the grid as a image in containerViewLayer's content
+- (void)createImaginaryGrid {
+    UIGraphicsBeginImageContextWithOptions(self.containerView.bounds.size, NO, 0);
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    gridSize = self.containerView.bounds.size.width/4;
+    for (float i = gridSize; i < self.containerView.bounds.size.width; i += gridSize) {
+        for (float j = gridSize; j < self.containerView.bounds.size.height; j += gridSize) {
+            CGRect dotFrameHorizontal = CGRectMake(i, j, 2, 2);
+            CGContextSetFillColorWithColor(ctx, [UIColor groupTableViewBackgroundColor].CGColor);
+            CGContextFillEllipseInRect(ctx, CGRectInset(dotFrameHorizontal, 0, 0));
+            CGPoint point = CGPointMake(i, j);
+            //
+            if (![self isPointAlreadyStoredInGrid:point]) {
+                //Default initialization of Grid
+                Grid *grid = [Grid new];
+                grid.position = CGPointMake(i, j);
+                grid.isOccupied = NO;
+                grid.content = nil;
+                grid.viewTag = -1;
+                [self.grids addObject:grid];
+            }
+        }
+    }
+    self.containerView.layer.contents = (id)UIGraphicsGetImageFromCurrentImageContext().CGImage;
+    UIGraphicsEndImageContext();
+}
+
+
+
 
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

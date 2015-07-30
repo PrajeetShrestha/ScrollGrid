@@ -9,5 +9,12 @@
 #import "GridView.h"
 
 @implementation GridView
-
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.isColorSet = NO;
+    }
+    return self;
+}
 @end
