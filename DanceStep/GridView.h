@@ -12,4 +12,10 @@
 @property (nonatomic) CGPoint previousPosition;
 @property (nonatomic) CGPoint latestPosition;
 @property (nonatomic) BOOL isColorSet;
+
+- (void)viewStateSelected;
+- (void)viewStateDeselected;
+- (void)expand;
+- (void)shrink;
+- (void)setColorWhenTouchedForFirstTime;
 @end

@@ -30,6 +30,10 @@
 #pragma mark - View Life Cycle
 -(void)viewDidLoad {
     [super viewDidLoad];
+    [self setUp];
+}
+
+- (void)setUp {
     self.activeView = [GridView new];
     undoManager = [NSUndoManager new];
     self.movableViews = [NSMutableArray new];
@@ -65,7 +69,7 @@
         newDancer.alpha = 0.8f;
 
         UILabel *viewLabel = [[UILabel alloc]init];
-        viewLabel.text = alphabetArray[newDancer.tag];//[NSString stringWithFormat:@"%ld",(long)newDancer.tag];
+        viewLabel.text = alphabetArray[newDancer.tag];
         [viewLabel sizeToFit];
         viewLabel.textColor = [UIColor whiteColor];
         viewLabel.center = CGPointMake(newDancer.bounds.size.width/2, newDancer.bounds.size.height/2);
@@ -192,30 +196,27 @@
 }
 - (IBAction)circle:(id)sender {
     CGPoint center = CGPointMake(self.containerView.bounds.size.width/2, self.containerView.bounds.size.height/2);
-    //NSLog(@"%@ Rectangle Point %@",NSStringFromCGRect(self.containerView.frame),NSStringFromCGPoint(self.containerView.center));
     CGFloat differenceAngle = (360)/self.selectedViews.count;
     differenceAngle = DEGREES_TO_RADIANS(differenceAngle);
     CGFloat initialAngle = 0;
     for (UIView *view in self.selectedViews){
         [UIView animateWithDuration:0.3 animations:^{
-            view.center = CGPointMake(center.x + cos (initialAngle) * 50 , center.y + sin(initialAngle) * 50);
+            view.center = CGPointMake(center.x + cos (initialAngle) * 100 , center.y + sin(initialAngle) * 100);
         }];
         initialAngle = initialAngle + differenceAngle;
     }
 }
 - (IBAction)selectAll:(id)sender {
     [self.selectedViews removeAllObjects];
-    for (UIView *view in self.movableViews){
-        view.layer.borderColor = [UIColor blueColor].CGColor;
-        view.layer.borderWidth = 2.0f;
+    for (GridView *view in self.movableViews){
+        [view viewStateSelected];
         [self.selectedViews addObject:view];
     }
 }
 
 - (IBAction)deselectAll:(id)sender {
-    for (UIView *view in self.movableViews){
-        view.layer.borderColor = [UIColor clearColor].CGColor;
-        view.layer.borderWidth = 0.0f;
+    for (GridView *view in self.movableViews){
+        [view viewStateDeselected];
         [self.selectedViews removeObject:view];
     }
 }
@@ -258,7 +259,7 @@
         [self shiftGridContentOf:dic[@"startGrid"] toNewPosition:dic[@"destinationGrid"]];
     }
     
-    [self upDateGridContents:self.grids];
+    [self upDateGridContents];
     
 }
 
@@ -279,14 +280,12 @@
 }
 
 - (void)selectView {
-    UIView *view = self.activeView  ;
+    GridView *view = self.activeView  ;
     if ([self.selectedViews containsObject:view]) {
-        view.layer.borderColor = [UIColor clearColor].CGColor;
-        view.layer.borderWidth = 0.0f;
+        [view viewStateDeselected];
         [self.selectedViews removeObject:view];
     } else {
-        view.layer.borderColor = [UIColor blueColor].CGColor;
-        view.layer.borderWidth = 2.0f;
+        [view viewStateSelected];
         [self.selectedViews addObject:view];
     }
 
@@ -298,25 +297,23 @@
 #pragma mark - Touch Delegate
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     for (UITouch *touch in touches){
-        if (self.activeView == nil) {
-            self.activeView = (GridView *)[touch view];
-            if ([self isViewMovable]) {
-                self.activeView.previousPosition = self.activeView.center;
-                [UIView animateWithDuration:0.2 animations:^{
-                    self.activeView.transform = CGAffineTransformMakeScale(1.5, 1.5);
-                    if(!self.activeView.isColorSet) {
-                        self.activeView.backgroundColor = [UIColor blackColor];
-                        self.activeView.isColorSet = YES;
-                    }
-                    self.activeView.alpha = 1.0f;
-                }];
-//                [self upDateGridContents:self.grids];
-                for (Grid *grid in self.grids){
-                    if ([grid.content isEqual:self.activeView]) {
-                        grid.isOccupied = NO;
-                    }
-                }
-            }
+        [self configureStateOfViewWhenTouchBegan:touch];
+    }
+}
+
+- (void)configureStateOfViewWhenTouchBegan:(UITouch *)touch {
+
+    // When touch began if activeView is nil then make the touched view active.
+    // Check if active view is movable. (Movable views are view's representing dancers)
+
+    if (self.activeView == nil) {
+        self.activeView = (GridView *)[touch view];
+        if ([self isActiveViewMovable]) {
+            //Set last previous position of a view before moving to next grid for undomanager to track view positions
+            self.activeView.previousPosition = self.activeView.center;
+            [self.activeView expand];
+            [self.activeView setColorWhenTouchedForFirstTime];
+            [self upDateGridContents];
         }
     }
 }
@@ -329,59 +326,61 @@
 {
     // Enumerates through all touch objects
     for (UITouch *touch in touches) {
+        [self configureStateOfViewWhenViewIsMoved:touch];
+    }
+}
 
-        if (self.activeView == nil) {
-            self.activeView = (GridView *)[touch view];
-        } else {
-            if ([self isViewMovable]) {
-                [self dispatchTouchEvent:self.activeView toPosition:[touch locationInView:self.containerView]];
-            }
+- (void)configureStateOfViewWhenViewIsMoved:(UITouch *)touch {
+    if ([self isActiveViewMovable]) {
+        CGPoint touchPosition = [touch locationInView:self.containerView];
+        if (CGRectContainsPoint([self.activeView frame], touchPosition)) {
+            self.activeView.center = touchPosition;
         }
     }
 }
 
+
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [UIView animateWithDuration:0.2 animations:^{
-        self.activeView.transform = CGAffineTransformMakeScale(1, 1);
-    }];
-
     //Snap to Grid
-    if ([self isViewMovable]) {
-        CGFloat distance = 0;
-        Grid *nearestUnoccupiedGrid = [Grid new];
-        for (Grid *grid in self.grids) {
-            if (!grid.isOccupied) {
-                CGFloat xDist = (self.activeView.center.x - grid.position.x);
-                CGFloat yDist = (self.activeView.center.y - grid.position.y);
-                CGFloat tempDistance = sqrt((xDist * xDist) + (yDist * yDist)) ;
-                if (distance == 0) {
-                    distance = tempDistance;
-                    nearestUnoccupiedGrid = grid;
-                } else {
-                    if (tempDistance < distance) {
-                        distance = tempDistance;
-                        nearestUnoccupiedGrid = grid;
-                    }
-                }
-            }
-        }
-
+    if ([self isActiveViewMovable]) {
+        [self.activeView shrink];
+        Grid *nearestUnoccupiedGrid = [self findNearestUnoccupiedGrid];
         [UIView animateWithDuration:0.2 animations:^{
             if (nearestUnoccupiedGrid != nil) {
                 [self setCenter:nearestUnoccupiedGrid.position forView:self.activeView];
-                //self.activeView.center = nearestUnoccupiedGrid.position;
                 nearestUnoccupiedGrid.viewTag = self.activeView.tag;
                 nearestUnoccupiedGrid.isOccupied = YES;
                 nearestUnoccupiedGrid.content = self.activeView;
-                // NSLog(@"Transcendenting to %@ %d %d",NSStringFromCGPoint(nearestUnoccupiedGrid.position),nearestUnoccupiedGrid.isOccupied,self.activeView.tag);
             }
         }];
-        [self upDateGridContents:self.grids];
+        [self upDateGridContents];
     }
     //Snap End
     self.activeView = nil;
 
+}
+
+- (Grid *)findNearestUnoccupiedGrid {
+    Grid *nearestUnoccupiedGrid = [Grid new];
+    CGFloat distance = 0;
+    for (Grid *grid in self.grids) {
+        if (!grid.isOccupied) {
+            CGFloat xDist = (self.activeView.center.x - grid.position.x);
+            CGFloat yDist = (self.activeView.center.y - grid.position.y);
+            CGFloat tempDistance = sqrt((xDist * xDist) + (yDist * yDist)) ;
+            if (distance == 0) {
+                distance = tempDistance;
+                nearestUnoccupiedGrid = grid;
+            } else {
+                if (tempDistance < distance) {
+                    distance = tempDistance;
+                    nearestUnoccupiedGrid = grid;
+                }
+            }
+        }
+    }
+    return nearestUnoccupiedGrid;
 }
 
 #pragma mark - Undomanager Methods
@@ -396,7 +395,7 @@
             view.previousPosition = newCenter;
             view.center = newCenter;
         } completion:^(BOOL finished) {
-            [self upDateGridContents:self.grids];
+            [self upDateGridContents];
         }];
     } else {
         NSLog(@"Equal");
@@ -412,7 +411,7 @@
 
 #pragma mark - Private Methods
 
-- (BOOL)isViewMovable {
+- (BOOL)isActiveViewMovable {
     if ([self.movableViews containsObject:self.activeView]) {
         return YES;
     } else {
@@ -421,13 +420,7 @@
 }
 
 // To make view draggable on move touch event
--(void)dispatchTouchEvent:(UIView *)theView toPosition:(CGPoint)position
-{
-    // Check to see which view, or views,  the point is in and then move to that position.
-    if (CGRectContainsPoint([self.activeView frame], position)) {
-        self.activeView.center = position;
-    }
-}
+
 - (void)clearSelectedViews {
     for (UIView *view in self.selectedViews){
         view.layer.borderColor = [UIColor clearColor].CGColor;
@@ -480,8 +473,7 @@
     }
 }
 
-- (void)upDateGridContents:(NSMutableArray *)gridColleciton {
-           NSLog(@"New start");
+- (void)upDateGridContents{
     for (Grid *grid in self.grids){
         BOOL isThereAnyViewInGridPosition = NO;
         for (GridView *view in self.movableViews) {
@@ -497,8 +489,6 @@
             grid.content = nil;
             grid.viewTag = -1;
         }
-
-        NSLog(@"Grid %hhd ",grid.isOccupied);
     }
 }
 
@@ -535,9 +525,6 @@
     self.containerView.layer.contents = (id)UIGraphicsGetImageFromCurrentImageContext().CGImage;
     UIGraphicsEndImageContext();
 }
-
-
-
 
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
