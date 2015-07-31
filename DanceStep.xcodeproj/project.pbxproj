@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2511CC261B6B4CCC00BA28DC /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2511CC251B6B4CCC00BA28DC /* MainViewController.m */; };
 		2539AAF51B60EB2800C92B8C /* ColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2539AAF41B60EB2800C92B8C /* ColorPicker.m */; };
 		25691D5D1B60965200D28FDD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 25691D5C1B60965200D28FDD /* main.m */; };
 		25691D601B60965200D28FDD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 25691D5F1B60965200D28FDD /* AppDelegate.m */; };
 		25691D631B60965200D28FDD /* DanceStep.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 25691D611B60965200D28FDD /* DanceStep.xcdatamodeld */; };
-		25691D661B60965200D28FDD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25691D651B60965200D28FDD /* ViewController.m */; };
+		25691D661B60965200D28FDD /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25691D651B60965200D28FDD /* GridViewController.m */; };
 		25691D691B60965200D28FDD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25691D671B60965200D28FDD /* Main.storyboard */; };
 		25691D6B1B60965200D28FDD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25691D6A1B60965200D28FDD /* Images.xcassets */; };
 		25691D6E1B60965200D28FDD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25691D6C1B60965200D28FDD /* LaunchScreen.xib */; };
@@ -32,6 +33,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2511CC241B6B4CCC00BA28DC /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		2511CC251B6B4CCC00BA28DC /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		2539AAF31B60EB2800C92B8C /* ColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPicker.h; sourceTree = "<group>"; };
 		2539AAF41B60EB2800C92B8C /* ColorPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorPicker.m; sourceTree = "<group>"; };
 		25691D571B60965200D28FDD /* DanceStep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DanceStep.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -40,8 +43,8 @@
 		25691D5E1B60965200D28FDD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		25691D5F1B60965200D28FDD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		25691D621B60965200D28FDD /* DanceStep.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DanceStep.xcdatamodel; sourceTree = "<group>"; };
-		25691D641B60965200D28FDD /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		25691D651B60965200D28FDD /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		25691D641B60965200D28FDD /* GridViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridViewController.h; sourceTree = "<group>"; };
+		25691D651B60965200D28FDD /* GridViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GridViewController.m; sourceTree = "<group>"; };
 		25691D681B60965200D28FDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		25691D6A1B60965200D28FDD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		25691D6D1B60965200D28FDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -98,8 +101,10 @@
 			children = (
 				25691D5E1B60965200D28FDD /* AppDelegate.h */,
 				25691D5F1B60965200D28FDD /* AppDelegate.m */,
-				25691D641B60965200D28FDD /* ViewController.h */,
-				25691D651B60965200D28FDD /* ViewController.m */,
+				25691D641B60965200D28FDD /* GridViewController.h */,
+				25691D651B60965200D28FDD /* GridViewController.m */,
+				2511CC241B6B4CCC00BA28DC /* MainViewController.h */,
+				2511CC251B6B4CCC00BA28DC /* MainViewController.m */,
 				256E7AA01B68D25D000C1208 /* GridView.h */,
 				256E7AA11B68D25D000C1208 /* GridView.m */,
 				25ECB0981B67321800B649A0 /* Grid.h */,
@@ -256,9 +261,10 @@
 				2539AAF51B60EB2800C92B8C /* ColorPicker.m in Sources */,
 				25ECB09A1B67321800B649A0 /* Grid.m in Sources */,
 				256E7AA21B68D25D000C1208 /* GridView.m in Sources */,
+				2511CC261B6B4CCC00BA28DC /* MainViewController.m in Sources */,
 				25691D601B60965200D28FDD /* AppDelegate.m in Sources */,
 				25691D631B60965200D28FDD /* DanceStep.xcdatamodeld in Sources */,
-				25691D661B60965200D28FDD /* ViewController.m in Sources */,
+				25691D661B60965200D28FDD /* GridViewController.m in Sources */,
 				25691D5D1B60965200D28FDD /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

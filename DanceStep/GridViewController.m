@@ -6,12 +6,12 @@
 //  Copyright (c) 2015 EK Solutions Pvt Ltd. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "GridViewController.h"
 #import "ColorPicker.h"
 #import "GridView.h"
 
 
-@interface ViewController ()<ColorPicker>
+@interface GridViewController ()<ColorPicker,GridView>
 {
     float gridSize;
     NSMutableArray *alphabetArray;
@@ -19,13 +19,14 @@
     NSUndoManager *undoManager;
     CGPoint previousCenter;
 }
-@property (nonatomic) NSMutableArray *movableViews;
+@property (weak, nonatomic) IBOutlet UIView *testView;
+@property (nonatomic) NSMutableArray *dancers;
 @property (nonatomic) NSMutableArray *selectedViews;
 @property (nonatomic) GridView *activeView;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @end
 
-@implementation ViewController
+@implementation GridViewController
 
 #pragma mark - View Life Cycle
 -(void)viewDidLoad {
@@ -36,20 +37,26 @@
 - (void)setUp {
     self.activeView = [GridView new];
     undoManager = [NSUndoManager new];
-    self.movableViews = [NSMutableArray new];
+    self.dancers = [NSMutableArray new];
     self.selectedViews = [NSMutableArray new];
     self.grids = [NSMutableArray new];
     viewStates = [NSMutableArray new];
     [self alphabetArray];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notify) name:NSUndoManagerCheckpointNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notify) name:NSUndoManagerCheckpointNotification object:nil];
+
 }
 
-- (void)notify {
-    //NSLog(@"Notification received");
-}
+//- (void)notify {
+//    //NSLog(@"Notification received");
+//}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self createImaginaryGrid];
+
+}
+
+- (void)viewDidLayoutSubviews {
+     [self createImaginaryGrid];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,10 +70,11 @@
     if ([self canMoreViewBeAdded]) {
         GridView *newDancer = [[GridView alloc]initWithFrame:CGRectMake(10, 10, gridSize-1, gridSize-1)];
         newDancer.backgroundColor = [UIColor orangeColor];
-        newDancer.tag = self.movableViews.count;
+        newDancer.tag = self.dancers.count;
         newDancer.layer.cornerRadius = newDancer.frame.size.width/2;
         newDancer.clipsToBounds = YES;
         newDancer.alpha = 0.8f;
+        newDancer.delegate = self;
 
         UILabel *viewLabel = [[UILabel alloc]init];
         viewLabel.text = alphabetArray[newDancer.tag];
@@ -75,7 +83,7 @@
         viewLabel.center = CGPointMake(newDancer.bounds.size.width/2, newDancer.bounds.size.height/2);
         [newDancer addSubview:viewLabel];
         [self.containerView addSubview:newDancer];
-        [self.movableViews addObject:newDancer];
+        [self.dancers addObject:newDancer];
         [self addLongPressGestures];
     } else {
         NSLog(@"Move view can not be added!");
@@ -208,14 +216,14 @@
 }
 - (IBAction)selectAll:(id)sender {
     [self.selectedViews removeAllObjects];
-    for (GridView *view in self.movableViews){
+    for (GridView *view in self.dancers){
         [view viewStateSelected];
         [self.selectedViews addObject:view];
     }
 }
 
 - (IBAction)deselectAll:(id)sender {
-    for (GridView *view in self.movableViews){
+    for (GridView *view in self.dancers){
         [view viewStateDeselected];
         [self.selectedViews removeObject:view];
     }
@@ -294,82 +302,41 @@
     }];
 }
 
-#pragma mark - Touch Delegate
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    for (UITouch *touch in touches){
-        [self configureStateOfViewWhenTouchBegan:touch];
-    }
+#pragma mark - GridView Delegate
+- (void)dancerTouchBegan {
+    [self upDateGridContents];
+    [self.delegate touchesBegan];
 }
 
-- (void)configureStateOfViewWhenTouchBegan:(UITouch *)touch {
-
-    // When touch began if activeView is nil then make the touched view active.
-    // Check if active view is movable. (Movable views are view's representing dancers)
-
-    if (self.activeView == nil) {
-        self.activeView = (GridView *)[touch view];
-        if ([self isActiveViewMovable]) {
-            //Set last previous position of a view before moving to next grid for undomanager to track view positions
-            self.activeView.previousPosition = self.activeView.center;
-            [self.activeView expand];
-            [self.activeView setColorWhenTouchedForFirstTime];
-            [self upDateGridContents];
+- (void)dancerTouchEnd:(GridView *)view {
+    Grid *nearestUnoccupiedGrid = [self findNearestUnoccupiedGridForView:view];
+    [UIView animateWithDuration:0.2 animations:^{
+        if (nearestUnoccupiedGrid != nil) {
+            //Undomanager setup
+            [self setCenter:nearestUnoccupiedGrid.position forView:view];
+            nearestUnoccupiedGrid.viewTag = view.tag;
+            nearestUnoccupiedGrid.isOccupied = YES;
+            nearestUnoccupiedGrid.content = view;
         }
-    }
+    }];
+    [self upDateGridContents];
+     self.activeView = nil;
+    [self.delegate touchesEnd];
 }
 
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-
+- (void)dancerMoved {
+    [self upDateGridContents];
 }
 
--(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    // Enumerates through all touch objects
-    for (UITouch *touch in touches) {
-        [self configureStateOfViewWhenViewIsMoved:touch];
-    }
-}
-
-- (void)configureStateOfViewWhenViewIsMoved:(UITouch *)touch {
-    //Check if the touched view is movable and if movable move the view along with the touch position
-    if ([self isActiveViewMovable]) {
-        CGPoint touchPosition = [touch locationInView:self.containerView];
-        if (CGRectContainsPoint([self.activeView frame], touchPosition)) {
-            self.activeView.center = touchPosition;
-        }
-    }
-}
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    //Snap to Grid
-    if ([self isActiveViewMovable]) {
-        [self.activeView shrink];
-        Grid *nearestUnoccupiedGrid = [self findNearestUnoccupiedGrid];
-        [UIView animateWithDuration:0.2 animations:^{
-            if (nearestUnoccupiedGrid != nil) {
-                //Undomanager setup
-                [self setCenter:nearestUnoccupiedGrid.position forView:self.activeView];
-                nearestUnoccupiedGrid.viewTag = self.activeView.tag;
-                nearestUnoccupiedGrid.isOccupied = YES;
-                nearestUnoccupiedGrid.content = self.activeView;
-            }
-        }];
-        [self upDateGridContents];
-    }
-    //Snap End
-    self.activeView = nil;
-
-}
-
-- (Grid *)findNearestUnoccupiedGrid {
+- (Grid *)findNearestUnoccupiedGridForView:(GridView *)view {
     Grid *nearestUnoccupiedGrid = [Grid new];
     CGFloat distance = -1;
     for (Grid *grid in self.grids) {
 
         //Check if grid is occupied. If occupied ignore the grid and if unoccupied calculate the distance of all the unoccupied grid and find the minimum among it and assign to nearestUnOccupied Grid.
         if (!grid.isOccupied) {
-            CGFloat xDist = (self.activeView.center.x - grid.position.x);
-            CGFloat yDist = (self.activeView.center.y - grid.position.y);
+            CGFloat xDist = (view.center.x - grid.position.x);
+            CGFloat yDist = (view.center.y - grid.position.y);
             CGFloat tempDistance = sqrt((xDist * xDist) + (yDist * yDist)) ;
             if (distance == -1) {
                 distance = tempDistance;
@@ -413,7 +380,7 @@
 #pragma mark - Private Methods
 
 - (BOOL)isActiveViewMovable {
-    if ([self.movableViews containsObject:self.activeView]) {
+    if ([self.dancers containsObject:self.activeView]) {
         return YES;
     } else {
         return NO;
@@ -442,7 +409,7 @@
         isAllSlotsOccupied = YES;
     }
     BOOL isAllAlphabetOccupied = NO;
-    if (self.movableViews.count != 26) {
+    if (self.dancers.count != 26) {
         isAllAlphabetOccupied = NO;
     } else {
         isAllAlphabetOccupied = YES;
@@ -455,7 +422,11 @@
 -(BOOL)isPointAlreadyStoredInGrid:(CGPoint)point {
     for (Grid *grd in self.grids){
         if(grd.position.x == point.x && grd.position.y == point.y) {
+            if (grd.isOccupied ) {
+                return NO;
+            } else {
             return YES;
+            }
         }
     }
     return NO;
@@ -477,7 +448,7 @@
 - (void)upDateGridContents{
     for (Grid *grid in self.grids){
         BOOL isThereAnyViewInGridPosition = NO;
-        for (GridView *view in self.movableViews) {
+        for (GridView *view in self.dancers) {
             if (view.center.x == grid.position.x && view.center.y == grid.position.y) {
                 grid.content = view;
                 grid.isOccupied = YES;
@@ -504,7 +475,7 @@
 - (void)createImaginaryGrid {
     UIGraphicsBeginImageContextWithOptions(self.containerView.bounds.size, NO, 0);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    gridSize = self.containerView.bounds.size.width/4;
+    gridSize = self.containerView.bounds.size.width/11;
     for (float i = gridSize; i < self.containerView.bounds.size.width; i += gridSize) {
         for (float j = gridSize; j < self.containerView.bounds.size.height; j += gridSize) {
             CGRect dotFrameHorizontal = CGRectMake(i, j, 2, 2);
@@ -533,4 +504,6 @@
     viewController.delegate = self;
     
 }
+
+
 @end

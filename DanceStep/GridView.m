@@ -7,8 +7,13 @@
 //
 
 #import "GridView.h"
-
+@interface GridView()
+{
+    CGPoint startLocation;
+}
+@end
 @implementation GridView
+
 - (instancetype)init
 {
     self = [super init];
@@ -48,4 +53,55 @@
         self.isColorSet = YES;
     }
 }
+
+- (void) touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
+{
+    // Calculate and store offset, and pop view into front if needed
+
+    // When touch began if activeView is nil then make the touched view active.
+    // Check if active view is movable. (Movable views are view's representing dancers)
+    //Set last previous position of a view before moving to next grid for undomanager to track view positions
+    startLocation = [[touches anyObject] locationInView:self];
+    [self.superview bringSubviewToFront:self];
+    self.previousPosition = self.center;
+    [self setColorWhenTouchedForFirstTime];
+    [self expand];
+    [self.delegate dancerTouchBegan];
+}
+
+- (void) touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
+{
+    // Calculate offset
+    CGPoint pt = [[touches anyObject] locationInView:self];
+    float dx = pt.x - startLocation.x;
+    float dy = pt.y - startLocation.y;
+    CGPoint newcenter = CGPointMake(
+                                    self.center.x + dx,
+                                    self.center.y + dy);
+    // Set new location
+    // Restrict movement into parent bounds
+    float halfx = CGRectGetMidX(self.bounds);
+    newcenter.x = MAX(2 * halfx, newcenter.x);
+    newcenter.x = MIN(self.superview.bounds.size.width - 2 * halfx ,
+                      newcenter.x);
+
+    float halfy = CGRectGetMidY(self.bounds);
+    newcenter.y = MAX(2 * halfy, newcenter.y);
+    newcenter.y = MIN(self.superview.bounds.size.height - 2 * halfy,
+                      newcenter.y);
+
+    // Set new location
+    self.center = newcenter;
+    [self.delegate dancerMoved];
+    
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self shrink];
+    [self.delegate dancerTouchEnd:self];
+}
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+
+}
 @end
+
