@@ -331,6 +331,7 @@
 }
 
 - (void)configureStateOfViewWhenViewIsMoved:(UITouch *)touch {
+    //Check if the touched view is movable and if movable move the view along with the touch position
     if ([self isActiveViewMovable]) {
         CGPoint touchPosition = [touch locationInView:self.containerView];
         if (CGRectContainsPoint([self.activeView frame], touchPosition)) {
@@ -362,13 +363,15 @@
 
 - (Grid *)findNearestUnoccupiedGrid {
     Grid *nearestUnoccupiedGrid = [Grid new];
-    CGFloat distance = 0;
+    CGFloat distance = -1;
     for (Grid *grid in self.grids) {
+
+        //Check if grid is occupied. If occupied ignore the grid and if unoccupied calculate the distance of all the unoccupied grid and find the minimum among it and assign to nearestUnOccupied Grid.
         if (!grid.isOccupied) {
             CGFloat xDist = (self.activeView.center.x - grid.position.x);
             CGFloat yDist = (self.activeView.center.y - grid.position.y);
             CGFloat tempDistance = sqrt((xDist * xDist) + (yDist * yDist)) ;
-            if (distance == 0) {
+            if (distance == -1) {
                 distance = tempDistance;
                 nearestUnoccupiedGrid = grid;
             } else {
@@ -383,7 +386,6 @@
 }
 
 #pragma mark - Undomanager Methods
-
 
 - (void)setCenter:(CGPoint)newCenter forView:(GridView *)view {
 
