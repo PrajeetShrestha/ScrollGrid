@@ -7,20 +7,40 @@
 //
 
 #import "MainViewController.h"
-
+@interface MainViewController() {
+    NSUInteger indexOfPage;
+}
+@end
 @implementation MainViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.gridControllers = @[@1,@2];
+    self.gridControllers = @[@1,@2,@3];
+    [self registerForNotification];
+    indexOfPage = 0;
+
 }
 
+- (void)didReceiveMemoryWarning {
+    NSLog(@"Memory warning received");
+}
+- (void)registerForNotification {
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pageIndexNotification:) name:@"IndexOfContent" object:nil];
+}
 - (void)viewDidLayoutSubviews {
     [self setUpPages]   ;
+}
+- (void)pageIndexNotification:(NSNotification *)notification {
+    if ([notification.name isEqualToString:@"IndexOfContent"]) {
+        NSDictionary *userInfo = notification.userInfo;
+        indexOfPage = [userInfo[@"index"] integerValue];
+        NSLog(@"%d Index Of page",indexOfPage);
+    }
 }
 
 - (void)setUpPages {
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
     self.pageViewController.dataSource = self;
+    self.pageViewController.delegate = self;
 
     GridViewController *startingViewController = [self viewControllerAtIndex:0];
     NSArray *viewControllers = @[startingViewController];
@@ -32,6 +52,8 @@
     [self addChildViewController:_pageViewController];
     [self.container addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
+
+    
 }
 
 #pragma mark - Page View Controller Data Source
@@ -85,6 +107,17 @@
     self.pageViewController.dataSource = self;
 }
 
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
+{
+    GridViewController *vc = [pageViewController.viewControllers lastObject];
+    indexOfPage = vc.pageIndex  ;
+}
 
 
+- (IBAction)addDancer:(id)sender {
+    NSDictionary *userInfo = @{
+                               @"index":[NSNumber numberWithInteger:indexOfPage]
+                               };
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"AddDancer" object:userInfo];
+}
 @end

@@ -18,8 +18,8 @@
     NSMutableArray *viewStates;
     NSUndoManager *undoManager;
     CGPoint previousCenter;
+    __weak IBOutlet UILabel *indicator;
 }
-@property (weak, nonatomic) IBOutlet UIView *testView;
 @property (nonatomic) NSMutableArray *dancers;
 @property (nonatomic) NSMutableArray *selectedViews;
 @property (nonatomic) GridView *activeView;
@@ -32,6 +32,10 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     [self setUp];
+
+    indicator.text = [NSString stringWithFormat:@"%d",self.pageIndex];
+
+
 }
 
 - (void)setUp {
@@ -43,12 +47,22 @@
     viewStates = [NSMutableArray new];
     [self alphabetArray];
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notify) name:NSUndoManagerCheckpointNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDancerNotification:) name:@"AddDancer" object:nil];
 
 }
 
 //- (void)notify {
 //    //NSLog(@"Notification received");
 //}
+
+
+- (void)addDancerNotification:(NSNotification *)notification {
+    NSUInteger notificationIndex = [notification.object[@"index"] integerValue];
+    if (notificationIndex == self.pageIndex) {
+            [self addDancer:nil];
+    }
+
+}
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];

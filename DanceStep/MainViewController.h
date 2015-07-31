@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UIView *container;
 @property (strong, nonatomic) UIPageViewController *pageViewController;
 @property (nonatomic) NSArray *gridControllers;
+- (IBAction)addDancer:(id)sender;
 
 @end

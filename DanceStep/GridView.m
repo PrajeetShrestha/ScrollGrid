@@ -57,7 +57,6 @@
 - (void) touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
 {
     // Calculate and store offset, and pop view into front if needed
-
     // When touch began if activeView is nil then make the touched view active.
     // Check if active view is movable. (Movable views are view's representing dancers)
     //Set last previous position of a view before moving to next grid for undomanager to track view positions
@@ -82,7 +81,7 @@
     // Restrict movement into parent bounds
     float halfx = CGRectGetMidX(self.bounds);
     newcenter.x = MAX(2 * halfx, newcenter.x);
-    newcenter.x = MIN(self.superview.bounds.size.width - 2 * halfx ,
+    newcenter.x = MIN(self.superview.bounds.size.width - 2 * halfx,
                       newcenter.x);
 
     float halfy = CGRectGetMidY(self.bounds);
@@ -93,7 +92,8 @@
     // Set new location
     self.center = newcenter;
     [self.delegate dancerMoved];
-    
+    [NSNumber numberWithBool:YES];
+
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {

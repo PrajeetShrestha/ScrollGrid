@@ -28,9 +28,9 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ygs-yp-oNc">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="Ygs-yp-oNc" secondAttribute="height" multiplier="768:768" id="hHM-S6-dKx"/>
+                                    <constraint firstAttribute="width" secondItem="Ygs-yp-oNc" secondAttribute="height" multiplier="10:7.2" id="hHM-S6-dKx"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -43,35 +43,93 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wo2-ja-VSS">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lNS-NV-q7b">
+                                        <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                        <state key="normal" title="Add Dancer">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addDancer:" destination="VhM-mO-zRD" eventType="touchUpInside" id="Cl1-t2-yHe"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.33793916750000003" green="0.42988732419999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="lNS-NV-q7b" firstAttribute="leading" secondItem="wo2-ja-VSS" secondAttribute="leading" constant="8" id="bKh-eh-e3b"/>
+                                    <constraint firstAttribute="height" constant="200" id="jxP-Sb-Lmb"/>
+                                    <constraint firstItem="lNS-NV-q7b" firstAttribute="top" secondItem="wo2-ja-VSS" secondAttribute="top" constant="8" id="our-hT-vrH"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="lNS-NV-q7b"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <exclude reference="jxP-Sb-Lmb"/>
+                                        <exclude reference="bKh-eh-e3b"/>
+                                        <exclude reference="our-hT-vrH"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="subviews">
+                                        <include reference="lNS-NV-q7b"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <include reference="jxP-Sb-Lmb"/>
+                                        <include reference="bKh-eh-e3b"/>
+                                        <include reference="our-hT-vrH"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="wo2-ja-VSS" firstAttribute="top" secondItem="Ygs-yp-oNc" secondAttribute="bottom" constant="-140" id="CyJ-RQ-sIb">
+                                <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                            </constraint>
                             <constraint firstItem="Ygs-yp-oNc" firstAttribute="leading" secondItem="rNu-ii-pTn" secondAttribute="leading" id="TpH-YH-uHi">
                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                            </constraint>
+                            <constraint firstItem="wo2-ja-VSS" firstAttribute="trailing" secondItem="Ygs-yp-oNc" secondAttribute="trailing" constant="40" id="dtZ-aO-kcO">
+                                <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
                             </constraint>
                             <constraint firstItem="Ygs-yp-oNc" firstAttribute="top" secondItem="nGT-CU-vIK" secondAttribute="bottom" id="gAq-bo-u26"/>
                             <constraint firstAttribute="trailing" secondItem="Ygs-yp-oNc" secondAttribute="trailing" constant="16" id="qow-5h-Y1F">
                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                             </constraint>
+                            <constraint firstItem="wo2-ja-VSS" firstAttribute="leading" secondItem="Ygs-yp-oNc" secondAttribute="leading" constant="-40" id="vWM-Ue-HWY">
+                                <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                            </constraint>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="Ygs-yp-oNc"/>
+                                <exclude reference="wo2-ja-VSS"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="TpH-YH-uHi"/>
                                 <exclude reference="gAq-bo-u26"/>
                                 <exclude reference="qow-5h-Y1F"/>
+                                <exclude reference="CyJ-RQ-sIb"/>
+                                <exclude reference="dtZ-aO-kcO"/>
+                                <exclude reference="vWM-Ue-HWY"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="subviews">
                                 <include reference="Ygs-yp-oNc"/>
+                                <include reference="wo2-ja-VSS"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="TpH-YH-uHi"/>
                                 <include reference="gAq-bo-u26"/>
                                 <include reference="qow-5h-Y1F"/>
+                                <include reference="CyJ-RQ-sIb"/>
+                                <include reference="dtZ-aO-kcO"/>
+                                <include reference="vWM-Ue-HWY"/>
                             </mask>
                         </variation>
                     </view>
@@ -81,7 +139,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pfb-iB-H1w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1279.5" y="97.5"/>
+            <point key="canvasLocation" x="-1451.25" y="111"/>
         </scene>
         <!--Grid View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -97,12 +155,40 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mlN-XG-aMa">
                                 <rect key="frame" x="36" y="20" width="528" height="380"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZp-sy-2fq">
+                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="mlN-XG-aMa" secondAttribute="height" multiplier="10:7.2" id="NkQ-9v-1fQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="xZp-sy-2fq" secondAttribute="trailing" constant="18" id="m9J-nP-cBs"/>
+                                    <constraint firstItem="xZp-sy-2fq" firstAttribute="top" secondItem="mlN-XG-aMa" secondAttribute="top" constant="15" id="yVu-TM-GHz"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="xZp-sy-2fq"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <exclude reference="m9J-nP-cBs"/>
+                                        <exclude reference="yVu-TM-GHz"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="subviews">
+                                        <include reference="xZp-sy-2fq"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <include reference="m9J-nP-cBs"/>
+                                        <include reference="yVu-TM-GHz"/>
+                                    </mask>
+                                </variation>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ofc-tu-HCF">
+                            <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ofc-tu-HCF">
                                 <rect key="frame" x="36" y="552" width="528" height="240"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="owy-QC-qAQ">
@@ -423,14 +509,15 @@
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="600" height="600"/>
+                    <size key="freeformSize" width="600" height="432"/>
                     <connections>
                         <outlet property="containerView" destination="mlN-XG-aMa" id="Et2-dF-pTl"/>
+                        <outlet property="indicator" destination="xZp-sy-2fq" id="A27-zP-uRG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-569.25" y="108.75"/>
+            <point key="canvasLocation" x="-393.75" y="92.25"/>
         </scene>
         <!--Color Picker-->
         <scene sceneID="NE5-Eh-qFl">
