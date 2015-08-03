@@ -9,7 +9,9 @@
         <!--Page View Controller-->
         <scene sceneID="f4M-DO-Wu7">
             <objects>
-                <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="3gm-xg-eSd" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="3gm-xg-eSd" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rYn-Gm-AW9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-537" y="-506.25"/>
@@ -26,120 +28,180 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ygs-yp-oNc">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rHr-V7-znu">
+                                <rect key="frame" x="0.0" y="20" width="600" height="432"/>
+                                <color key="backgroundColor" red="0.28235294119999998" green="0.42745098040000001" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="Ygs-yp-oNc" secondAttribute="height" multiplier="10:7.2" id="hHM-S6-dKx"/>
+                                    <constraint firstAttribute="width" secondItem="rHr-V7-znu" secondAttribute="height" multiplier="10:7.2" id="LfZ-Aj-BZk"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="hHM-S6-dKx"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=regular">
-                                    <mask key="constraints">
-                                        <include reference="hHM-S6-dKx"/>
-                                    </mask>
-                                </variation>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wo2-ja-VSS">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5dY-QD-54H">
+                                <rect key="frame" x="0.0" y="452" width="600" height="148"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lNS-NV-q7b">
-                                        <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                        <state key="normal" title="Add Dancer">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nle-fn-jC3" customClass="ButtonWithThinBorder">
+                                        <rect key="frame" x="8" y="8" width="57" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                        <state key="normal" title="+ Dancer">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="addDancer:" destination="VhM-mO-zRD" eventType="touchUpInside" id="Cl1-t2-yHe"/>
+                                            <action selector="addDancer:" destination="VhM-mO-zRD" eventType="touchUpInside" id="tjm-HP-4jm"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ihj-Sc-Agy" customClass="ButtonWithThinBorder">
+                                        <rect key="frame" x="8" y="62" width="47" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                        <state key="normal" title="V-Align">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="verticalAlignment:" destination="VhM-mO-zRD" eventType="touchUpInside" id="gOc-cv-4b5"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6uE-Kc-N4B" customClass="ButtonWithThinBorder">
+                                        <rect key="frame" x="8" y="116" width="49" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                        <state key="normal" title="H-Align">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="horizontalAlignment:" destination="VhM-mO-zRD" eventType="touchUpInside" id="LvT-Fl-SVs"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t35-Fv-A1t" customClass="ButtonWithThinBorder">
+                                        <rect key="frame" x="82" y="8" width="59" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                        <state key="normal" title="Select All">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="selectAllDancer:" destination="VhM-mO-zRD" eventType="touchUpInside" id="ln9-Xt-Q03"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FBf-Fh-kKn" customClass="ButtonWithThinBorder">
+                                        <rect key="frame" x="82" y="62" width="68" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                        <state key="normal" title="DeselectAll">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="deselectAllDancer:" destination="VhM-mO-zRD" eventType="touchUpInside" id="O1e-1g-SQu"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uz9-jY-UWI" customClass="ButtonWithThinBorder">
+                                        <rect key="frame" x="171" y="8" width="81" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                        <state key="normal" title="H-Equidistant">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="horizontallyEquidistant:" destination="VhM-mO-zRD" eventType="touchUpInside" id="udH-e0-s2W"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wGT-06-Lw6" customClass="ButtonWithThinBorder">
+                                        <rect key="frame" x="167" y="62" width="79" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                        <state key="normal" title="V-Equidistant">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="verticallyEquidistant:" destination="VhM-mO-zRD" eventType="touchUpInside" id="kHd-SO-NpH"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9cO-uK-6RL">
+                                        <rect key="frame" x="85" y="116" width="46" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                        <state key="normal" title="PickColor">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="pickColor:" destination="VhM-mO-zRD" eventType="touchUpInside" id="ubk-vB-slc"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Xm-h1-KiG" customClass="ButtonWithThinBorder">
+                                        <rect key="frame" x="272" y="8" width="38" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                        <state key="normal" title="Undo">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="undo:" destination="VhM-mO-zRD" eventType="touchUpInside" id="qpw-9O-K95"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DN5-cI-0UP" customClass="ButtonWithThinBorder">
+                                        <rect key="frame" x="268" y="62" width="38" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                        <state key="normal" title="Redo">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="redo:" destination="VhM-mO-zRD" eventType="touchUpInside" id="f04-AD-ZNH"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.33793916750000003" green="0.42988732419999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.28235294119999998" green="0.42745098040000001" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="lNS-NV-q7b" firstAttribute="leading" secondItem="wo2-ja-VSS" secondAttribute="leading" constant="8" id="bKh-eh-e3b"/>
-                                    <constraint firstAttribute="height" constant="200" id="jxP-Sb-Lmb"/>
-                                    <constraint firstItem="lNS-NV-q7b" firstAttribute="top" secondItem="wo2-ja-VSS" secondAttribute="top" constant="8" id="our-hT-vrH"/>
+                                    <constraint firstAttribute="bottom" secondItem="6uE-Kc-N4B" secondAttribute="bottom" constant="8" id="85i-rW-vtv"/>
+                                    <constraint firstItem="DN5-cI-0UP" firstAttribute="leading" secondItem="wGT-06-Lw6" secondAttribute="trailing" constant="22" id="Ej7-hd-R7s"/>
+                                    <constraint firstItem="t35-Fv-A1t" firstAttribute="leading" secondItem="Nle-fn-jC3" secondAttribute="trailing" constant="17" id="JYH-ki-pFd"/>
+                                    <constraint firstItem="Ihj-Sc-Agy" firstAttribute="leading" secondItem="6uE-Kc-N4B" secondAttribute="leading" id="Jrf-Wm-dFd"/>
+                                    <constraint firstItem="3Xm-h1-KiG" firstAttribute="leading" secondItem="uz9-jY-UWI" secondAttribute="trailing" constant="20" id="NKB-li-e7x"/>
+                                    <constraint firstItem="uz9-jY-UWI" firstAttribute="leading" secondItem="t35-Fv-A1t" secondAttribute="trailing" constant="30" id="Oa2-MI-u8B"/>
+                                    <constraint firstItem="wGT-06-Lw6" firstAttribute="centerY" secondItem="FBf-Fh-kKn" secondAttribute="centerY" id="QZw-rU-cMm"/>
+                                    <constraint firstItem="wGT-06-Lw6" firstAttribute="leading" secondItem="FBf-Fh-kKn" secondAttribute="trailing" constant="17" id="Rc9-OO-G9V"/>
+                                    <constraint firstItem="9cO-uK-6RL" firstAttribute="leading" secondItem="6uE-Kc-N4B" secondAttribute="trailing" constant="28" id="TXT-Si-JJQ"/>
+                                    <constraint firstAttribute="centerY" secondItem="Ihj-Sc-Agy" secondAttribute="centerY" id="U8D-R5-s6j"/>
+                                    <constraint firstItem="Ihj-Sc-Agy" firstAttribute="leading" secondItem="Nle-fn-jC3" secondAttribute="leading" id="Wun-c8-ejE"/>
+                                    <constraint firstItem="uz9-jY-UWI" firstAttribute="centerY" secondItem="t35-Fv-A1t" secondAttribute="centerY" id="Wye-rW-uRd"/>
+                                    <constraint firstItem="Nle-fn-jC3" firstAttribute="centerY" secondItem="t35-Fv-A1t" secondAttribute="centerY" id="ZMd-Yf-B9w"/>
+                                    <constraint firstItem="FBf-Fh-kKn" firstAttribute="centerY" secondItem="Ihj-Sc-Agy" secondAttribute="centerY" id="c1k-iD-Dt2"/>
+                                    <constraint firstAttribute="height" constant="148" id="csy-yt-kQr"/>
+                                    <constraint firstItem="FBf-Fh-kKn" firstAttribute="leading" secondItem="t35-Fv-A1t" secondAttribute="leading" id="e00-b1-Zpg"/>
+                                    <constraint firstItem="uz9-jY-UWI" firstAttribute="centerY" secondItem="3Xm-h1-KiG" secondAttribute="centerY" id="guL-Nw-RAY"/>
+                                    <constraint firstItem="uz9-jY-UWI" firstAttribute="leading" secondItem="t35-Fv-A1t" secondAttribute="trailing" constant="30" id="i1g-vF-uvX"/>
+                                    <constraint firstItem="wGT-06-Lw6" firstAttribute="centerY" secondItem="DN5-cI-0UP" secondAttribute="centerY" id="kFc-V9-SHP"/>
+                                    <constraint firstItem="9cO-uK-6RL" firstAttribute="centerY" secondItem="6uE-Kc-N4B" secondAttribute="centerY" id="l95-0v-JRY"/>
+                                    <constraint firstItem="Nle-fn-jC3" firstAttribute="leading" secondItem="5dY-QD-54H" secondAttribute="leading" constant="8" id="odN-71-a1q"/>
+                                    <constraint firstItem="Nle-fn-jC3" firstAttribute="top" secondItem="5dY-QD-54H" secondAttribute="top" constant="8" id="vFw-G0-t7B"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="subviews">
-                                        <exclude reference="lNS-NV-q7b"/>
-                                    </mask>
-                                    <mask key="constraints">
-                                        <exclude reference="jxP-Sb-Lmb"/>
-                                        <exclude reference="bKh-eh-e3b"/>
-                                        <exclude reference="our-hT-vrH"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=regular">
-                                    <mask key="subviews">
-                                        <include reference="lNS-NV-q7b"/>
-                                    </mask>
-                                    <mask key="constraints">
-                                        <include reference="jxP-Sb-Lmb"/>
-                                        <include reference="bKh-eh-e3b"/>
-                                        <include reference="our-hT-vrH"/>
-                                    </mask>
-                                </variation>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.28235294119999998" green="0.42745098040000001" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="wo2-ja-VSS" firstAttribute="top" secondItem="Ygs-yp-oNc" secondAttribute="bottom" constant="-140" id="CyJ-RQ-sIb">
-                                <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
-                            </constraint>
-                            <constraint firstItem="Ygs-yp-oNc" firstAttribute="leading" secondItem="rNu-ii-pTn" secondAttribute="leading" id="TpH-YH-uHi">
-                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
-                            </constraint>
-                            <constraint firstItem="wo2-ja-VSS" firstAttribute="trailing" secondItem="Ygs-yp-oNc" secondAttribute="trailing" constant="40" id="dtZ-aO-kcO">
-                                <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
-                            </constraint>
-                            <constraint firstItem="Ygs-yp-oNc" firstAttribute="top" secondItem="nGT-CU-vIK" secondAttribute="bottom" id="gAq-bo-u26"/>
-                            <constraint firstAttribute="trailing" secondItem="Ygs-yp-oNc" secondAttribute="trailing" constant="16" id="qow-5h-Y1F">
-                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
-                            </constraint>
-                            <constraint firstItem="wo2-ja-VSS" firstAttribute="leading" secondItem="Ygs-yp-oNc" secondAttribute="leading" constant="-40" id="vWM-Ue-HWY">
-                                <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
-                            </constraint>
+                            <constraint firstItem="5dY-QD-54H" firstAttribute="top" secondItem="rHr-V7-znu" secondAttribute="bottom" id="B51-BV-xlZ"/>
+                            <constraint firstItem="5dY-QD-54H" firstAttribute="leading" secondItem="rNu-ii-pTn" secondAttribute="leading" id="SvC-BJ-mCy"/>
+                            <constraint firstAttribute="trailing" secondItem="rHr-V7-znu" secondAttribute="trailing" id="YP4-Qa-W9T"/>
+                            <constraint firstItem="rHr-V7-znu" firstAttribute="leading" secondItem="rNu-ii-pTn" secondAttribute="leading" id="etT-Jq-Hb0"/>
+                            <constraint firstItem="rHr-V7-znu" firstAttribute="top" secondItem="rNu-ii-pTn" secondAttribute="top" constant="20" id="prx-BJ-Pdf"/>
+                            <constraint firstAttribute="trailing" secondItem="5dY-QD-54H" secondAttribute="trailing" id="sVU-yx-p1k"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="Ygs-yp-oNc"/>
-                                <exclude reference="wo2-ja-VSS"/>
-                            </mask>
-                            <mask key="constraints">
-                                <exclude reference="TpH-YH-uHi"/>
-                                <exclude reference="gAq-bo-u26"/>
-                                <exclude reference="qow-5h-Y1F"/>
-                                <exclude reference="CyJ-RQ-sIb"/>
-                                <exclude reference="dtZ-aO-kcO"/>
-                                <exclude reference="vWM-Ue-HWY"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=regular">
-                            <mask key="subviews">
-                                <include reference="Ygs-yp-oNc"/>
-                                <include reference="wo2-ja-VSS"/>
-                            </mask>
-                            <mask key="constraints">
-                                <include reference="TpH-YH-uHi"/>
-                                <include reference="gAq-bo-u26"/>
-                                <include reference="qow-5h-Y1F"/>
-                                <include reference="CyJ-RQ-sIb"/>
-                                <include reference="dtZ-aO-kcO"/>
-                                <include reference="vWM-Ue-HWY"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
-                        <outlet property="container" destination="Ygs-yp-oNc" id="Xul-Lr-XeM"/>
+                        <outlet property="container" destination="rHr-V7-znu" id="Q1t-7B-qG8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pfb-iB-H1w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1451.25" y="111"/>
+            <point key="canvasLocation" x="-1452" y="111"/>
         </scene>
         <!--Grid View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -154,7 +216,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mlN-XG-aMa">
-                                <rect key="frame" x="36" y="20" width="528" height="380"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="432"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZp-sy-2fq">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -163,7 +225,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.28235294119999998" green="0.42745098040000001" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="mlN-XG-aMa" secondAttribute="height" multiplier="10:7.2" id="NkQ-9v-1fQ"/>
                                     <constraint firstAttribute="trailing" secondItem="xZp-sy-2fq" secondAttribute="trailing" constant="18" id="m9J-nP-cBs"/>
@@ -188,213 +250,29 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ofc-tu-HCF">
-                                <rect key="frame" x="36" y="552" width="528" height="240"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="owy-QC-qAQ">
-                                        <rect key="frame" x="8" y="8" width="91" height="28"/>
-                                        <color key="backgroundColor" red="0.90672536375661372" green="0.30912772679916783" blue="0.058054732949207745" alpha="1" colorSpace="calibratedRGB"/>
-                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" title="Accumulate">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="accumulate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BNN-0z-cf4"/>
-                                            <action selector="alignVertically:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YIg-1i-e0v"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CZ5-TY-T0X">
-                                        <rect key="frame" x="107" y="8" width="92" height="28"/>
-                                        <color key="backgroundColor" red="0.3921568627" green="0.69803921570000005" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" title="Add Dancer">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="addDancer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gD1-ke-7fR"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X4U-hD-gHt">
-                                        <rect key="frame" x="207" y="8" width="123" height="28"/>
-                                        <color key="backgroundColor" red="0.3921568627" green="0.69803921570000005" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" title="Change Position">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="changePositions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QuB-uK-0OD"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Qc-qk-85N">
-                                        <rect key="frame" x="338" y="8" width="48" height="28"/>
-                                        <color key="backgroundColor" red="0.3921568627" green="0.69803921570000005" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" title="Undo">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="undoMove:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fbf-Sc-RcC"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lk3-xS-e4W">
-                                        <rect key="frame" x="396" y="8" width="47" height="28"/>
-                                        <color key="backgroundColor" red="0.3921568627" green="0.69803921570000005" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" title="Redo">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="redoMove:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WUd-Vr-2EK"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QCc-Eo-eAR">
-                                        <rect key="frame" x="8" y="44" width="99" height="28"/>
-                                        <color key="backgroundColor" red="1" green="0.4091615052" blue="0.36919273339999997" alpha="1" colorSpace="calibratedRGB"/>
-                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" title="Vertical Align">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="alignVertically:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qPS-8g-jCO"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jlq-ze-86L">
-                                        <rect key="frame" x="115" y="44" width="109" height="28"/>
-                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" title="Equi-distant H">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="makeEquidistantHorizontally:" destination="BYZ-38-t0r" eventType="touchUpInside" id="x4T-0a-uY8"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Z6-7A-2oM">
-                                        <rect key="frame" x="232" y="44" width="107" height="28"/>
-                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" title="Equi-distant V">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="makeEquidistantVertically:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aOQ-DA-XcG"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mCc-t0-L38">
-                                        <rect key="frame" x="347" y="44" width="118" height="28"/>
-                                        <color key="backgroundColor" red="0.35209944679999999" green="0.50850614729999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" title="Horizontal Align">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="alignHorizontally:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bHx-p7-Qz0"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VmM-LG-ELq">
-                                        <rect key="frame" x="8" y="80" width="50" height="28"/>
-                                        <color key="backgroundColor" red="0.68644558450000004" green="0.40288689430000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" title="Circle">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="circle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4Yp-2t-xt1"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Wh-z6-tUI">
-                                        <rect key="frame" x="66" y="80" width="74" height="28"/>
-                                        <color key="backgroundColor" red="0.39885475553161243" green="0.70444775132275139" blue="0.30591725018894028" alpha="1" colorSpace="calibratedRGB"/>
-                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" title="Select All">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="selectAll:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oaK-aF-yck"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hV6-T3-Etu" userLabel="Color">
-                                        <rect key="frame" x="248" y="74" width="40" height="40"/>
-                                        <state key="normal" image="brush.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="colorPicker:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2jv-rT-jr2"/>
-                                            <segue destination="dR3-1y-gdY" kind="popoverPresentation" popoverAnchorView="hV6-T3-Etu" id="wnC-St-JrN">
-                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                            </segue>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EiA-25-eez">
-                                        <rect key="frame" x="148" y="80" width="91" height="28"/>
-                                        <color key="backgroundColor" red="0.73976934523809523" green="0.19352235544800972" blue="0.21513054945872823" alpha="1" colorSpace="calibratedRGB"/>
-                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                        <state key="normal" title="Deselect All">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="deselectAll:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XgJ-jT-W86"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tz6-He-KoZ">
-                                        <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                        <state key="normal" title="StartOver">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <variation key="default">
-                                    <mask key="subviews">
-                                        <exclude reference="Tz6-He-KoZ"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=regular">
-                                    <mask key="subviews">
-                                        <include reference="Tz6-He-KoZ"/>
-                                    </mask>
-                                </variation>
-                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="mlN-XG-aMa" secondAttribute="trailing" constant="20" id="2lK-EN-9WB">
+                            <constraint firstAttribute="trailingMargin" secondItem="mlN-XG-aMa" secondAttribute="trailing" constant="-16" id="2lK-EN-9WB">
                                 <variation key="heightClass=regular-widthClass=regular" constant="-16"/>
                             </constraint>
                             <constraint firstItem="mlN-XG-aMa" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="AMg-yo-iOk"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Ofc-tu-HCF" secondAttribute="bottom" constant="8" id="EgV-WN-lkn"/>
-                            <constraint firstItem="mlN-XG-aMa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="PxX-eo-u8V">
+                            <constraint firstItem="mlN-XG-aMa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="PxX-eo-u8V">
                                 <variation key="heightClass=regular-widthClass=regular" constant="-16"/>
                             </constraint>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="EgV-WN-lkn"/>
-                            </mask>
-                        </variation>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="432"/>
                     <connections>
                         <outlet property="containerView" destination="mlN-XG-aMa" id="Et2-dF-pTl"/>
                         <outlet property="indicator" destination="xZp-sy-2fq" id="A27-zP-uRG"/>
+                        <segue destination="dR3-1y-gdY" kind="presentation" identifier="PickColorModally" id="1h7-k1-6E9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-393.75" y="92.25"/>
+            <point key="canvasLocation" x="-692" y="1118"/>
         </scene>
         <!--Color Picker-->
         <scene sceneID="NE5-Eh-qFl">
@@ -445,10 +323,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ho-dt-w5g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="443" y="176"/>
+            <point key="canvasLocation" x="237" y="998"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="brush.png" width="40" height="40"/>
-    </resources>
 </document>

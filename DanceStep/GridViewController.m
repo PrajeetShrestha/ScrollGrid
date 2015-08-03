@@ -19,6 +19,7 @@
     NSUndoManager *undoManager;
     CGPoint previousCenter;
     __weak IBOutlet UILabel *indicator;
+    BOOL viewAppearedAlready;
 }
 @property (nonatomic) NSMutableArray *dancers;
 @property (nonatomic) NSMutableArray *selectedViews;
@@ -32,10 +33,7 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     [self setUp];
-
     indicator.text = [NSString stringWithFormat:@"%d",self.pageIndex];
-
-
 }
 
 - (void)setUp {
@@ -46,31 +44,128 @@
     self.grids = [NSMutableArray new];
     viewStates = [NSMutableArray new];
     [self alphabetArray];
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notify) name:NSUndoManagerCheckpointNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDancerNotification:) name:@"AddDancer" object:nil];
 
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notify) name:NSUndoManagerCheckpointNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDancerNotification:) name:[self formatTypeToString:DNAddDancer] object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(verticalAlignmentNotification:) name:[self formatTypeToString:DNVerticalAlignment] object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(horizontalAlignmentNotification:) name:[self formatTypeToString:DNHorizontalAlignment] object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(verticallyEquidistantNotification:) name:[self formatTypeToString:DNVerticallyEquidistant] object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(horizontallyEquidistantNotification:) name:[self formatTypeToString:DNHorizontallyEquidistant] object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(circleNotification:) name:[self formatTypeToString:DNCircle] object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(redoNotification:) name:[self formatTypeToString:DNRedo] object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(undoNotification:) name:[self formatTypeToString:DNUndo] object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectAllNotification:) name:[self formatTypeToString:DNSelectAll] object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deSelectAllNotification:) name:[self formatTypeToString:DNDeSelectAll] object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accumulateNotification:) name:[self formatTypeToString:DNAcculmulate] object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pickColorNotification:) name:[self formatTypeToString:DNPickColor] object:nil];
 }
 
-//- (void)notify {
-//    //NSLog(@"Notification received");
-//}
-
-
+#pragma mark - Notifications
 - (void)addDancerNotification:(NSNotification *)notification {
     NSUInteger notificationIndex = [notification.object[@"index"] integerValue];
     if (notificationIndex == self.pageIndex) {
+        NSLog(@"Page Index %d",self.pageIndex);
             [self addDancer:nil];
+    }
+}
+
+- (void)verticalAlignmentNotification:(NSNotification *)notification {
+    NSUInteger notificationIndex = [notification.object[@"index"] integerValue];
+    if (notificationIndex == self.pageIndex) {
+        NSLog(@"Page Index %d",self.pageIndex);
+        [self alignVertically:nil];
+    }
+}
+
+- (void)horizontalAlignmentNotification:(NSNotification *)notification {
+    NSUInteger notificationIndex = [notification.object[@"index"] integerValue];
+    if (notificationIndex == self.pageIndex) {
+        NSLog(@"Page Index %d",self.pageIndex);
+        [self alignHorizontally:nil];
+    }
+}
+
+- (void)verticallyEquidistantNotification:(NSNotification *)notification {
+    NSUInteger notificationIndex = [notification.object[@"index"] integerValue];
+    if (notificationIndex == self.pageIndex) {
+        NSLog(@"Page Index %d",self.pageIndex);
+        [self makeEquidistantVertically:nil];
+    }
+}
+
+- (void)horizontallyEquidistantNotification:(NSNotification *)notification {
+    NSUInteger notificationIndex = [notification.object[@"index"] integerValue];
+    if (notificationIndex == self.pageIndex) {
+        NSLog(@"Page Index %d",self.pageIndex);
+        [self makeEquidistantHorizontally:nil];
+    }
+}
+
+- (void)circleNotification:(NSNotification *)notification {
+    NSUInteger notificationIndex = [notification.object[@"index"] integerValue];
+    if (notificationIndex == self.pageIndex) {
+        NSLog(@"Page Index %d",self.pageIndex);
+        [self circle:nil];
+    }
+}
+
+- (void)redoNotification:(NSNotification *)notification {
+    NSUInteger notificationIndex = [notification.object[@"index"] integerValue];
+    if (notificationIndex == self.pageIndex) {
+        NSLog(@"Page Index %d",self.pageIndex);
+        [self redoMove:nil];
+    }
+}
+
+- (void)undoNotification:(NSNotification *)notification {
+    NSUInteger notificationIndex = [notification.object[@"index"] integerValue];
+    if (notificationIndex == self.pageIndex) {
+        NSLog(@"Page Index %d",self.pageIndex);
+        [self undoMove:nil];
+    }
+}
+- (void)selectAllNotification:(NSNotification *)notification {
+    NSUInteger notificationIndex = [notification.object[@"index"] integerValue];
+    if (notificationIndex == self.pageIndex) {
+        NSLog(@"Page Index %d",self.pageIndex);
+        [self selectAll:nil];
+    }
+}
+
+- (void)deSelectAllNotification:(NSNotification *)notification {
+    NSUInteger notificationIndex = [notification.object[@"index"] integerValue];
+    if (notificationIndex == self.pageIndex) {
+        NSLog(@"Page Index %d",self.pageIndex);
+        [self deselectAll:nil];
     }
 
 }
 
+- (void)accumulateNotification:(NSNotification *)notification {
+    NSUInteger notificationIndex = [notification.object[@"index"] integerValue];
+    if (notificationIndex == self.pageIndex) {
+        NSLog(@"Page Index %d",self.pageIndex);
+        [self accumulate:nil];
+    }
+}
+
+
+- (void)pickColorNotification:(NSNotification *)notification {
+    NSUInteger notificationIndex = [notification.object[@"index"] integerValue];
+    if (notificationIndex == self.pageIndex) {
+        NSLog(@"Page Index %d",self.pageIndex);
+        [self colorPicker:nil];
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+
 
 }
 
 - (void)viewDidLayoutSubviews {
-     [self createImaginaryGrid];
+    [self createImaginaryGrid];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -92,10 +187,12 @@
 
         UILabel *viewLabel = [[UILabel alloc]init];
         viewLabel.text = alphabetArray[newDancer.tag];
+        newDancer.dancerTag = viewLabel.text;
         [viewLabel sizeToFit];
         viewLabel.textColor = [UIColor whiteColor];
         viewLabel.center = CGPointMake(newDancer.bounds.size.width/2, newDancer.bounds.size.height/2);
         [newDancer addSubview:viewLabel];
+        newDancer.tagTitle = viewLabel;
         [self.containerView addSubview:newDancer];
         [self.dancers addObject:newDancer];
         [self addLongPressGestures];
@@ -202,7 +299,6 @@
             }
         }
     }
-
     UIView *sampleView = [sortedView firstObject];
     CGFloat distantBetweenViews = gridSize;
     CGFloat positionOfFirstView = sampleView.center.x;
@@ -249,6 +345,7 @@
 }
 
 - (IBAction)colorPicker:(id)sender {
+    [self performSegueWithIdentifier:@"PickColor" sender:nil];
 }
 - (void)pickedColor:(UIColor *)color {
     for (UIView *view in self.selectedViews){
@@ -468,14 +565,17 @@
                 grid.isOccupied = YES;
                 grid.viewTag = view.tag;
                 isThereAnyViewInGridPosition = YES;
+                grid.dancerTag = view.dancerTag;
             }
         }
         if (!isThereAnyViewInGridPosition) {
             grid.isOccupied = NO;
             grid.content = nil;
             grid.viewTag = -1;
+            grid.dancerTag = nil;
         }
     }
+
 }
 
 - (void)alphabetArray {
@@ -496,7 +596,6 @@
             CGContextSetFillColorWithColor(ctx, [UIColor groupTableViewBackgroundColor].CGColor);
             CGContextFillEllipseInRect(ctx, CGRectInset(dotFrameHorizontal, 0, 0));
             CGPoint point = CGPointMake(i, j);
-            //
             if (![self isPointAlreadyStoredInGrid:point]) {
                 //Default initialization of Grid
                 Grid *grid = [Grid new];
@@ -516,7 +615,54 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     ColorPicker *viewController = (ColorPicker *)segue.destinationViewController;
     viewController.delegate = self;
-    
+
+}
+
+- (NSString*)formatTypeToString:(DancerActionNotifications)formatType {
+    NSString *result = nil;
+    NSLog(@"%u FORMAT TYPE ",formatType);
+    switch(formatType) {
+        case DNAddDancer:
+            result = @"DNAddDancer";
+            break;
+        case DNVerticalAlignment:
+            result = @"DNVerticalAlignment";
+            break;
+        case DNHorizontalAlignment:
+            result = @"DNHorizontalAlignment";
+            break;
+        case DNVerticallyEquidistant:
+            result = @"DNVerticallyEquidistant";
+            break;
+        case DNHorizontallyEquidistant:
+            result = @"DNHorizontallyEquidistant";
+            break;
+        case DNCircle:
+            result = @"DNCircle";
+            break;
+        case DNRedo:
+            result = @"DNRedo";
+            break;
+        case DNUndo:
+            result = @"DNUndo";
+            break;
+        case DNSelectAll:
+            result = @"DNSelectAll";
+            break;
+        case DNDeSelectAll:
+            result = @"DNDeSelectAll";
+            break;
+        case DNAcculmulate:
+            result = @"DNAcculmulate";
+            break;
+        case DNPickColor:
+            result = @"DNPickColor";
+            break;
+        default:
+            [NSException raise:NSGenericException format:@"Unexpected FormatType."];
+    }
+
+    return result;
 }
 
 

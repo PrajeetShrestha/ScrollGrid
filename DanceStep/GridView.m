@@ -24,7 +24,7 @@
 }
 
 - (void)viewStateSelected {
-    self.layer.borderColor = [UIColor blueColor].CGColor;
+    self.layer.borderColor = [UIColor yellowColor].CGColor;
     self.layer.borderWidth = 2.0f;
 }
 
@@ -49,8 +49,9 @@
 
 - (void)setColorWhenTouchedForFirstTime {
     if(!self.isColorSet) {
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor whiteColor];
         self.isColorSet = YES;
+        self.tagTitle.textColor = UIColorFromRGB(0x486D42);
     }
 }
 

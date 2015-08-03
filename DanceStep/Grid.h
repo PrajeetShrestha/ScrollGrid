@@ -14,6 +14,7 @@
 @property (nonatomic) CGPoint position;
 @property (nonatomic) id content;
 @property (nonatomic) NSUInteger viewTag;
+@property (nonatomic) NSString *dancerTag;
 
 - (BOOL)isEquivalentTo:(Grid *)grid;
 @end

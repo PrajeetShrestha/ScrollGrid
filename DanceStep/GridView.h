@@ -8,16 +8,20 @@
 
 #import <UIKit/UIKit.h>
 @class GridView;
+
 @protocol GridView <NSObject>
 - (void)dancerTouchBegan;
 - (void)dancerTouchEnd:(GridView *)view;
 - (void)dancerMoved;
 @end
+
 @interface GridView : UIView
 @property (nonatomic) CGPoint previousPosition;
 @property (nonatomic) CGPoint latestPosition;
 @property (nonatomic) BOOL isColorSet;
 @property (nonatomic,weak) id <GridView> delegate;
+@property (nonatomic) NSString *dancerTag;
+@property (nonatomic) UILabel *tagTitle;
 
 - (void)viewStateSelected;
 - (void)viewStateDeselected;

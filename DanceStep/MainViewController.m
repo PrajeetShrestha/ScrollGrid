@@ -8,17 +8,11 @@
 
 #import "MainViewController.h"
 
-typedef enum ScrollDirection {
-    ScrollDirectionNone,
-    ScrollDirectionRight,
-    ScrollDirectionLeft,
-    ScrollDirectionUp,
-    ScrollDirectionDown,
-    ScrollDirectionCrazy,
-} ScrollDirection;
+
 
 @interface MainViewController()<UIScrollViewDelegate> {
     NSUInteger indexOfPage;
+    UIScrollView *pageScroll;
 }
 @property (nonatomic, assign) CGFloat lastContentOffset;
 @end
@@ -26,39 +20,38 @@ typedef enum ScrollDirection {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.gridControllers = @[@1,@2,@3];
-    [self registerForNotification];
     indexOfPage = 0;
 }
 
 - (void)didReceiveMemoryWarning {
     NSLog(@"Memory warning received");
 }
-- (void)registerForNotification {
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pageIndexNotification:) name:@"IndexOfContent" object:nil];
-}
+
 - (void)viewDidLayoutSubviews {
-    [self setUpPages];
-    [self setScrollViewDelegate];
+
 }
 - (void)setScrollViewDelegate {
     for (UIScrollView *view in self.pageViewController.view.subviews){
         if ([view isKindOfClass:[UIScrollView class]]) {
             view.delegate = self;
+            pageScroll = view;
         }
     }
 }
-- (void)pageIndexNotification:(NSNotification *)notification {
-    if ([notification.name isEqualToString:@"IndexOfContent"]) {
-        NSDictionary *userInfo = notification.userInfo;
-        indexOfPage = [userInfo[@"index"] integerValue];
-        NSLog(@"%d Index Of page",indexOfPage);
-    }
-}
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    [self setUpPages];
+    [self setScrollViewDelegate];
+}
 - (void)setUpPages {
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
     self.pageViewController.dataSource = self;
     self.pageViewController.delegate = self;
+    self.pageViewController.automaticallyAdjustsScrollViewInsets = YES;
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+//    self.automaticallyAdjustsScrollViewInsets = NO;
 
     GridViewController *startingViewController = [self viewControllerAtIndex:0];
     NSArray *viewControllers = @[startingViewController];
@@ -110,16 +103,28 @@ typedef enum ScrollDirection {
     pageContentViewController.delegate = self;
     pageContentViewController.pageIndex = index;
     pageContentViewController.view.preservesSuperviewLayoutMargins = YES;
+    NSLog(@"%@ Frame ",NSStringFromCGRect(pageContentViewController.view.frame));
     return pageContentViewController;
 }
 
 #pragma mark - Touch Gestures
 - (void)touchesBegan {
     self.pageViewController.dataSource = nil;
+    pageScroll.bounces = YES;
 }
 
 - (void)touchesEnd {
     self.pageViewController.dataSource = self;
+}
+
+- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers {
+    GridViewController *vc = [pendingViewControllers lastObject];
+    vc.automaticallyAdjustsScrollViewInsets = NO;
+    if(vc.view.frame.size.height == 568) {
+            vc.view.frame = CGRectOffset(vc.view.frame, 0, 20);
+    }
+
+    NSLog(@"%@ FRAME ",NSStringFromCGRect(vc.view.frame));
 }
 
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
@@ -127,15 +132,7 @@ typedef enum ScrollDirection {
     GridViewController *vc = [pageViewController.viewControllers lastObject];
     indexOfPage = vc.pageIndex  ;
 }
-
-
-- (IBAction)addDancer:(id)sender {
-    NSDictionary *userInfo = @{
-                               @"index":[NSNumber numberWithInteger:indexOfPage]
-                               };
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"AddDancer" object:userInfo];
-}
-
+#pragma mark - ScrollView Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     ScrollDirection scrollDirection;
@@ -147,8 +144,206 @@ typedef enum ScrollDirection {
     }
     else if (self.lastContentOffset < scrollView.contentOffset.x) {
         scrollDirection = ScrollDirectionLeft;
-        NSLog(@"Scrolled Left");}
+    }
     self.lastContentOffset = scrollView.contentOffset.x;
 }
+
+#pragma mark - Actions
+- (IBAction)addDancer:(id)sender {
+    NSDictionary *userInfo = @{
+                               @"index":[NSNumber numberWithInteger:indexOfPage]
+                               };
+    [[NSNotificationCenter defaultCenter]postNotificationName:[self formatTypeToString:DNAddDancer] object:userInfo];
+}
+
+- (IBAction)verticalAlignment:(id)sender {
+    NSDictionary *userInfo = @{
+                               @"index":[NSNumber numberWithInteger:indexOfPage]
+                               };
+    [[NSNotificationCenter defaultCenter]postNotificationName:[self formatTypeToString:DNVerticalAlignment] object:userInfo];
+}
+- (IBAction)horizontalAlignment:(id)sender {
+    NSDictionary *userInfo = @{
+                               @"index":[NSNumber numberWithInteger:indexOfPage]
+                               };
+    [[NSNotificationCenter defaultCenter]postNotificationName:[self formatTypeToString:DNHorizontalAlignment] object:userInfo];
+}
+
+- (IBAction)verticallyEquidistant:(id)sender {
+    NSDictionary *userInfo = @{
+                               @"index":[NSNumber numberWithInteger:indexOfPage]
+                               };
+    [[NSNotificationCenter defaultCenter]postNotificationName:[self formatTypeToString:DNVerticallyEquidistant] object:userInfo];
+}
+
+- (IBAction)horizontallyEquidistant:(id)sender {
+    NSDictionary *userInfo = @{
+                               @"index":[NSNumber numberWithInteger:indexOfPage]
+                               };
+    [[NSNotificationCenter defaultCenter]postNotificationName:[self formatTypeToString:DNHorizontallyEquidistant] object:userInfo];
+}
+
+- (IBAction)circle:(id)sender {
+    NSDictionary *userInfo = @{
+                               @"index":[NSNumber numberWithInteger:indexOfPage]
+                               };
+    [[NSNotificationCenter defaultCenter]postNotificationName:[self formatTypeToString:DNCircle] object:userInfo];
+}
+
+- (IBAction)undo:(id)sender {
+    NSDictionary *userInfo = @{
+                               @"index":[NSNumber numberWithInteger:indexOfPage]
+                               };
+    [[NSNotificationCenter defaultCenter]postNotificationName:[self formatTypeToString:DNUndo] object:userInfo];
+}
+
+- (IBAction)redo:(id)sender {
+    NSDictionary *userInfo = @{
+                               @"index":[NSNumber numberWithInteger:indexOfPage]
+                               };
+    [[NSNotificationCenter defaultCenter]postNotificationName:[self formatTypeToString:DNRedo] object:userInfo];
+}
+
+- (IBAction)selectAllDancer:(id)sender {
+    NSDictionary *userInfo = @{
+                               @"index":[NSNumber numberWithInteger:indexOfPage]
+                               };
+    [[NSNotificationCenter defaultCenter]postNotificationName:[self formatTypeToString:DNSelectAll] object:userInfo];
+}
+
+- (IBAction)deselectAllDancer:(id)sender {
+    NSDictionary *userInfo = @{
+                               @"index":[NSNumber numberWithInteger:indexOfPage]
+                               };
+    [[NSNotificationCenter defaultCenter]postNotificationName:[self formatTypeToString:DNDeSelectAll] object:userInfo];
+}
+
+- (IBAction)accumulate:(id)sender {
+    NSDictionary *userInfo = @{
+                               @"index":[NSNumber numberWithInteger:indexOfPage]
+                               };
+    [[NSNotificationCenter defaultCenter]postNotificationName:[self formatTypeToString:DNAcculmulate] object:userInfo];
+}
+
+- (IBAction)pickColor:(id)sender {
+    NSDictionary *userInfo = @{
+                               @"index":[NSNumber numberWithInteger:indexOfPage]
+                               };
+    [[NSNotificationCenter defaultCenter]postNotificationName:[self formatTypeToString:DNPickColor] object:userInfo];
+}
+
+//Convert ENUM to String
+- (NSString*)formatTypeToString:(DancerActionNotifications)formatType {
+    NSString *result = nil;
+    NSLog(@"%u FORMAT TYPE ",formatType);
+    switch(formatType) {
+        case DNAddDancer:
+            result = @"DNAddDancer";
+            break;
+        case DNVerticalAlignment:
+            result = @"DNVerticalAlignment";
+            break;
+        case DNHorizontalAlignment:
+            result = @"DNHorizontalAlignment";
+            break;
+        case DNVerticallyEquidistant:
+            result = @"DNVerticallyEquidistant";
+            break;
+        case DNHorizontallyEquidistant:
+            result = @"DNHorizontallyEquidistant";
+            break;
+        case DNCircle:
+            result = @"DNCircle";
+            break;
+        case DNRedo:
+            result = @"DNRedo";
+            break;
+        case DNUndo:
+            result = @"DNUndo";
+            break;
+        case DNSelectAll:
+            result = @"DNSelectAll";
+            break;
+        case DNDeSelectAll:
+            result = @"DNDeSelectAll";
+            break;
+        case DNAcculmulate:
+            result = @"DNAcculmulate";
+            break;
+        case DNPickColor:
+            result = @"DNPickColor";
+            break;
+        default:
+            [NSException raise:NSGenericException format:@"Unexpected FormatType."];
+    }
+
+    return result;
+}
+
+
+//- (void)loadImageScrollerWithCardView:(NSString *)cardView
+//{
+//    for (UIView *view in _imageScroller.subviews ) {
+//        [view removeFromSuperview ];
+//    }
+//    NSArray *imgArray = @[@"tc01.png",@"tc01.png",@"tc01.png"];
+//
+//    CGRect imageScrollerBound = _imageScroller.bounds;
+//    CGFloat imageScrollerMinY = CGRectGetMinY(imageScrollerBound);
+//    CGFloat imageScrollerHeight = CGRectGetHeight(imageScrollerBound);
+//    CGFloat imageScrollerWidth = CGRectGetWidth(imageScrollerBound);
+//
+//    [_imageScroller.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+//
+//    _imageScroller.delegate = self;
+//
+//    if ([cardView isEqualToString:@"TimerView"]) {
+//        _imageScroller.contentSize = CGSizeMake(1 *imageScrollerWidth, imageScrollerHeight);
+//        CGRect frame = CGRectMake(0, imageScrollerMinY, imageScrollerWidth, imageScrollerHeight);
+//        HazView *pagarView = [[HazView alloc]initWithView:cardView];
+//        pagarView.frame = frame;
+//        [pagarView setViewsForTimerView];
+//        [pagarView startTimer];
+//        [timers addObject:pagarView.myTimer];
+//        [_imageScroller addSubview:pagarView];
+//        pagarView.delegate = self;
+//
+//    } else {
+//        for (int i = 0; i < imgArray.count; i++) {
+//            _imageScroller.contentSize = CGSizeMake((unsigned long)imgArray.count *imageScrollerWidth, imageScrollerHeight);
+//            CGRect frame = CGRectMake(i * imageScrollerWidth, imageScrollerMinY, imageScrollerWidth, imageScrollerHeight);
+//            HazView *pagarView = [[HazView alloc]initWithView:cardView];
+//            pagarView.frame = frame;
+//
+//            pagarView.delegate = self;
+//            if ([cardView isEqualToString:@"HazView"]) {
+//                pagarView.message.text = @"Haz click en la superficie de la tarjeta para activarla y permitir los pagos móviles";
+//
+//                //            } else if([cardView isEqualToString:@"TimerView"]) {
+//                //                [pagarView setViewsForTimerView];
+//                //                [pagarView startTimer];
+//                //                [timers addObject:pagarView.myTimer];
+//                //            }
+//
+//            }
+//            [_imageScroller addSubview:pagarView];
+//
+//        }
+//    }
+//
+//    CGRect imageScrollerFrame = _imageScroller.frame;
+//    CGFloat minx = CGRectGetMinX(imageScrollerFrame);
+//    CGFloat maxy = CGRectGetMaxY(imageScrollerFrame);
+//    CGFloat width = CGRectGetWidth(imageScrollerFrame);
+//    //Add page control
+//    pageControl = [UIPageControl new];
+//    pageControl.frame = CGRectMake(minx, maxy , width, 20);
+//    pageControl.numberOfPages = 3;//imgArray.count;
+//    pageControl.enabled = NO;
+//    pageControl.pageIndicatorTintColor = [UIColor whiteColor];
+//    pageControl.currentPageIndicatorTintColor = [UIColor redColor];
+//    [self.view addSubview:pageControl];
+//}
+
 
 @end

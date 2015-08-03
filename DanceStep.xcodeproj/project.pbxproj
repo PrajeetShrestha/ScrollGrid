@@ -19,6 +19,7 @@
 		25691D7A1B60965200D28FDD /* DanceStepTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 25691D791B60965200D28FDD /* DanceStepTests.m */; };
 		256E7AA21B68D25D000C1208 /* GridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 256E7AA11B68D25D000C1208 /* GridView.m */; };
 		2585A3521B6A145A001AAAFC /* brush.png in Resources */ = {isa = PBXBuildFile; fileRef = 2585A3511B6A145A001AAAFC /* brush.png */; };
+		259601CE1B6F7B5400C715CB /* ButtonWithThinBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 259601CD1B6F7B5400C715CB /* ButtonWithThinBorder.m */; };
 		25ECB09A1B67321800B649A0 /* Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = 25ECB0991B67321800B649A0 /* Grid.m */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,8 @@
 		2585A34E1B6A12EF001AAAFC /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		2585A34F1B6A1341001AAAFC /* Constant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 		2585A3511B6A145A001AAAFC /* brush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brush.png; sourceTree = "<group>"; };
+		259601CC1B6F7B5400C715CB /* ButtonWithThinBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonWithThinBorder.h; sourceTree = "<group>"; };
+		259601CD1B6F7B5400C715CB /* ButtonWithThinBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonWithThinBorder.m; sourceTree = "<group>"; };
 		25ECB0981B67321800B649A0 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
 		25ECB0991B67321800B649A0 /* Grid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Grid.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,10 +104,10 @@
 			children = (
 				25691D5E1B60965200D28FDD /* AppDelegate.h */,
 				25691D5F1B60965200D28FDD /* AppDelegate.m */,
-				25691D641B60965200D28FDD /* GridViewController.h */,
-				25691D651B60965200D28FDD /* GridViewController.m */,
 				2511CC241B6B4CCC00BA28DC /* MainViewController.h */,
 				2511CC251B6B4CCC00BA28DC /* MainViewController.m */,
+				25691D641B60965200D28FDD /* GridViewController.h */,
+				25691D651B60965200D28FDD /* GridViewController.m */,
 				256E7AA01B68D25D000C1208 /* GridView.h */,
 				256E7AA11B68D25D000C1208 /* GridView.m */,
 				25ECB0981B67321800B649A0 /* Grid.h */,
@@ -112,6 +115,8 @@
 				2539AAF31B60EB2800C92B8C /* ColorPicker.h */,
 				2539AAF41B60EB2800C92B8C /* ColorPicker.m */,
 				25691D671B60965200D28FDD /* Main.storyboard */,
+				259601CC1B6F7B5400C715CB /* ButtonWithThinBorder.h */,
+				259601CD1B6F7B5400C715CB /* ButtonWithThinBorder.m */,
 				2585A3511B6A145A001AAAFC /* brush.png */,
 				2585A3501B6A134D001AAAFC /* Globals */,
 				25691D6A1B60965200D28FDD /* Images.xcassets */,
@@ -264,6 +269,7 @@
 				2511CC261B6B4CCC00BA28DC /* MainViewController.m in Sources */,
 				25691D601B60965200D28FDD /* AppDelegate.m in Sources */,
 				25691D631B60965200D28FDD /* DanceStep.xcdatamodeld in Sources */,
+				259601CE1B6F7B5400C715CB /* ButtonWithThinBorder.m in Sources */,
 				25691D661B60965200D28FDD /* GridViewController.m in Sources */,
 				25691D5D1B60965200D28FDD /* main.m in Sources */,
 			);

@@ -10,9 +10,11 @@
 #import "GridViewController.h"
 
 @interface MainViewController : UIViewController<UIPageViewControllerDataSource,UIPageViewControllerDelegate,GridViewController>
+
 @property (weak, nonatomic) IBOutlet UIView *container;
 @property (strong, nonatomic) UIPageViewController *pageViewController;
 @property (nonatomic) NSArray *gridControllers;
+
 - (IBAction)addDancer:(id)sender;
 
 @end
