@@ -51,7 +51,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ihj-Sc-Agy" customClass="ButtonWithThinBorder">
-                                        <rect key="frame" x="8" y="62" width="47" height="24"/>
+                                        <rect key="frame" x="13" y="62" width="47" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                         <state key="normal" title="V-Align">
@@ -63,7 +63,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6uE-Kc-N4B" customClass="ButtonWithThinBorder">
-                                        <rect key="frame" x="8" y="116" width="49" height="24"/>
+                                        <rect key="frame" x="12" y="116" width="49" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                         <state key="normal" title="H-Align">
@@ -75,7 +75,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t35-Fv-A1t" customClass="ButtonWithThinBorder">
-                                        <rect key="frame" x="82" y="8" width="59" height="24"/>
+                                        <rect key="frame" x="85" y="8" width="59" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                         <state key="normal" title="Select All">
@@ -87,7 +87,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FBf-Fh-kKn" customClass="ButtonWithThinBorder">
-                                        <rect key="frame" x="82" y="62" width="68" height="24"/>
+                                        <rect key="frame" x="81" y="62" width="68" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                         <state key="normal" title="DeselectAll">
@@ -99,7 +99,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uz9-jY-UWI" customClass="ButtonWithThinBorder">
-                                        <rect key="frame" x="171" y="8" width="81" height="24"/>
+                                        <rect key="frame" x="164" y="8" width="81" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                         <state key="normal" title="H-Equidistant">
@@ -111,7 +111,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wGT-06-Lw6" customClass="ButtonWithThinBorder">
-                                        <rect key="frame" x="167" y="62" width="79" height="24"/>
+                                        <rect key="frame" x="165" y="62" width="79" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                         <state key="normal" title="V-Equidistant">
@@ -123,7 +123,7 @@
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9cO-uK-6RL">
-                                        <rect key="frame" x="85" y="116" width="46" height="24"/>
+                                        <rect key="frame" x="89" y="116" width="46" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <state key="normal" title="PickColor">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -134,7 +134,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Xm-h1-KiG" customClass="ButtonWithThinBorder">
-                                        <rect key="frame" x="272" y="8" width="38" height="24"/>
+                                        <rect key="frame" x="265" y="8" width="38" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                         <state key="normal" title="Undo">
@@ -146,7 +146,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DN5-cI-0UP" customClass="ButtonWithThinBorder">
-                                        <rect key="frame" x="268" y="62" width="38" height="24"/>
+                                        <rect key="frame" x="265" y="62" width="38" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                         <state key="normal" title="Redo">
@@ -160,24 +160,24 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.28235294119999998" green="0.42745098040000001" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="t35-Fv-A1t" firstAttribute="centerX" secondItem="FBf-Fh-kKn" secondAttribute="centerX" id="2dr-mr-6wj"/>
                                     <constraint firstAttribute="bottom" secondItem="6uE-Kc-N4B" secondAttribute="bottom" constant="8" id="85i-rW-vtv"/>
-                                    <constraint firstItem="DN5-cI-0UP" firstAttribute="leading" secondItem="wGT-06-Lw6" secondAttribute="trailing" constant="22" id="Ej7-hd-R7s"/>
-                                    <constraint firstItem="t35-Fv-A1t" firstAttribute="leading" secondItem="Nle-fn-jC3" secondAttribute="trailing" constant="17" id="JYH-ki-pFd"/>
-                                    <constraint firstItem="Ihj-Sc-Agy" firstAttribute="leading" secondItem="6uE-Kc-N4B" secondAttribute="leading" id="Jrf-Wm-dFd"/>
+                                    <constraint firstItem="Ihj-Sc-Agy" firstAttribute="centerX" secondItem="Nle-fn-jC3" secondAttribute="centerX" id="JLB-08-h0V"/>
+                                    <constraint firstItem="t35-Fv-A1t" firstAttribute="leading" secondItem="Nle-fn-jC3" secondAttribute="trailing" constant="20" id="JYH-ki-pFd"/>
+                                    <constraint firstItem="uz9-jY-UWI" firstAttribute="centerX" secondItem="wGT-06-Lw6" secondAttribute="centerX" id="L1X-yP-wub"/>
+                                    <constraint firstItem="DN5-cI-0UP" firstAttribute="centerX" secondItem="3Xm-h1-KiG" secondAttribute="centerX" id="MtV-yW-bSZ"/>
                                     <constraint firstItem="3Xm-h1-KiG" firstAttribute="leading" secondItem="uz9-jY-UWI" secondAttribute="trailing" constant="20" id="NKB-li-e7x"/>
-                                    <constraint firstItem="uz9-jY-UWI" firstAttribute="leading" secondItem="t35-Fv-A1t" secondAttribute="trailing" constant="30" id="Oa2-MI-u8B"/>
+                                    <constraint firstItem="uz9-jY-UWI" firstAttribute="leading" secondItem="t35-Fv-A1t" secondAttribute="trailing" constant="20" id="Oa2-MI-u8B"/>
                                     <constraint firstItem="wGT-06-Lw6" firstAttribute="centerY" secondItem="FBf-Fh-kKn" secondAttribute="centerY" id="QZw-rU-cMm"/>
-                                    <constraint firstItem="wGT-06-Lw6" firstAttribute="leading" secondItem="FBf-Fh-kKn" secondAttribute="trailing" constant="17" id="Rc9-OO-G9V"/>
                                     <constraint firstItem="9cO-uK-6RL" firstAttribute="leading" secondItem="6uE-Kc-N4B" secondAttribute="trailing" constant="28" id="TXT-Si-JJQ"/>
+                                    <constraint firstItem="Ihj-Sc-Agy" firstAttribute="centerX" secondItem="6uE-Kc-N4B" secondAttribute="centerX" id="Tf4-01-ZU4"/>
                                     <constraint firstAttribute="centerY" secondItem="Ihj-Sc-Agy" secondAttribute="centerY" id="U8D-R5-s6j"/>
-                                    <constraint firstItem="Ihj-Sc-Agy" firstAttribute="leading" secondItem="Nle-fn-jC3" secondAttribute="leading" id="Wun-c8-ejE"/>
                                     <constraint firstItem="uz9-jY-UWI" firstAttribute="centerY" secondItem="t35-Fv-A1t" secondAttribute="centerY" id="Wye-rW-uRd"/>
                                     <constraint firstItem="Nle-fn-jC3" firstAttribute="centerY" secondItem="t35-Fv-A1t" secondAttribute="centerY" id="ZMd-Yf-B9w"/>
                                     <constraint firstItem="FBf-Fh-kKn" firstAttribute="centerY" secondItem="Ihj-Sc-Agy" secondAttribute="centerY" id="c1k-iD-Dt2"/>
                                     <constraint firstAttribute="height" constant="148" id="csy-yt-kQr"/>
-                                    <constraint firstItem="FBf-Fh-kKn" firstAttribute="leading" secondItem="t35-Fv-A1t" secondAttribute="leading" id="e00-b1-Zpg"/>
                                     <constraint firstItem="uz9-jY-UWI" firstAttribute="centerY" secondItem="3Xm-h1-KiG" secondAttribute="centerY" id="guL-Nw-RAY"/>
-                                    <constraint firstItem="uz9-jY-UWI" firstAttribute="leading" secondItem="t35-Fv-A1t" secondAttribute="trailing" constant="30" id="i1g-vF-uvX"/>
+                                    <constraint firstItem="uz9-jY-UWI" firstAttribute="leading" secondItem="t35-Fv-A1t" secondAttribute="trailing" constant="20" id="i1g-vF-uvX"/>
                                     <constraint firstItem="wGT-06-Lw6" firstAttribute="centerY" secondItem="DN5-cI-0UP" secondAttribute="centerY" id="kFc-V9-SHP"/>
                                     <constraint firstItem="9cO-uK-6RL" firstAttribute="centerY" secondItem="6uE-Kc-N4B" secondAttribute="centerY" id="l95-0v-JRY"/>
                                     <constraint firstItem="Nle-fn-jC3" firstAttribute="leading" secondItem="5dY-QD-54H" secondAttribute="leading" constant="8" id="odN-71-a1q"/>
