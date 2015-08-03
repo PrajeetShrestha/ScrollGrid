@@ -7,9 +7,20 @@
 //
 
 #import "MainViewController.h"
-@interface MainViewController() {
+
+typedef enum ScrollDirection {
+    ScrollDirectionNone,
+    ScrollDirectionRight,
+    ScrollDirectionLeft,
+    ScrollDirectionUp,
+    ScrollDirectionDown,
+    ScrollDirectionCrazy,
+} ScrollDirection;
+
+@interface MainViewController()<UIScrollViewDelegate> {
     NSUInteger indexOfPage;
 }
+@property (nonatomic, assign) CGFloat lastContentOffset;
 @end
 @implementation MainViewController
 - (void)viewDidLoad {
@@ -17,7 +28,6 @@
     self.gridControllers = @[@1,@2,@3];
     [self registerForNotification];
     indexOfPage = 0;
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -27,7 +37,15 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pageIndexNotification:) name:@"IndexOfContent" object:nil];
 }
 - (void)viewDidLayoutSubviews {
-    [self setUpPages]   ;
+    [self setUpPages];
+    [self setScrollViewDelegate];
+}
+- (void)setScrollViewDelegate {
+    for (UIScrollView *view in self.pageViewController.view.subviews){
+        if ([view isKindOfClass:[UIScrollView class]]) {
+            view.delegate = self;
+        }
+    }
 }
 - (void)pageIndexNotification:(NSNotification *)notification {
     if ([notification.name isEqualToString:@"IndexOfContent"]) {
@@ -48,12 +66,9 @@
 
     // Change the size of page view controller
     self.pageViewController.view.frame = self.container.bounds;//CGRectMake(0, 0, self.container.bounds.size.width, self.container.bounds.size.height);
-
     [self addChildViewController:_pageViewController];
     [self.container addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
-
-    
 }
 
 #pragma mark - Page View Controller Data Source
@@ -120,4 +135,20 @@
                                };
     [[NSNotificationCenter defaultCenter]postNotificationName:@"AddDancer" object:userInfo];
 }
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    ScrollDirection scrollDirection;
+    if (self.lastContentOffset > scrollView.contentOffset.x) {
+        scrollDirection = ScrollDirectionRight;
+        if (indexOfPage == 0) {
+            scrollView.bounces = NO;
+        }
+    }
+    else if (self.lastContentOffset < scrollView.contentOffset.x) {
+        scrollDirection = ScrollDirectionLeft;
+        NSLog(@"Scrolled Left");}
+    self.lastContentOffset = scrollView.contentOffset.x;
+}
+
 @end
