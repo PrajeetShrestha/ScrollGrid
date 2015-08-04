@@ -28,9 +28,8 @@
     _gridViews = [NSMutableArray new];
     [self setUpScrollViewProperties];
     [self registerNotifications];
-
-
 }
+
 //RegisterForNotifications
 -(void)registerNotifications {
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(dancerTouchBeganNotification:) name:kDancerTouchBeganNotification  object:nil];
@@ -51,8 +50,6 @@
 - (void)dancerTouchEndNotification:(NSNotification *)notification {
     self.scrollEnabled = YES;
 }
-
-
 
 - (void)setUpScrollViewProperties {
     self.bounces = NO;
@@ -135,7 +132,30 @@
     //Everytime we scroll left another view is added at the last.
     if (_indexPage == _viewArray.count) {
         [_viewArray addObject:@"t3.png"];
-        [self loadScroller:self.viewClass];
+        //[self loadScroller:self.viewClass];
+        [self appendNewViewInScroller];
     }
+}
+
+- (void)appendNewViewInScroller {
+
+    CGRect  scrollerBound  = self.bounds;
+    CGFloat scrollerMinY   = CGRectGetMinY(scrollerBound);
+    CGFloat scrollerHeight = CGRectGetHeight(scrollerBound);
+    CGFloat scrollerWidth  = CGRectGetWidth(scrollerBound);
+
+    self.contentSize = CGSizeMake((unsigned long)(_viewArray.count + 1) *scrollerWidth, scrollerHeight);
+    CGRect frame = CGRectMake((_viewArray.count -1) * scrollerWidth, scrollerMinY, scrollerWidth, scrollerHeight);
+    UIView *view = [[_viewClass alloc]initWithFrame:frame];
+    view.backgroundColor = [UIColor grayColor];
+    [_gridViews addObject:view];
+    [self addSubview:view];
+
+    //Extra view So that scroll view can scroll
+    CGRect lastViewFrame = CGRectMake((_viewArray.count) * scrollerWidth, scrollerMinY, scrollerWidth, scrollerHeight);
+    UIView *lastView = [[_viewClass alloc]initWithFrame:lastViewFrame];
+    lastView.backgroundColor = [UIColor grayColor];
+    [self addSubview:lastView];
+    
 }
 @end
