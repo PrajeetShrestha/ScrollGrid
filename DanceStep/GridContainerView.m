@@ -70,7 +70,7 @@
             }
         }
     }
-    [self logGridPoints];
+    //[self logGridPoints];
 }
 
 -(BOOL)isPointAlreadyStoredInGrid:(CGPoint)point {

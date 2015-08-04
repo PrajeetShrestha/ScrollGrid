@@ -22,9 +22,6 @@
 		259601CE1B6F7B5400C715CB /* ButtonWithThinBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 259601CD1B6F7B5400C715CB /* ButtonWithThinBorder.m */; };
 		25DF1C6F1B70AE2400CDBE70 /* GridScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 25DF1C6E1B70AE2400CDBE70 /* GridScrollView.m */; };
 		25DF1C721B70AE7900CDBE70 /* DanceStepEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25DF1C711B70AE7900CDBE70 /* DanceStepEditorViewController.m */; };
-		25DF1C761B70AF6F00CDBE70 /* t1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 25DF1C731B70AF6F00CDBE70 /* t1.jpg */; };
-		25DF1C771B70AF6F00CDBE70 /* t2.png in Resources */ = {isa = PBXBuildFile; fileRef = 25DF1C741B70AF6F00CDBE70 /* t2.png */; };
-		25DF1C781B70AF6F00CDBE70 /* t3.png in Resources */ = {isa = PBXBuildFile; fileRef = 25DF1C751B70AF6F00CDBE70 /* t3.png */; };
 		25DF1C7B1B70B0E300CDBE70 /* GridContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 25DF1C7A1B70B0E300CDBE70 /* GridContainerView.m */; };
 		25ECB09A1B67321800B649A0 /* Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = 25ECB0991B67321800B649A0 /* Grid.m */; };
 /* End PBXBuildFile section */
@@ -69,9 +66,6 @@
 		25DF1C6E1B70AE2400CDBE70 /* GridScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridScrollView.m; sourceTree = "<group>"; };
 		25DF1C701B70AE7900CDBE70 /* DanceStepEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DanceStepEditorViewController.h; sourceTree = "<group>"; };
 		25DF1C711B70AE7900CDBE70 /* DanceStepEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DanceStepEditorViewController.m; sourceTree = "<group>"; };
-		25DF1C731B70AF6F00CDBE70 /* t1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = t1.jpg; sourceTree = "<group>"; };
-		25DF1C741B70AF6F00CDBE70 /* t2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = t2.png; sourceTree = "<group>"; };
-		25DF1C751B70AF6F00CDBE70 /* t3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = t3.png; sourceTree = "<group>"; };
 		25DF1C791B70B0E300CDBE70 /* GridContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridContainerView.h; sourceTree = "<group>"; };
 		25DF1C7A1B70B0E300CDBE70 /* GridContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridContainerView.m; sourceTree = "<group>"; };
 		25ECB0981B67321800B649A0 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
@@ -138,9 +132,6 @@
 				25691D671B60965200D28FDD /* Main.storyboard */,
 				259601CC1B6F7B5400C715CB /* ButtonWithThinBorder.h */,
 				259601CD1B6F7B5400C715CB /* ButtonWithThinBorder.m */,
-				25DF1C731B70AF6F00CDBE70 /* t1.jpg */,
-				25DF1C741B70AF6F00CDBE70 /* t2.png */,
-				25DF1C751B70AF6F00CDBE70 /* t3.png */,
 				2585A3511B6A145A001AAAFC /* brush.png */,
 				2585A3501B6A134D001AAAFC /* Globals */,
 				25691D6A1B60965200D28FDD /* Images.xcassets */,
@@ -266,9 +257,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				25DF1C761B70AF6F00CDBE70 /* t1.jpg in Resources */,
-				25DF1C771B70AF6F00CDBE70 /* t2.png in Resources */,
-				25DF1C781B70AF6F00CDBE70 /* t3.png in Resources */,
 				2585A3521B6A145A001AAAFC /* brush.png in Resources */,
 				25691D691B60965200D28FDD /* Main.storyboard in Resources */,
 				25691D6E1B60965200D28FDD /* LaunchScreen.xib in Resources */,

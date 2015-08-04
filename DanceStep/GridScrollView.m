@@ -30,7 +30,21 @@
     [self registerNotifications];
 }
 
+- (void)setUpScrollViewProperties {
+    self.bounces = NO;
+    self.pagingEnabled = YES;
+    self.delegate = self;
+}
+
+- (void)removeAllSubviewsFromScroller {
+    for (UIView *view in self.subviews) {
+        [view removeFromSuperview];
+    }
+}
+
+
 //RegisterForNotifications
+#pragma mark - Notification Observers
 -(void)registerNotifications {
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(dancerTouchBeganNotification:) name:kDancerTouchBeganNotification  object:nil];
 
@@ -49,18 +63,6 @@
 
 - (void)dancerTouchEndNotification:(NSNotification *)notification {
     self.scrollEnabled = YES;
-}
-
-- (void)setUpScrollViewProperties {
-    self.bounces = NO;
-    self.pagingEnabled = YES;
-    self.delegate = self;
-}
-
-- (void)removeAllSubviewsFromScroller {
-    for (UIView *view in self.subviews) {
-        [view removeFromSuperview];
-    }
 }
 
 #pragma mark - Public Methods
@@ -89,22 +91,22 @@
 // Method to display page number of scrollView.
 - (void)loadIndexLabel {
     _indexLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.frame.origin.x + 2, self.frame.origin.y + 2, 100, 100)];
-    _indexLabel.textColor = [UIColor whiteColor];
-    _indexLabel.text = [NSString stringWithFormat:@" %d ",(int)_indexPage];
-    _indexLabel.backgroundColor = [UIColor orangeColor];
+    _indexLabel.textColor = [UIColor darkGrayColor];
+    _indexLabel.text = [NSString stringWithFormat:@" Grid-%d ",(int)_indexPage];
+    _indexLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
     [_indexLabel sizeToFit];
     //_indexLabel.clipsToBounds = YES;
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:_indexLabel.bounds];
     _indexLabel.layer.masksToBounds = NO;
     _indexLabel.layer.shadowColor = [UIColor whiteColor].CGColor;
-    _indexLabel.layer.shadowOffset = CGSizeMake(3.0f, 2.0f);
-    _indexLabel.layer.shadowOpacity = 0.5f;
+    _indexLabel.layer.shadowOffset = CGSizeMake(2.0f, 1.0f);
+    _indexLabel.layer.shadowOpacity = 0.6f;
     _indexLabel.layer.shadowPath = shadowPath.CGPath;
     [self.superview addSubview:_indexLabel];
 }
 
 - (UIView *)getCurrentView {
-    NSLog(@"%@ Grid View",_gridViews[(int)_indexPage]);
+    //NSLog(@"%@ Grid View",_gridViews[(int)_indexPage]);
     return _gridViews[(int)_indexPage];
 }
 
@@ -113,7 +115,7 @@
 {
     //Calculating which page is user in
     _indexPage = floor(scrollView.contentOffset.x / CGRectGetWidth(scrollView.bounds));
-    _indexLabel.text = [NSString stringWithFormat:@" %d ",(int)_indexPage];
+    _indexLabel.text = [NSString stringWithFormat:@" Grid-%d ",(int)_indexPage];
     [_indexLabel sizeToFit];
 
     //Shows the direction that user is dragging the scrollview
@@ -151,7 +153,7 @@
     [_gridViews addObject:view];
     [self addSubview:view];
 
-    //Extra view So that scroll view can scroll
+    //Extra view So that scroll view can scrollleft
     CGRect lastViewFrame = CGRectMake((_viewArray.count) * scrollerWidth, scrollerMinY, scrollerWidth, scrollerHeight);
     UIView *lastView = [[_viewClass alloc]initWithFrame:lastViewFrame];
     lastView.backgroundColor = [UIColor grayColor];
