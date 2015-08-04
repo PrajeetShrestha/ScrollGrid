@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Grid.h"
+#import "DancerView.h"  
 
 @interface GridContainerView : UIView
 @property NSMutableArray *grids;
 - (void)initializeGrids;
+- (void)addDancer;
 - (Grid *)getGridAtIndex:(NSUInteger)index;
 - (void)setGridAtIndex:(Grid *)grid atIndex:(NSUInteger)index;
 @end

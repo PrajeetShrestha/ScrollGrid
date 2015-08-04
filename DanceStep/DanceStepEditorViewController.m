@@ -22,4 +22,8 @@
     [self.gridScroller loadIndexLabel];
 
 }
+- (IBAction)addDancer:(id)sender {
+  GridContainerView *containerView =(GridContainerView *) [self.gridScroller getCurrentView];
+    [containerView addDancer];
+}
 @end

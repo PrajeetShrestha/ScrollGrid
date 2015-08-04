@@ -66,7 +66,7 @@
 }
 // Method to display page number of scrollView.
 - (void)loadIndexLabel {
-    _indexLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.frame.origin.x + 20, self.frame.origin.y + 20, 100, 100)];
+    _indexLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.frame.origin.x + 2, self.frame.origin.y + 2, 100, 100)];
     _indexLabel.textColor = [UIColor whiteColor];
     _indexLabel.text = [NSString stringWithFormat:@" %d ",(int)_indexPage];
     _indexLabel.backgroundColor = [UIColor orangeColor];

@@ -413,7 +413,7 @@
     }];
 }
 
-#pragma mark - GridView Delegate
+#pragma mark - DancerView Delegate
 - (void)dancerTouchBegan {
     [self upDateGridContents];
     [self.delegate touchesBegan];
@@ -489,15 +489,6 @@
 }
 
 #pragma mark - Private Methods
-
-- (BOOL)isActiveViewMovable {
-    if ([self.dancers containsObject:self.activeView]) {
-        return YES;
-    } else {
-        return NO;
-    }
-}
-
 // To make view draggable on move touch event
 
 - (void)clearSelectedViews {

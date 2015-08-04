@@ -12,4 +12,5 @@
 @interface DanceStepEditorViewController : UIViewController
 @property (weak, nonatomic) IBOutlet GridScrollView *gridScroller;
 
+- (IBAction)addDancer:(id)sender;
 @end
