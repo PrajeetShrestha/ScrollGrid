@@ -27,7 +27,32 @@
     _viewArray = [NSMutableArray new];
     _gridViews = [NSMutableArray new];
     [self setUpScrollViewProperties];
+    [self registerNotifications];
+
+
 }
+//RegisterForNotifications
+-(void)registerNotifications {
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(dancerTouchBeganNotification:) name:kDancerTouchBeganNotification  object:nil];
+
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(dancerTouchMovedNotification:) name:kDancerTouchMoveNotification object:nil];
+
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(dancerTouchEndNotification:) name:kDancerTouchEndNotification object:nil];
+}
+
+- (void)dancerTouchBeganNotification:(NSNotification *)notification {
+    self.scrollEnabled = NO;
+}
+
+- (void)dancerTouchMovedNotification:(NSNotification *)notification {
+
+}
+
+- (void)dancerTouchEndNotification:(NSNotification *)notification {
+    self.scrollEnabled = YES;
+}
+
+
 
 - (void)setUpScrollViewProperties {
     self.bounces = NO;

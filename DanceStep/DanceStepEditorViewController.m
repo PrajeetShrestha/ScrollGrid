@@ -20,10 +20,10 @@
     [self.gridScroller.viewArray addObject:@"t1.jpg"];
     [self.gridScroller loadScroller:[GridContainerView class]];
     [self.gridScroller loadIndexLabel];
-
 }
+
 - (IBAction)addDancer:(id)sender {
-  GridContainerView *containerView =(GridContainerView *) [self.gridScroller getCurrentView];
+    GridContainerView *containerView =(GridContainerView *) [self.gridScroller getCurrentView];
     [containerView addDancer];
 }
 @end

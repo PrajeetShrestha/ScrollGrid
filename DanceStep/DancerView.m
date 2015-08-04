@@ -67,6 +67,7 @@
     [self setColorWhenTouchedForFirstTime];
     [self expand];
     [self.delegate dancerTouchBegan];
+    [[NSNotificationCenter defaultCenter]postNotificationName:kDancerTouchBeganNotification object:nil];
 }
 
 - (void) touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
@@ -94,12 +95,13 @@
     self.center = newcenter;
     [self.delegate dancerMoved];
     [NSNumber numberWithBool:YES];
-
+    [[NSNotificationCenter defaultCenter]postNotificationName:kDancerTouchMoveNotification object:nil];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     [self shrink];
     [self.delegate dancerTouchEnd:self];
+    [[NSNotificationCenter defaultCenter]postNotificationName:kDancerTouchEndNotification object:nil];
 }
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
 

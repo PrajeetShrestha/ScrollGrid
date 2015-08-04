@@ -34,4 +34,9 @@ typedef enum DancerActionNotifications {
     DNAcculmulate,
     DNPickColor
 } DancerActionNotifications;
+
+#define kDancerTouchBeganNotification @"DancerTouch"
+#define kDancerTouchMoveNotification @"DancerMove"
+#define kDancerTouchEndNotification @"DancerEnd"
+
 #endif

@@ -25,7 +25,6 @@
         undoManager = [NSUndoManager new];
         self.dancers = [NSMutableArray new];
         self.grids = [NSMutableArray new];
-
         gridSize = self.frame.size.width/11;
         [self setAlphabetArray];
         [self initializeGrids];
