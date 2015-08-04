@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="VhM-mO-zRD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0dt-ho-QGq">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -202,6 +202,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pfb-iB-H1w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1452" y="111"/>
+        </scene>
+        <!--Dance Step Editor View Controller-->
+        <scene sceneID="bWL-Wj-T16">
+            <objects>
+                <viewController id="0dt-ho-QGq" customClass="DanceStepEditorViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Fai-h1-g61"/>
+                        <viewControllerLayoutGuide type="bottom" id="W4A-1w-9It"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="w7Z-f6-ezD">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KJe-l4-yf5" customClass="GridScrollView">
+                                <rect key="frame" x="0.0" y="28" width="600" height="307"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="KJe-l4-yf5" secondAttribute="height" multiplier="600:307" id="0xj-Mv-uM1"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="KJe-l4-yf5" secondAttribute="trailing" id="DHT-eO-MvU"/>
+                            <constraint firstItem="KJe-l4-yf5" firstAttribute="leading" secondItem="w7Z-f6-ezD" secondAttribute="leading" id="a6d-bD-P92"/>
+                            <constraint firstItem="KJe-l4-yf5" firstAttribute="top" secondItem="Fai-h1-g61" secondAttribute="bottom" constant="8" id="ggx-Ry-jTY"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="gridScroller" destination="KJe-l4-yf5" id="W9L-PS-5yE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x4R-yd-oEd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1488" y="961"/>
         </scene>
         <!--Grid View Controller-->
         <scene sceneID="tne-QT-ifu">

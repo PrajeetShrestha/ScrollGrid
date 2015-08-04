@@ -7,15 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-@class GridView;
+@class DancerView;
 
 @protocol GridView <NSObject>
 - (void)dancerTouchBegan;
-- (void)dancerTouchEnd:(GridView *)view;
+- (void)dancerTouchEnd:(DancerView *)view;
 - (void)dancerMoved;
 @end
 
-@interface GridView : UIView
+@interface DancerView : UIView
 @property (nonatomic) CGPoint previousPosition;
 @property (nonatomic) CGPoint latestPosition;
 @property (nonatomic) BOOL isColorSet;

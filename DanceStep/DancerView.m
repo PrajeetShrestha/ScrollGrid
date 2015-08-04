@@ -6,13 +6,13 @@
 //  Copyright (c) 2015 EK Solutions Pvt Ltd. All rights reserved.
 //
 
-#import "GridView.h"
-@interface GridView()
+#import "DancerView.h"
+@interface DancerView()
 {
     CGPoint startLocation;
 }
 @end
-@implementation GridView
+@implementation DancerView
 
 - (instancetype)init
 {

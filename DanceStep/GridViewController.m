@@ -8,7 +8,7 @@
 
 #import "GridViewController.h"
 #import "ColorPicker.h"
-#import "GridView.h"
+#import "DancerView.h"
 
 
 @interface GridViewController ()<ColorPicker,GridView>
@@ -23,7 +23,7 @@
 }
 @property (nonatomic) NSMutableArray *dancers;
 @property (nonatomic) NSMutableArray *selectedViews;
-@property (nonatomic) GridView *activeView;
+@property (nonatomic) DancerView *activeView;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @end
 
@@ -37,7 +37,7 @@
 }
 
 - (void)setUp {
-    self.activeView = [GridView new];
+    self.activeView = [DancerView new];
     undoManager = [NSUndoManager new];
     self.dancers = [NSMutableArray new];
     self.selectedViews = [NSMutableArray new];
@@ -177,7 +177,7 @@
 
 - (IBAction)addDancer:(id)sender {
     if ([self canMoreViewBeAdded]) {
-        GridView *newDancer = [[GridView alloc]initWithFrame:CGRectMake(10, 10, gridSize-1, gridSize-1)];
+        DancerView *newDancer = [[DancerView alloc]initWithFrame:CGRectMake(10, 10, gridSize-1, gridSize-1)];
         newDancer.backgroundColor = [UIColor orangeColor];
         newDancer.tag = self.dancers.count;
         newDancer.layer.cornerRadius = newDancer.frame.size.width/2;
@@ -326,14 +326,14 @@
 }
 - (IBAction)selectAll:(id)sender {
     [self.selectedViews removeAllObjects];
-    for (GridView *view in self.dancers){
+    for (DancerView *view in self.dancers){
         [view viewStateSelected];
         [self.selectedViews addObject:view];
     }
 }
 
 - (IBAction)deselectAll:(id)sender {
-    for (GridView *view in self.dancers){
+    for (DancerView *view in self.dancers){
         [view viewStateDeselected];
         [self.selectedViews removeObject:view];
     }
@@ -399,7 +399,7 @@
 }
 
 - (void)selectView {
-    GridView *view = self.activeView  ;
+    DancerView *view = self.activeView  ;
     if ([self.selectedViews containsObject:view]) {
         [view viewStateDeselected];
         [self.selectedViews removeObject:view];
@@ -419,7 +419,7 @@
     [self.delegate touchesBegan];
 }
 
-- (void)dancerTouchEnd:(GridView *)view {
+- (void)dancerTouchEnd:(DancerView *)view {
     Grid *nearestUnoccupiedGrid = [self findNearestUnoccupiedGridForView:view];
     [UIView animateWithDuration:0.2 animations:^{
         if (nearestUnoccupiedGrid != nil) {
@@ -439,7 +439,7 @@
     [self upDateGridContents];
 }
 
-- (Grid *)findNearestUnoccupiedGridForView:(GridView *)view {
+- (Grid *)findNearestUnoccupiedGridForView:(DancerView *)view {
     Grid *nearestUnoccupiedGrid = [Grid new];
     CGFloat distance = -1;
     for (Grid *grid in self.grids) {
@@ -465,7 +465,7 @@
 
 #pragma mark - Undomanager Methods
 
-- (void)setCenter:(CGPoint)newCenter forView:(GridView *)view {
+- (void)setCenter:(CGPoint)newCenter forView:(DancerView *)view {
 
     CGPoint previousPosition = view.previousPosition;
     if (!(view.center.x == newCenter.x && view.center.y == newCenter.y) ) {
@@ -559,7 +559,7 @@
 - (void)upDateGridContents{
     for (Grid *grid in self.grids){
         BOOL isThereAnyViewInGridPosition = NO;
-        for (GridView *view in self.dancers) {
+        for (DancerView *view in self.dancers) {
             if (view.center.x == grid.position.x && view.center.y == grid.position.y) {
                 grid.content = view;
                 grid.isOccupied = YES;
