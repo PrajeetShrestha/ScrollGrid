@@ -44,6 +44,7 @@
 
     GridContainerView *containerView = [[GridContainerView alloc]initWithFrame:self.gridScroller.frame];
     [self.view addSubview:containerView];
+    containerView.userInteractionEnabled = NO;
 
     NSArray *positions = [self fetchPositions];
     NSNumber *maxFrame = [positions valueForKeyPath:@"@max.frameIndex"];

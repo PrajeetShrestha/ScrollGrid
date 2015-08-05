@@ -254,6 +254,8 @@
     for (UIView *view in self.subviews){
         [view removeFromSuperview];
     }
+
+    //This is for the first view
     if (previousPositions == nil) {
         for (Position *position in positions) {
             [self.dancers removeAllObjects];
@@ -270,6 +272,7 @@
             }
         }
     } else {
+        //For subsequent views
         [self.dancers removeAllObjects];
         for (Position *position in previousPositions) {
             if (position.dancerName != nil) {
@@ -295,8 +298,6 @@
             }
         }
     }
-
-
 }
 
 - (void)replicateDancerAtPreviousPosition {
