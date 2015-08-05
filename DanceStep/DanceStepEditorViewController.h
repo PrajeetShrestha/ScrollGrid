@@ -14,4 +14,6 @@
 
 - (IBAction)addDancer:(id)sender;
 - (IBAction)getGridDetails:(id)sender;
+- (IBAction)play:(id)sender;
+
 @end

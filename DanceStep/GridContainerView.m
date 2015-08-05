@@ -250,6 +250,54 @@
         NSLog(@"Move view can not be added!");
     }
 }
+- (void)addDancerInPositions:(NSArray *)positions previousPosition:(NSArray *)previousPositions{
+    for (UIView *view in self.subviews){
+        [view removeFromSuperview];
+    }
+    if (previousPositions == nil) {
+        for (Position *position in positions) {
+            [self.dancers removeAllObjects];
+            if (position.dancerName != nil) {
+                CGRect dancerFrame = CGRectMake(10, 10, gridSize - 1, gridSize - 1);
+                DancerView *newDancer = [[DancerView alloc]initWithFrame:dancerFrame];
+                [newDancer loadTagLabel:position.dancerName];
+                newDancer.delegate = self;
+                //[newDancer loadTagLabelWithString];
+                [newDancer setColorWhenTouchedForFirstTime];
+                [self addSubview:newDancer];
+                [self.dancers addObject:newDancer];
+                newDancer.center = CGPointMake(position.positionX.floatValue,position.positionY.floatValue);
+            }
+        }
+    } else {
+        [self.dancers removeAllObjects];
+        for (Position *position in previousPositions) {
+            if (position.dancerName != nil) {
+                CGRect dancerFrame = CGRectMake(10, 10, gridSize - 1, gridSize - 1);
+                DancerView *newDancer = [[DancerView alloc]initWithFrame:dancerFrame];
+                [newDancer loadTagLabel:position.dancerName];
+                newDancer.tagString = position.dancerName;
+                newDancer.delegate = self;
+                //[newDancer loadTagLabelWithString];
+                [newDancer setColorWhenTouchedForFirstTime];
+                [self addSubview:newDancer];
+                [self.dancers addObject:newDancer];
+                newDancer.center = CGPointMake(position.positionX.floatValue,position.positionY.floatValue);
+            }
+        }
+        for (Position *position in positions) {
+            for (DancerView *dancer in self.dancers) {
+                if (position.dancerName != nil && [dancer.tagString isEqualToString:position.dancerName]) {
+                    [UIView animateWithDuration:0.2 animations:^{
+                        dancer.center = CGPointMake(position.positionX.floatValue, position.positionY.floatValue);
+                    }];
+                }
+            }
+        }
+    }
+
+
+}
 
 - (void)replicateDancerAtPreviousPosition {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -268,6 +316,7 @@
             newDancer.tag = self.dancers.count;
             newDancer.delegate = self;
             [newDancer loadTagLabelWithString];
+            [newDancer setColorWhenTouchedForFirstTime];
             [self addSubview:newDancer];
             [self.dancers addObject:newDancer];
             newDancer.center = CGPointMake(position.positionX.floatValue,position.positionY.floatValue);

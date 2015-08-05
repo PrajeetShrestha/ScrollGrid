@@ -24,6 +24,7 @@
 @property (nonatomic) NSString *tagString;
 
 - (void)loadTagLabelWithString;
+- (void)loadTagLabel:(NSString *)string;
 - (void)viewStateSelected;
 - (void)viewStateDeselected;
 - (void)expand;

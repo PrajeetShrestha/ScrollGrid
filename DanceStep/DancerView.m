@@ -39,6 +39,15 @@
     [self addSubview:_tagTitle];
 }
 
+- (void)loadTagLabel:(NSString *)string {
+    _tagTitle = [UILabel new];
+    _tagTitle.text = string;
+    [_tagTitle sizeToFit];
+    _tagTitle.textColor = [UIColor whiteColor];
+    _tagTitle.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+    [self addSubview:_tagTitle];
+}
+
 - (void)viewStateSelected {
     self.layer.borderColor = [UIColor yellowColor].CGColor;
     self.layer.borderWidth = 2.0f;
@@ -65,6 +74,7 @@
 
 - (void)setColorWhenTouchedForFirstTime {
     if(!self.isColorSet) {
+        self.alpha = 1.0f;
         self.backgroundColor = [UIColor whiteColor];
         self.isColorSet = YES;
         self.tagTitle.textColor = UIColorFromRGB(0x486D42);

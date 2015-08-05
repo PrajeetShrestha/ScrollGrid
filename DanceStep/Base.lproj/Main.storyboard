@@ -221,15 +221,6 @@
                                     <constraint firstAttribute="width" secondItem="KJe-l4-yf5" secondAttribute="height" multiplier="10:7.2" id="0xj-Mv-uM1"/>
                                 </constraints>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jtx-bJ-fCp">
-                                <rect key="frame" x="16" y="468" width="30" height="30"/>
-                                <state key="normal" title="Add">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="addDancer:" destination="0dt-ho-QGq" eventType="touchUpInside" id="Jpi-FN-A1n"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3b0-s7-Pl1">
                                 <rect key="frame" x="16" y="506" width="81" height="30"/>
                                 <state key="normal" title="Grid Details">
@@ -239,11 +230,31 @@
                                     <action selector="getGridDetails:" destination="0dt-ho-QGq" eventType="touchUpInside" id="k85-UP-ZOd"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GsI-sq-nnL">
+                                <rect key="frame" x="16" y="544" width="30" height="30"/>
+                                <state key="normal" title="Play">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="play:" destination="0dt-ho-QGq" eventType="touchUpInside" id="ObF-Tr-TqG"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jtx-bJ-fCp">
+                                <rect key="frame" x="16" y="468" width="30" height="30"/>
+                                <state key="normal" title="Add">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addDancer:" destination="0dt-ho-QGq" eventType="touchUpInside" id="Jpi-FN-A1n"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="3b0-s7-Pl1" firstAttribute="top" secondItem="Jtx-bJ-fCp" secondAttribute="bottom" constant="8" id="2DA-Y6-ode"/>
                             <constraint firstItem="Jtx-bJ-fCp" firstAttribute="top" secondItem="KJe-l4-yf5" secondAttribute="bottom" constant="8" id="2yd-2U-z24"/>
+                            <constraint firstItem="3b0-s7-Pl1" firstAttribute="leading" secondItem="GsI-sq-nnL" secondAttribute="leading" id="3H0-nw-xAM"/>
+                            <constraint firstItem="GsI-sq-nnL" firstAttribute="top" secondItem="3b0-s7-Pl1" secondAttribute="bottom" constant="8" id="65b-lE-5Ya"/>
                             <constraint firstAttribute="trailing" secondItem="KJe-l4-yf5" secondAttribute="trailing" id="DHT-eO-MvU"/>
                             <constraint firstItem="Jtx-bJ-fCp" firstAttribute="leading" secondItem="3b0-s7-Pl1" secondAttribute="leading" id="GMO-94-TYp"/>
                             <constraint firstItem="KJe-l4-yf5" firstAttribute="leading" secondItem="w7Z-f6-ezD" secondAttribute="leading" id="a6d-bD-P92"/>

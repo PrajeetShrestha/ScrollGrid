@@ -8,6 +8,7 @@
 
 #import "DanceStepEditorViewController.h"
 #import "GridScrollView.h"
+#import "Position.h"
 
 @interface DanceStepEditorViewController() {
 }
@@ -15,6 +16,7 @@
 @implementation DanceStepEditorViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self clearData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -38,5 +40,91 @@
     }
 }
 
+- (IBAction)play:(id)sender {
+
+    GridContainerView *containerView = [[GridContainerView alloc]initWithFrame:self.gridScroller.frame];
+    [self.view addSubview:containerView];
+
+    NSArray *positions = [self fetchPositions];
+    NSNumber *maxFrame = [positions valueForKeyPath:@"@max.frameIndex"];
+    NSMutableArray *positionsByFrame = [NSMutableArray new];
+    for (int i = 0 ; i <= maxFrame.integerValue; i ++ ) {
+        NSMutableArray *positionsRow = [NSMutableArray new];
+        for (Position *position in positions) {
+            if (position.frameIndex.integerValue == i && position.dancerName != nil) {
+                [positionsRow addObject:position];
+            }
+        }
+        [positionsByFrame addObject:positionsRow];
+
+    }
+    NSLog(@"Positions by frame Count %d",positionsByFrame.count);
+    int counter = 0;
+    for (NSArray *currentPosition in positionsByFrame){
+        NSDictionary *userInfo;
+
+        if (counter == 0) {
+            userInfo = @{@"positions":currentPosition,
+                         @"containerView":containerView
+                         };
+        }   else {
+            userInfo = @{@"positions":currentPosition,
+                         @"containerView":containerView,
+                         @"previousPositions":positionsByFrame[counter-1]
+                         };
+        }
+
+        [self startTimerWithInfo:userInfo andTime:counter * 3];
+        counter ++;
+    }
+
+}
+
+- (void) startTimerWithInfo:(NSDictionary *)userInfo andTime:(NSUInteger)timeInterval {
+    [NSTimer scheduledTimerWithTimeInterval:timeInterval
+                                     target:self
+                                   selector:@selector(tick:)
+                                   userInfo:userInfo
+                                    repeats:NO];
+}
+
+- (void) tick:(NSTimer *) timer {
+    GridContainerView *containerView = timer.userInfo[@"containerView"];
+    NSArray *positions = timer.userInfo[@"positions"];
+    NSArray *previousPositions = timer.userInfo[@"previousPositions"];
+    [containerView addDancerInPositions:positions previousPosition:previousPositions ];
+}
+
+- (void)clearData {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Position" inManagedObjectContext:kAppDelegate.managedObjectContext];
+    [fetchRequest setEntity:entity];
+
+
+    NSError *error = nil;
+    NSArray *fetchedObjects = [kAppDelegate.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects == nil) {
+
+    }
+    for (Position *position in fetchedObjects) {
+        [kAppDelegate.managedObjectContext deleteObject:position];
+    }
+}
+
+
+- (NSArray *)fetchPositions {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Position" inManagedObjectContext:kAppDelegate.managedObjectContext];
+    [fetchRequest setEntity:entity];
+
+
+    NSError *error = nil;
+    NSArray *fetchedObjects = [kAppDelegate.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects == nil) {
+        
+    }
+    return fetchedObjects;
+    
+}
 
 @end
