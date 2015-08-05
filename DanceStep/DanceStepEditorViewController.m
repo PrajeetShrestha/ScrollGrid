@@ -59,7 +59,6 @@
         [positionsByFrame addObject:positionsRow];
 
     }
-    NSLog(@"Positions by frame Count %d",positionsByFrame.count);
     int counter = 0;
     for (NSArray *currentPosition in positionsByFrame){
         NSDictionary *userInfo;
@@ -75,7 +74,7 @@
                          };
         }
 
-        [self startTimerWithInfo:userInfo andTime:counter * 3];
+        [self startTimerWithInfo:userInfo andTime:counter * 2];
         counter ++;
     }
 

@@ -39,7 +39,7 @@
     for (float i = gridSize; i < self.bounds.size.width; i += gridSize) {
         for (float j = gridSize; j < self.bounds.size.height; j += gridSize) {
             CGRect dotFrameHorizontal = CGRectMake(i, j, 2, 2);
-            CGContextSetFillColorWithColor(ctx, [UIColor groupTableViewBackgroundColor].CGColor);
+            CGContextSetFillColorWithColor(ctx, [UIColor yellowColor].CGColor);
             CGContextFillEllipseInRect(ctx, CGRectInset(dotFrameHorizontal, 0, 0));
         }
     }
@@ -177,10 +177,6 @@
         pos.positionX = [NSNumber numberWithFloat:grid.position.x];
         pos.positionY = [NSNumber numberWithFloat:grid.position.y];
         pos.dancerName = grid.dancerName;
-        if (pos.isOccupied.boolValue) {
-                 NSLog(@"Grid Dancer Name : %@",grid.dancerName);
-        }
-
         pos.frameIndex = [NSNumber numberWithInteger:self.containerIndex];
         [kAppDelegate saveContext];
     }
@@ -316,12 +312,10 @@
     for (Position *position in fetchedObjects) {
 
         if (position.isOccupied.boolValue) {
-            NSLog(@"IS OCCUPIED %@",position.isOccupied);
             CGRect dancerFrame = CGRectMake(10, 10, gridSize - 1, gridSize - 1);
             DancerView *newDancer = [[DancerView alloc]initWithFrame:dancerFrame];
             newDancer.tag = self.dancers.count;
             newDancer.delegate = self;
-            NSLog(@"%@",position.dancerName);
             [newDancer loadTagLabel:position.dancerName];
             [newDancer setColorWhenTouchedForFirstTime];
             [self addSubview:newDancer];
@@ -329,7 +323,6 @@
             newDancer.center = CGPointMake(position.positionX.floatValue,position.positionY.floatValue);
         }
     }
-
 }
 
 - (BOOL)canMoreViewBeAdded {
