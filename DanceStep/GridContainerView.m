@@ -7,6 +7,7 @@
 //
 
 #import "GridContainerView.h"
+#import "Position.h"
 @interface GridContainerView () <GridView> {
     CGFloat gridSize;
     NSUndoManager *undoManager;
@@ -46,6 +47,7 @@
 
 //Create imaginary gridpoints
 - (void)initializeGrids {
+    int index = 0;
     for (float i = gridSize; i < self.bounds.size.width; i += gridSize) {
         for (float j = gridSize; j < self.bounds.size.height; j += gridSize) {
             CGPoint point = CGPointMake(i, j);
@@ -56,10 +58,14 @@
                 grid.isOccupied = NO;
                 grid.content = nil;
                 grid.viewTag = -1;
+                grid.positionIndex = index;
                 [self.grids addObject:grid];
+                index ++;
             }
         }
     }
+
+
     //[self logGridPoints];
 }
 
@@ -106,6 +112,7 @@
         }
     }];
     [self upDateGridContents];
+    [self saveGridState];
     self.activeView = nil;
     //[self.delegate touchesEnd];
 }
@@ -146,15 +153,61 @@
                 grid.isOccupied = YES;
                 grid.viewTag = view.tag;
                 isThereAnyViewInGridPosition = YES;
-                grid.dancerTag = view.tagTitle.text;
+                grid.dancerName = view.tagString;
             }
         }
         if (!isThereAnyViewInGridPosition) {
             grid.isOccupied = NO;
             grid.content = nil;
             grid.viewTag = -1;
-            grid.dancerTag = nil;
+            grid.dancerName = nil;
         }
+    }
+}
+
+- (void)saveGridState {
+    for (Grid *grid in self.grids){
+        NSInteger index = [self.grids indexOfObject:grid];
+        Position *pos;
+        pos = [self fetchPositionAtIndex:index];
+        if (pos == nil) {
+            pos = [NSEntityDescription insertNewObjectForEntityForName:@"Position" inManagedObjectContext:kAppDelegate.managedObjectContext];
+        }
+        pos.positionIndex = [NSNumber numberWithInteger:index];
+        pos.isOccupied = [NSNumber numberWithBool:grid.isOccupied];
+        pos.positionX = [NSNumber numberWithFloat:grid.position.x];
+        pos.positionY = [NSNumber numberWithFloat:grid.position.y];
+        pos.dancerName = grid.dancerName;
+        pos.frameIndex = [NSNumber numberWithInteger:self.containerIndex];
+        [kAppDelegate saveContext];
+    }
+
+    for (Grid *grid in self.grids){
+        NSInteger index = [self.grids indexOfObject:grid];
+             //NSLog(@"%d INDEX ",index);
+        Position *pos;
+        pos = [self fetchPositionAtIndex:index];
+    }
+}
+
+- (Position *)fetchPositionAtIndex:(NSInteger)index {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Position" inManagedObjectContext:kAppDelegate.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    // Specify criteria for filtering which objects to fetch
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"positionIndex == %@ AND frameIndex == %@", [NSNumber numberWithInteger:index], [NSNumber numberWithInteger:self.containerIndex] ];
+    [fetchRequest setPredicate:predicate];
+
+
+    NSError *error = nil;
+    NSArray *fetchedObjects = [kAppDelegate.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects == nil) {
+
+    }
+    if (fetchedObjects.count != 0) {
+        return fetchedObjects[0];
+    } else {
+        return nil;
     }
 }
 
@@ -196,6 +249,31 @@
     } else {
         NSLog(@"Move view can not be added!");
     }
+}
+
+- (void)replicateDancerAtPreviousPosition {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Position" inManagedObjectContext:kAppDelegate.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    // Specify criteria for filtering which objects to fetch
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"frameIndex == %@",[NSNumber numberWithInteger:self.containerIndex - 1] ];
+    [fetchRequest setPredicate:predicate];
+    NSError *error = nil;
+    NSArray *fetchedObjects = [kAppDelegate.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+
+    for (Position *position in fetchedObjects) {
+        if (position.dancerName != nil) {
+            CGRect dancerFrame = CGRectMake(10, 10, gridSize - 1, gridSize - 1);
+            DancerView *newDancer = [[DancerView alloc]initWithFrame:dancerFrame];
+            newDancer.tag = self.dancers.count;
+            newDancer.delegate = self;
+            [newDancer loadTagLabelWithString];
+            [self addSubview:newDancer];
+            [self.dancers addObject:newDancer];
+            newDancer.center = CGPointMake(position.positionX.floatValue,position.positionY.floatValue);
+        }
+    }
+
 }
 
 - (BOOL)canMoreViewBeAdded {

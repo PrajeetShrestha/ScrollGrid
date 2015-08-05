@@ -36,11 +36,11 @@
 }
 //Forlogging purpose
 - (void) logContent {
-    NSLog(@"\n______________\n______________\nLogging Grid:\n______________\n______________");
+    NSLog(@"\n----------------\n----------------\n  Logging Grid:\n----------------\n----------------");
     NSLog(@"IsOccupied: %hhd",self.isOccupied);
     NSLog(@"Position: %@",NSStringFromCGPoint(self.position));
     NSLog(@"Content: %@",self.content);
     NSLog(@"View Tag: %d",self.viewTag);
-    NSLog(@"DancerTag : %@",self.dancerTag);
+    NSLog(@"DancerTag : %@",self.dancerName);
 }
 @end

@@ -32,6 +32,7 @@
 - (void)loadTagLabelWithString {
     _tagTitle = [UILabel new];
     _tagTitle.text = alphabetArray[self.tag];
+    _tagString = alphabetArray[self.tag];
     [_tagTitle sizeToFit];
     _tagTitle.textColor = [UIColor whiteColor];
     _tagTitle.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);

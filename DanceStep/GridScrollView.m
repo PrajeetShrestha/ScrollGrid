@@ -77,11 +77,12 @@
         //Content Width is always +1 Width greater than current contents because we want to always have a view to scroll at last.
         self.contentSize = CGSizeMake((unsigned long)(_viewArray.count + 1) *scrollerWidth, scrollerHeight);
         CGRect frame = CGRectMake(i * scrollerWidth, scrollerMinY, scrollerWidth, scrollerHeight);
-        //        GridContainerView *view = [[GridContainerView alloc]initWithFrame:frame];
-        UIView *view = [[viewClass alloc]initWithFrame:frame];
+        GridContainerView *view = [[viewClass alloc]initWithFrame:frame];
+
         view.backgroundColor = UIColorFromRGB(0x146622);
         if (i != _viewArray.count) {
             [_gridViews addObject:view];
+            view.containerIndex = _gridViews.count - 1;
         }
         [self addSubview:view];
     }
@@ -146,10 +147,12 @@
 
     self.contentSize = CGSizeMake((unsigned long)(_viewArray.count + 1) *scrollerWidth, scrollerHeight);
     CGRect frame = CGRectMake((_viewArray.count -1) * scrollerWidth, scrollerMinY, scrollerWidth, scrollerHeight);
-    UIView *view = [[_viewClass alloc]initWithFrame:frame];
+    GridContainerView *view = [[_viewClass alloc]initWithFrame:frame];
     view.backgroundColor = UIColorFromRGB(0x146622);
     [_gridViews addObject:view];
     [self addSubview:view];
+    view.containerIndex = _gridViews.count - 1;
+    [view replicateDancerAtPreviousPosition];
 
     //Extra view So that scroll view can scrollleft
     CGRect lastViewFrame = CGRectMake((_viewArray.count) * scrollerWidth, scrollerMinY, scrollerWidth, scrollerHeight);

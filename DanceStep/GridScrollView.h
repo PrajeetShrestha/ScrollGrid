@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "GridContainerView.h"
+@protocol GridScrollView <NSObject>
 
+@end
 @interface GridScrollView : UIScrollView
 @property (nonatomic) NSMutableArray *viewArray;
 @property (nonatomic) CGFloat indexPage;

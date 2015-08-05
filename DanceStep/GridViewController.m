@@ -563,7 +563,7 @@
             grid.isOccupied = NO;
             grid.content = nil;
             grid.viewTag = -1;
-            grid.dancerTag = nil;
+            grid.dancerName = nil;
         }
     }
 

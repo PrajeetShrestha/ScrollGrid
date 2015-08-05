@@ -21,6 +21,7 @@
 @property (nonatomic) BOOL isColorSet;
 @property (nonatomic,weak) id <GridView> delegate;
 @property (nonatomic) UILabel *tagTitle;
+@property (nonatomic) NSString *tagString;
 
 - (void)loadTagLabelWithString;
 - (void)viewStateSelected;

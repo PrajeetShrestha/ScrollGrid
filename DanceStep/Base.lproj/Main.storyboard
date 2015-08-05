@@ -216,13 +216,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KJe-l4-yf5" customClass="GridScrollView">
-                                <rect key="frame" x="0.0" y="28" width="600" height="307"/>
+                                <rect key="frame" x="0.0" y="28" width="600" height="432"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="KJe-l4-yf5" secondAttribute="height" multiplier="600:307" id="0xj-Mv-uM1"/>
+                                    <constraint firstAttribute="width" secondItem="KJe-l4-yf5" secondAttribute="height" multiplier="10:7.2" id="0xj-Mv-uM1"/>
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jtx-bJ-fCp">
-                                <rect key="frame" x="16" y="343" width="30" height="30"/>
+                                <rect key="frame" x="16" y="468" width="30" height="30"/>
                                 <state key="normal" title="Add">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -231,7 +231,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3b0-s7-Pl1">
-                                <rect key="frame" x="16" y="381" width="81" height="30"/>
+                                <rect key="frame" x="16" y="506" width="81" height="30"/>
                                 <state key="normal" title="Grid Details">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
