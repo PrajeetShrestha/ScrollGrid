@@ -32,6 +32,7 @@
 - (void)loadTagLabelWithString {
     _tagTitle = [UILabel new];
     _tagTitle.text = alphabetArray[self.tag];
+
     _tagString = alphabetArray[self.tag];
     [_tagTitle sizeToFit];
     _tagTitle.textColor = [UIColor whiteColor];

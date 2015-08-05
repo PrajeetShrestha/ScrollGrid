@@ -64,8 +64,6 @@
             }
         }
     }
-
-
     //[self logGridPoints];
 }
 
@@ -147,13 +145,14 @@
 - (void)upDateGridContents{
     for (Grid *grid in self.grids){
         BOOL isThereAnyViewInGridPosition = NO;
+
         for (DancerView *view in self.dancers) {
             if (view.center.x == grid.position.x && view.center.y == grid.position.y) {
                 grid.content = view;
                 grid.isOccupied = YES;
                 grid.viewTag = view.tag;
                 isThereAnyViewInGridPosition = YES;
-                grid.dancerName = view.tagString;
+                grid.dancerName = view.tagTitle.text;
             }
         }
         if (!isThereAnyViewInGridPosition) {
@@ -178,6 +177,10 @@
         pos.positionX = [NSNumber numberWithFloat:grid.position.x];
         pos.positionY = [NSNumber numberWithFloat:grid.position.y];
         pos.dancerName = grid.dancerName;
+        if (pos.isOccupied.boolValue) {
+                 NSLog(@"Grid Dancer Name : %@",grid.dancerName);
+        }
+
         pos.frameIndex = [NSNumber numberWithInteger:self.containerIndex];
         [kAppDelegate saveContext];
     }
@@ -311,12 +314,15 @@
     NSArray *fetchedObjects = [kAppDelegate.managedObjectContext executeFetchRequest:fetchRequest error:&error];
 
     for (Position *position in fetchedObjects) {
-        if (position.dancerName != nil) {
+
+        if (position.isOccupied.boolValue) {
+            NSLog(@"IS OCCUPIED %@",position.isOccupied);
             CGRect dancerFrame = CGRectMake(10, 10, gridSize - 1, gridSize - 1);
             DancerView *newDancer = [[DancerView alloc]initWithFrame:dancerFrame];
             newDancer.tag = self.dancers.count;
             newDancer.delegate = self;
-            [newDancer loadTagLabelWithString];
+            NSLog(@"%@",position.dancerName);
+            [newDancer loadTagLabel:position.dancerName];
             [newDancer setColorWhenTouchedForFirstTime];
             [self addSubview:newDancer];
             [self.dancers addObject:newDancer];
