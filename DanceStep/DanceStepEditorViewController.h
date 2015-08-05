@@ -13,4 +13,5 @@
 @property (weak, nonatomic) IBOutlet GridScrollView *gridScroller;
 
 - (IBAction)addDancer:(id)sender;
+- (IBAction)getGridDetails:(id)sender;
 @end

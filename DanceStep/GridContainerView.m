@@ -7,14 +7,14 @@
 //
 
 #import "GridContainerView.h"
-@interface GridContainerView ()<GridView> {
+@interface GridContainerView () <GridView> {
     CGFloat gridSize;
     NSUndoManager *undoManager;
-    NSMutableArray *alphabetArray;
 }
 @property (nonatomic) NSMutableArray *dancers;
 @property (nonatomic) DancerView *activeView;
 @end
+
 @implementation GridContainerView
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -26,18 +26,9 @@
         self.dancers = [NSMutableArray new];
         self.grids = [NSMutableArray new];
         gridSize = self.frame.size.width/11;
-        [self setAlphabetArray];
         [self initializeGrids];
     }
     return self;
-}
-
-- (void)setAlphabetArray {
-    alphabetArray = [NSMutableArray new];
-    for (char a = 'A'; a <= 'Z'; a++)
-    {
-        [alphabetArray addObject:[NSString stringWithFormat:@"%c", a]];
-    }
 }
 
 //Create Grid Points in container view
@@ -55,7 +46,6 @@
 
 //Create imaginary gridpoints
 - (void)initializeGrids {
-
     for (float i = gridSize; i < self.bounds.size.width; i += gridSize) {
         for (float j = gridSize; j < self.bounds.size.height; j += gridSize) {
             CGPoint point = CGPointMake(i, j);
@@ -76,26 +66,21 @@
 -(BOOL)isPointAlreadyStoredInGrid:(CGPoint)point {
     for (Grid *grd in self.grids){
         if(grd.position.x == point.x && grd.position.y == point.y) {
-            if (grd.isOccupied ) {
-                return NO;
-            } else {
-                return YES;
-            }
+            return grd.isOccupied?NO:YES;
         }
     }
     return NO;
 }
 
+//For Logging purpose
 - (void)logGridPoints {
     for (Grid *grid in self.grids) {
         NSLog(@"%@ Grid Position",NSStringFromCGPoint(grid.position));
     }
 }
 
-
-
 #pragma mark - Getters
-- (Grid *)getGridAtIndex:(NSUInteger)index {
+- (Grid *)getGridAtIndex:(NSInteger)index {
     return self.grids[index];
 }
 
@@ -107,7 +92,6 @@
 #pragma mark - DancerView Delegates
 - (void)dancerTouchBegan {
     [self upDateGridContents];
-    //[self.delegate touchesBegan];
 }
 
 - (void)dancerTouchEnd:(DancerView *)view {
@@ -134,7 +118,6 @@
     Grid *nearestUnoccupiedGrid = [Grid new];
     CGFloat distance = -1;
     for (Grid *grid in self.grids) {
-
         //Check if grid is occupied. If occupied ignore the grid and if unoccupied calculate the distance of all the unoccupied grid and find the minimum among it and assign to nearestUnOccupied Grid.
         if (!grid.isOccupied) {
             CGFloat xDist = (view.center.x - grid.position.x);
@@ -163,7 +146,7 @@
                 grid.isOccupied = YES;
                 grid.viewTag = view.tag;
                 isThereAnyViewInGridPosition = YES;
-                grid.dancerTag = view.dancerTag;
+                grid.dancerTag = view.tagTitle.text;
             }
         }
         if (!isThereAnyViewInGridPosition) {
@@ -202,22 +185,11 @@
 
 - (void)addDancer {
     if ([self canMoreViewBeAdded]) {
-        DancerView *newDancer = [[DancerView alloc]initWithFrame:CGRectMake(10, 10, gridSize-1, gridSize-1)];
-        newDancer.backgroundColor = [UIColor orangeColor];
+        CGRect dancerFrame = CGRectMake(10, 10, gridSize - 1, gridSize - 1);
+        DancerView *newDancer = [[DancerView alloc]initWithFrame:dancerFrame];
         newDancer.tag = self.dancers.count;
-        newDancer.layer.cornerRadius = newDancer.frame.size.width/2;
-        newDancer.clipsToBounds = YES;
-        newDancer.alpha = 0.8f;
         newDancer.delegate = self;
-
-        UILabel *viewLabel = [[UILabel alloc]init];
-        viewLabel.text = alphabetArray[newDancer.tag];
-        newDancer.dancerTag = viewLabel.text;
-        [viewLabel sizeToFit];
-        viewLabel.textColor = [UIColor whiteColor];
-        viewLabel.center = CGPointMake(newDancer.bounds.size.width/2, newDancer.bounds.size.height/2);
-        [newDancer addSubview:viewLabel];
-        newDancer.tagTitle = viewLabel;
+        [newDancer loadTagLabelWithString];
         [self addSubview:newDancer];
         [self.dancers addObject:newDancer];
         //[self addLongPressGestures];
@@ -245,5 +217,7 @@
     }
     return !isAllSlotsOccupied && !isAllAlphabetOccupied;
 }
+
+
 
 @end

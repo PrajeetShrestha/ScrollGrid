@@ -13,8 +13,9 @@
 @property (nonatomic) BOOL isOccupied;
 @property (nonatomic) CGPoint position;
 @property (nonatomic) id content;
-@property (nonatomic) NSUInteger viewTag;
+@property (nonatomic) NSInteger viewTag;
 @property (nonatomic) NSString *dancerTag;
 
 - (BOOL)isEquivalentTo:(Grid *)grid;
+- (void) logContent;
 @end

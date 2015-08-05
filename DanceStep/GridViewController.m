@@ -185,14 +185,14 @@
         newDancer.alpha = 0.8f;
         newDancer.delegate = self;
 
-        UILabel *viewLabel = [[UILabel alloc]init];
-        viewLabel.text = alphabetArray[newDancer.tag];
-        newDancer.dancerTag = viewLabel.text;
-        [viewLabel sizeToFit];
-        viewLabel.textColor = [UIColor whiteColor];
-        viewLabel.center = CGPointMake(newDancer.bounds.size.width/2, newDancer.bounds.size.height/2);
-        [newDancer addSubview:viewLabel];
-        newDancer.tagTitle = viewLabel;
+//        UILabel *viewLabel = [[UILabel alloc]init];
+//        viewLabel.text = alphabetArray[newDancer.tag];
+//        newDancer.dancerTag = viewLabel.text;
+//        [viewLabel sizeToFit];
+//        viewLabel.textColor = [UIColor whiteColor];
+//        viewLabel.center = CGPointMake(newDancer.bounds.size.width/2, newDancer.bounds.size.height/2);
+//        [newDancer addSubview:viewLabel];
+//        newDancer.tagTitle = viewLabel;
         [self.containerView addSubview:newDancer];
         [self.dancers addObject:newDancer];
         [self addLongPressGestures];
@@ -556,7 +556,7 @@
                 grid.isOccupied = YES;
                 grid.viewTag = view.tag;
                 isThereAnyViewInGridPosition = YES;
-                grid.dancerTag = view.dancerTag;
+                //grid.dancerTag = view.dancerTag;
             }
         }
         if (!isThereAnyViewInGridPosition) {

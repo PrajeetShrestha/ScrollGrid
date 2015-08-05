@@ -34,4 +34,13 @@
 
     return isContentEqual && isOccupiedEqual && isPositionEqual && isViewTagEqual;
 }
+//Forlogging purpose
+- (void) logContent {
+    NSLog(@"\n______________\n______________\nLogging Grid:\n______________\n______________");
+    NSLog(@"IsOccupied: %hhd",self.isOccupied);
+    NSLog(@"Position: %@",NSStringFromCGPoint(self.position));
+    NSLog(@"Content: %@",self.content);
+    NSLog(@"View Tag: %d",self.viewTag);
+    NSLog(@"DancerTag : %@",self.dancerTag);
+}
 @end

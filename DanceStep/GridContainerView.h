@@ -14,6 +14,6 @@
 @property NSMutableArray *grids;
 - (void)initializeGrids;
 - (void)addDancer;
-- (Grid *)getGridAtIndex:(NSUInteger)index;
+- (Grid *)getGridAtIndex:(NSInteger)index;
 - (void)setGridAtIndex:(Grid *)grid atIndex:(NSUInteger)index;
 @end

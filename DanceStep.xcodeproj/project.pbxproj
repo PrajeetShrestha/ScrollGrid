@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2511CC261B6B4CCC00BA28DC /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2511CC251B6B4CCC00BA28DC /* MainViewController.m */; };
 		2539AAF51B60EB2800C92B8C /* ColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2539AAF41B60EB2800C92B8C /* ColorPicker.m */; };
+		255B46371B71C2A400D8A7F8 /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 255B46361B71C2A400D8A7F8 /* green.png */; };
 		25691D5D1B60965200D28FDD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 25691D5C1B60965200D28FDD /* main.m */; };
 		25691D601B60965200D28FDD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 25691D5F1B60965200D28FDD /* AppDelegate.m */; };
 		25691D631B60965200D28FDD /* DanceStep.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 25691D611B60965200D28FDD /* DanceStep.xcdatamodeld */; };
@@ -41,6 +42,7 @@
 		2511CC251B6B4CCC00BA28DC /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		2539AAF31B60EB2800C92B8C /* ColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPicker.h; sourceTree = "<group>"; };
 		2539AAF41B60EB2800C92B8C /* ColorPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorPicker.m; sourceTree = "<group>"; };
+		255B46361B71C2A400D8A7F8 /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green.png; sourceTree = "<group>"; };
 		25691D571B60965200D28FDD /* DanceStep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DanceStep.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25691D5B1B60965200D28FDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		25691D5C1B60965200D28FDD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -119,14 +121,15 @@
 				25DF1C6E1B70AE2400CDBE70 /* GridScrollView.m */,
 				25DF1C791B70B0E300CDBE70 /* GridContainerView.h */,
 				25DF1C7A1B70B0E300CDBE70 /* GridContainerView.m */,
+				255B46361B71C2A400D8A7F8 /* green.png */,
 				256E7AA01B68D25D000C1208 /* DancerView.h */,
 				256E7AA11B68D25D000C1208 /* DancerView.m */,
+				25ECB0981B67321800B649A0 /* Grid.h */,
+				25ECB0991B67321800B649A0 /* Grid.m */,
 				2511CC241B6B4CCC00BA28DC /* MainViewController.h */,
 				2511CC251B6B4CCC00BA28DC /* MainViewController.m */,
 				25691D641B60965200D28FDD /* GridViewController.h */,
 				25691D651B60965200D28FDD /* GridViewController.m */,
-				25ECB0981B67321800B649A0 /* Grid.h */,
-				25ECB0991B67321800B649A0 /* Grid.m */,
 				2539AAF31B60EB2800C92B8C /* ColorPicker.h */,
 				2539AAF41B60EB2800C92B8C /* ColorPicker.m */,
 				25691D671B60965200D28FDD /* Main.storyboard */,
@@ -258,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2585A3521B6A145A001AAAFC /* brush.png in Resources */,
+				255B46371B71C2A400D8A7F8 /* green.png in Resources */,
 				25691D691B60965200D28FDD /* Main.storyboard in Resources */,
 				25691D6E1B60965200D28FDD /* LaunchScreen.xib in Resources */,
 				25691D6B1B60965200D28FDD /* Images.xcassets in Resources */,

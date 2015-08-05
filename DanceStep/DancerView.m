@@ -10,17 +10,32 @@
 @interface DancerView()
 {
     CGPoint startLocation;
+    NSMutableArray *alphabetArray;
 }
 @end
 @implementation DancerView
 
-- (instancetype)init
-{
-    self = [super init];
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
     if (self) {
+        //Default Initializations
         self.isColorSet = NO;
+        self.backgroundColor = [UIColor orangeColor];
+        self.layer.cornerRadius = self.frame.size.width/2;
+        self.clipsToBounds = YES;
+        self.alpha = 0.8f;
+        [self setAlphabetArray];
     }
     return self;
+}
+
+- (void)loadTagLabelWithString {
+    _tagTitle = [UILabel new];
+    _tagTitle.text = alphabetArray[self.tag];
+    [_tagTitle sizeToFit];
+    _tagTitle.textColor = [UIColor whiteColor];
+    _tagTitle.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+    [self addSubview:_tagTitle];
 }
 
 - (void)viewStateSelected {
@@ -105,6 +120,13 @@
 }
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
 
+}
+
+- (void)setAlphabetArray {
+    alphabetArray = [NSMutableArray new];
+    for (char a = 'A'; a <= 'Z'; a++) {
+        [alphabetArray addObject:[NSString stringWithFormat:@"%c", a]];
+    }
 }
 @end
 

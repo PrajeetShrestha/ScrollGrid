@@ -26,4 +26,13 @@
     GridContainerView *containerView =(GridContainerView *) [self.gridScroller getCurrentView];
     [containerView addDancer];
 }
+
+- (IBAction)getGridDetails:(id)sender {
+    NSLog(@"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
+    GridContainerView *containerView = (GridContainerView *)[self.gridScroller getCurrentView];
+    for (Grid *grid in containerView.grids){
+        [grid logContent];
+    }
+}
 @end

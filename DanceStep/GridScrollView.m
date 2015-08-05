@@ -42,8 +42,6 @@
     }
 }
 
-
-//RegisterForNotifications
 #pragma mark - Notification Observers
 -(void)registerNotifications {
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(dancerTouchBeganNotification:) name:kDancerTouchBeganNotification  object:nil];
@@ -81,7 +79,7 @@
         CGRect frame = CGRectMake(i * scrollerWidth, scrollerMinY, scrollerWidth, scrollerHeight);
         //        GridContainerView *view = [[GridContainerView alloc]initWithFrame:frame];
         UIView *view = [[viewClass alloc]initWithFrame:frame];
-        view.backgroundColor = [UIColor grayColor];
+        view.backgroundColor = UIColorFromRGB(0x146622);
         if (i != _viewArray.count) {
             [_gridViews addObject:view];
         }
@@ -149,14 +147,14 @@
     self.contentSize = CGSizeMake((unsigned long)(_viewArray.count + 1) *scrollerWidth, scrollerHeight);
     CGRect frame = CGRectMake((_viewArray.count -1) * scrollerWidth, scrollerMinY, scrollerWidth, scrollerHeight);
     UIView *view = [[_viewClass alloc]initWithFrame:frame];
-    view.backgroundColor = [UIColor grayColor];
+    view.backgroundColor = UIColorFromRGB(0x146622);
     [_gridViews addObject:view];
     [self addSubview:view];
 
     //Extra view So that scroll view can scrollleft
     CGRect lastViewFrame = CGRectMake((_viewArray.count) * scrollerWidth, scrollerMinY, scrollerWidth, scrollerHeight);
     UIView *lastView = [[_viewClass alloc]initWithFrame:lastViewFrame];
-    lastView.backgroundColor = [UIColor grayColor];
+    lastView.backgroundColor = UIColorFromRGB(0x146622);
     [self addSubview:lastView];
     
 }

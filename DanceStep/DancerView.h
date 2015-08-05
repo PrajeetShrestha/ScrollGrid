@@ -20,9 +20,9 @@
 @property (nonatomic) CGPoint latestPosition;
 @property (nonatomic) BOOL isColorSet;
 @property (nonatomic,weak) id <GridView> delegate;
-@property (nonatomic) NSString *dancerTag;
 @property (nonatomic) UILabel *tagTitle;
 
+- (void)loadTagLabelWithString;
 - (void)viewStateSelected;
 - (void)viewStateDeselected;
 - (void)expand;

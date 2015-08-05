@@ -230,11 +230,22 @@
                                     <action selector="addDancer:" destination="0dt-ho-QGq" eventType="touchUpInside" id="Jpi-FN-A1n"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3b0-s7-Pl1">
+                                <rect key="frame" x="16" y="381" width="81" height="30"/>
+                                <state key="normal" title="Grid Details">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="getGridDetails:" destination="0dt-ho-QGq" eventType="touchUpInside" id="k85-UP-ZOd"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="3b0-s7-Pl1" firstAttribute="top" secondItem="Jtx-bJ-fCp" secondAttribute="bottom" constant="8" id="2DA-Y6-ode"/>
                             <constraint firstItem="Jtx-bJ-fCp" firstAttribute="top" secondItem="KJe-l4-yf5" secondAttribute="bottom" constant="8" id="2yd-2U-z24"/>
                             <constraint firstAttribute="trailing" secondItem="KJe-l4-yf5" secondAttribute="trailing" id="DHT-eO-MvU"/>
+                            <constraint firstItem="Jtx-bJ-fCp" firstAttribute="leading" secondItem="3b0-s7-Pl1" secondAttribute="leading" id="GMO-94-TYp"/>
                             <constraint firstItem="KJe-l4-yf5" firstAttribute="leading" secondItem="w7Z-f6-ezD" secondAttribute="leading" id="a6d-bD-P92"/>
                             <constraint firstItem="KJe-l4-yf5" firstAttribute="top" secondItem="Fai-h1-g61" secondAttribute="bottom" constant="8" id="ggx-Ry-jTY"/>
                             <constraint firstItem="Jtx-bJ-fCp" firstAttribute="leading" secondItem="KJe-l4-yf5" secondAttribute="leading" constant="16" id="gwR-yk-Uxs"/>
