@@ -249,38 +249,27 @@
 }
 
 - (void)addDancerInPositions:(NSArray *)positions previousPosition:(NSArray *)previousPositions{
-    self.dancerFrame = CGRectMake(10, 10, gridSize - 1, gridSize - 1);
+
     [self removeAllSubViewsAndClearDancerArray];
     //If previousPosition is empty means it's the first grid of editor view.
     if (previousPositions == nil) {
-        [self loadDancerForFirstGridWithPositions:positions];
+        //LoaddancersForFirstGrid.
+        [self loadDancerInPositions:positions];
     } else {
-        [self loadDancerForSubsequentGridsWithPreviousPositions:previousPositions];
+        //LoadDancersForSubsequentGrid
+        [self loadDancerInPositions:previousPositions];
         [self animateDancerPositionToNewPosition:positions];
     }
 }
 
-- (void)loadDancerForFirstGridWithPositions:(NSArray *)positions {
+- (void)loadDancerInPositions:(NSArray *)positions {
+      self.dancerFrame = CGRectMake(10, 10, gridSize - 1, gridSize - 1);
     for (Position *position in positions) {
         if (position.dancerName != nil) {
             DancerView *newDancer = [[DancerView alloc]initWithFrame:self.dancerFrame
                                                          andDelegate:self];
             [newDancer loadTagLabel:position.dancerName];
-            [newDancer setColorWhenTouchedForFirstTime];
-            newDancer.center = CGPointMake(position.positionX.floatValue,position.positionY.floatValue);
-            [self addSubview:newDancer];
-            [self.dancers addObject:newDancer];
-        }
-    }
-}
-
-- (void)loadDancerForSubsequentGridsWithPreviousPositions:(NSArray *)previousPositions {
-    for (Position *position in previousPositions) {
-        if (position.dancerName != nil) {
-            DancerView *newDancer = [[DancerView alloc]initWithFrame:self.dancerFrame
-                                                         andDelegate:self];
-            [newDancer loadTagLabel:position.dancerName];
-            newDancer.tagString = position.dancerName;
+             newDancer.tagString = position.dancerName;
             [newDancer setColorWhenTouchedForFirstTime];
             newDancer.center = CGPointMake(position.positionX.floatValue,position.positionY.floatValue);
             [self addSubview:newDancer];
@@ -303,19 +292,7 @@
 
 - (void)replicateDancerAtPreviousPosition {
     NSArray *positions = [self fetchPreviousFramePositions];
-    for (Position *position in positions) {
-        if (position.isOccupied.boolValue) {
-            self.dancerFrame = CGRectMake(10, 10, gridSize - 1, gridSize - 1);
-            DancerView *newDancer = [[DancerView alloc]initWithFrame:self.dancerFrame
-                                                         andDelegate:self];
-            newDancer.tag = self.dancers.count;
-            [newDancer loadTagLabel:position.dancerName];
-            [newDancer setColorWhenTouchedForFirstTime];
-            [self addSubview:newDancer];
-            [self.dancers addObject:newDancer];
-            newDancer.center = CGPointMake(position.positionX.floatValue,position.positionY.floatValue);
-        }
-    }
+    [self loadDancerInPositions:positions];
 }
 
 - (NSArray *)fetchPreviousFramePositions {
