@@ -13,10 +13,16 @@
 @interface GridContainerView : UIView
 @property NSMutableArray *grids;
 @property NSInteger containerIndex;
+
 - (void)initializeGrids;
+
 - (void)addDancer;
+
 - (Grid *)getGridAtIndex:(NSInteger)index;
+
 - (void)setGridAtIndex:(Grid *)grid atIndex:(NSUInteger)index;
+
 - (void)replicateDancerAtPreviousPosition;
+
 - (void)addDancerInPositions:(NSArray *)positions previousPosition:(NSArray *)previousPositions;
 @end

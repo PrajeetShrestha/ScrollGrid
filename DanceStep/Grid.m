@@ -9,6 +9,19 @@
 #import "Grid.h"
 
 @implementation Grid
+- (instancetype)initGridWithPosition:(CGPoint)position andPositionIndex:(NSInteger)positionIndex {
+    self = [super init];
+    if (self) {
+        self.position = position;
+        self.positionIndex = positionIndex;
+        //  grid.position = CGPointMake(i, j);
+        //Default values
+        self.isOccupied = NO;
+        self.content = nil;
+        self.viewTag = -1;
+    }
+    return self;
+}
 
 - (BOOL)isEquivalentTo:(Grid *)grid {
     BOOL isContentEqual = NO;
@@ -34,6 +47,15 @@
 
     return isContentEqual && isOccupiedEqual && isPositionEqual && isViewTagEqual;
 }
+//Grids Position property doesn't change once it's initialized only other properties can change.
+- (void)resetGridProperties {
+    self.isOccupied = NO;
+    self.content = nil;
+    self.viewTag = -1;
+    self.dancerName = nil;
+
+}
+
 //Forlogging purpose
 - (void) logContent {
     NSLog(@"\n----------------\n----------------\n  Logging Grid:\n----------------\n----------------");

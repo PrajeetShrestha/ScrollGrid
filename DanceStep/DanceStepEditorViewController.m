@@ -39,8 +39,15 @@
         [grid logContent];
     }
 }
-
+- (void)clearContainerView {
+    for (GridContainerView *view in self.view.subviews) {
+        if ([view isKindOfClass:[GridContainerView class]]) {
+            [view removeFromSuperview];
+        }
+    }
+}
 - (IBAction)play:(id)sender {
+    [self clearContainerView];
 
     GridContainerView *containerView = [[GridContainerView alloc]initWithFrame:self.gridScroller.frame];
     [self.view addSubview:containerView];
@@ -59,6 +66,7 @@
         [positionsByFrame addObject:positionsRow];
 
     }
+    
     int counter = 0;
     for (NSArray *currentPosition in positionsByFrame){
         NSDictionary *userInfo;

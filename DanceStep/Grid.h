@@ -17,6 +17,9 @@
 @property (nonatomic) NSInteger viewTag;
 @property (nonatomic) NSString *dancerName;
 
-- (BOOL)isEquivalentTo:(Grid *)grid;
+- (instancetype)initGridWithPosition:(CGPoint)position andPositionIndex:(NSInteger)positionIndex;
 - (void) logContent;
+- (void) resetGridProperties;
+
+- (BOOL)isEquivalentTo:(Grid *)grid;
 @end

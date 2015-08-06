@@ -86,6 +86,7 @@
         }
         [self addSubview:view];
     }
+
 }
 // Method to display page number of scrollView.
 - (void)loadIndexLabel {

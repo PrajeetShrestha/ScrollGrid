@@ -23,6 +23,7 @@
 @property (nonatomic) UILabel *tagTitle;
 @property (nonatomic) NSString *tagString;
 
+- (instancetype)initWithFrame:(CGRect)frame andDelegate:(id)delegate;
 - (void)loadTagLabelWithString;
 - (void)loadTagLabel:(NSString *)string;
 - (void)viewStateSelected;

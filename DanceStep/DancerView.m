@@ -15,11 +15,12 @@
 @end
 @implementation DancerView
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame andDelegate:(id)delegate{
     self = [super initWithFrame:frame];
     if (self) {
         //Default Initializations
         self.isColorSet = NO;
+        self.delegate = delegate;
         self.backgroundColor = [UIColor orangeColor];
         self.layer.cornerRadius = self.frame.size.width/2;
         self.clipsToBounds = YES;
@@ -131,7 +132,8 @@
     [[NSNotificationCenter defaultCenter]postNotificationName:kDancerTouchEndNotification object:nil];
 }
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-
+    [self shrink];
+     [[NSNotificationCenter defaultCenter]postNotificationName:kDancerTouchEndNotification object:nil];
 }
 
 - (void)setAlphabetArray {

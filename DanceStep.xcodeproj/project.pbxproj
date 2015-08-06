@@ -20,6 +20,7 @@
 		256E7AA21B68D25D000C1208 /* DancerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 256E7AA11B68D25D000C1208 /* DancerView.m */; };
 		2585A3521B6A145A001AAAFC /* brush.png in Resources */ = {isa = PBXBuildFile; fileRef = 2585A3511B6A145A001AAAFC /* brush.png */; };
 		259601CE1B6F7B5400C715CB /* ButtonWithThinBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 259601CD1B6F7B5400C715CB /* ButtonWithThinBorder.m */; };
+		25B72FA41B73591A00D30E50 /* DanceStepEditorViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B72FA31B73591A00D30E50 /* DanceStepEditorViewControllerTests.m */; };
 		25DF1C6F1B70AE2400CDBE70 /* GridScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 25DF1C6E1B70AE2400CDBE70 /* GridScrollView.m */; };
 		25DF1C721B70AE7900CDBE70 /* DanceStepEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25DF1C711B70AE7900CDBE70 /* DanceStepEditorViewController.m */; };
 		25DF1C7B1B70B0E300CDBE70 /* GridContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 25DF1C7A1B70B0E300CDBE70 /* GridContainerView.m */; };
@@ -63,6 +64,7 @@
 		2585A3511B6A145A001AAAFC /* brush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brush.png; sourceTree = "<group>"; };
 		259601CC1B6F7B5400C715CB /* ButtonWithThinBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonWithThinBorder.h; sourceTree = "<group>"; };
 		259601CD1B6F7B5400C715CB /* ButtonWithThinBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonWithThinBorder.m; sourceTree = "<group>"; };
+		25B72FA31B73591A00D30E50 /* DanceStepEditorViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DanceStepEditorViewControllerTests.m; sourceTree = "<group>"; };
 		25DF1C6D1B70AE2400CDBE70 /* GridScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridScrollView.h; sourceTree = "<group>"; };
 		25DF1C6E1B70AE2400CDBE70 /* GridScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridScrollView.m; sourceTree = "<group>"; };
 		25DF1C701B70AE7900CDBE70 /* DanceStepEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DanceStepEditorViewController.h; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				25691D791B60965200D28FDD /* DanceStepTests.m */,
+				25B72FA31B73591A00D30E50 /* DanceStepEditorViewControllerTests.m */,
 				25691D771B60965200D28FDD /* Supporting Files */,
 			);
 			path = DanceStepTests;
@@ -316,6 +319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				25691D7A1B60965200D28FDD /* DanceStepTests.m in Sources */,
+				25B72FA41B73591A00D30E50 /* DanceStepEditorViewControllerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
