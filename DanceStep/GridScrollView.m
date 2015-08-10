@@ -89,7 +89,7 @@
         CGRect frame = CGRectMake(i * scrollerWidth, scrollerMinY, scrollerWidth, scrollerHeight);
         GridContainerView *view = [[viewClass alloc]initWithFrame:frame];
 
-        view.backgroundColor = UIColorFromRGB(0x146622);
+        view.backgroundColor =[UIColor whiteColor];// UIColorFromRGB(0x146622);
         if (i != _viewArray.count) {
             [_gridViews addObject:view];
             view.containerIndex = _gridViews.count - 1;
@@ -100,10 +100,14 @@
 }
 // Method to display page number of scrollView.
 - (void)loadIndexLabel {
-//    _indexLabel = [[GridLabel alloc]initWithLabelTitle:[NSString stringWithFormat:@" Grid-%d ",(int)_indexPage]
-//                                                 frame:CGRectMake(self.frame.origin.x + 2, self.frame.origin.y + 2, 100, 100)];
-//
-//    [self.superview addSubview:_indexLabel];
+    CGPoint point = CGPointMake(self.frame.origin.x/2 + self.frame.size.width/2 , self.frame.origin.y/2 + self.frame.size.height + 12);
+    //_indexLabel = [[GridLabel alloc]initWithLabelTitle:[NSString stringWithFormat:@" Grid-%d ",(int)_indexPage]
+                                                // frame:CGRectMake(self.frame.origin.x + 2, self.frame.origin.y + 2, 100, 100)];
+    _indexLabel = [[GridLabel alloc]initWithLabelTitle:[NSString stringWithFormat:@" Grid-%d ",(int)_indexPage]
+                                                 frame:CGRectMake(point.x, point.y,100, 100)];
+    _indexLabel.center = point;
+
+    [self.superview addSubview:_indexLabel];
 }
 
 - (UIView *)getCurrentView {
@@ -118,6 +122,7 @@
     _indexPage = floor(scrollView.contentOffset.x / CGRectGetWidth(scrollView.bounds));
     _indexLabel.text = [NSString stringWithFormat:@" Grid-%d ",(int)_indexPage];
     [_indexLabel sizeToFit];
+
 
     //Shows the direction that user is dragging the scrollview
     ScrollDirection scrollDirection;
@@ -150,7 +155,7 @@
     self.contentSize = CGSizeMake((unsigned long)(_viewArray.count + 1) *scrollerWidth, scrollerHeight);
     CGRect frame = CGRectMake((_viewArray.count -1) * scrollerWidth, scrollerMinY, scrollerWidth, scrollerHeight);
     GridContainerView *view = [[_viewClass alloc]initWithFrame:frame];
-    view.backgroundColor = UIColorFromRGB(0x146622);
+    view.backgroundColor = [UIColor whiteColor];//UIColorFromRGB(0x146622);
     [_gridViews addObject:view];
     [self addSubview:view];
     view.containerIndex = _gridViews.count - 1;
@@ -159,7 +164,7 @@
     //Extra view So that scroll view can scrollleft
     CGRect lastViewFrame = CGRectMake((_viewArray.count) * scrollerWidth, scrollerMinY, scrollerWidth, scrollerHeight);
     UIView *lastView = [[_viewClass alloc]initWithFrame:lastViewFrame];
-    lastView.backgroundColor = UIColorFromRGB(0x146622);
+    lastView.backgroundColor = [UIColor whiteColor];//UIColorFromRGB(0x146622);
     [self addSubview:lastView];
     
 }

@@ -52,7 +52,7 @@
     for (float i = gridSize; i < self.bounds.size.width; i += gridSize) {
         for (float j = gridSize; j < self.bounds.size.height; j += gridSize) {
             CGRect dotFrameHorizontal = CGRectMake(i, j, 2, 2);
-            CGContextSetFillColorWithColor(ctx, [UIColor yellowColor].CGColor);
+            CGContextSetFillColorWithColor(ctx, UIColorFromRGB(0x6180B9).CGColor);
             CGContextFillEllipseInRect(ctx, CGRectInset(dotFrameHorizontal, 0, 0));
         }
     }

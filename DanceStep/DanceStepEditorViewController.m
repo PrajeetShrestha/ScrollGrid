@@ -11,6 +11,7 @@
 #import "Position.h"
 
 @interface DanceStepEditorViewController()
+@property (weak, nonatomic) IBOutlet UIView *controlBackground;
 @end
 @implementation DanceStepEditorViewController
 - (void)viewDidLoad {
@@ -24,6 +25,7 @@
     [self.gridScroller.viewArray addObject:@"t1.jpg"];
     [self.gridScroller loadScroller:[GridContainerView class]];
     [self.gridScroller loadIndexLabel];
+    self.controlBackground.backgroundColor = UIColorFromRGB(0x6180B9);
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -31,60 +33,76 @@
 }
 
 #pragma mark - Edit Action
-- (IBAction)addDancer:(id)sender {
-    GridContainerView *containerView =(GridContainerView *) [self.gridScroller getCurrentView];
-    [containerView addDancer];
-}
-
-- (IBAction)alignHorizontally:(id)sender {
-    GridContainerView *containerView =(GridContainerView *) [self.gridScroller getCurrentView];
-    [containerView alignHorizontally];
-}
-
-- (IBAction)alignVertically:(id)sender {
-    GridContainerView *containerView =(GridContainerView *) [self.gridScroller getCurrentView];
-    [containerView alignVertically];
-}
-
-- (IBAction)equiDistant:(id)sender {
-    GridContainerView *containerView =(GridContainerView *) [self.gridScroller getCurrentView];
-    [containerView equiDistant];
-}
-
-- (IBAction)undo:(id)sender {
-    GridContainerView *containerView =(GridContainerView *) [self.gridScroller getCurrentView];
-    [containerView undoMove];
-}
-
-- (IBAction)redo:(id)sender {
-    GridContainerView *containerView =(GridContainerView *) [self.gridScroller getCurrentView];
-    [containerView redoMove];
-}
 
 - (IBAction)pickColor:(id)sender {
 }
-
+//
 - (IBAction)deselectAll:(id)sender {
-    GridContainerView *containerView =(GridContainerView *) [self.gridScroller getCurrentView];
-    [containerView deselectAll];
+    [self editActions:sender];
 }
 
 - (IBAction)selectAll:(id)sender {
-    GridContainerView *containerView =(GridContainerView *) [self.gridScroller getCurrentView];
-    [containerView selectAll];
+    [self editActions:sender];
 }
 
+- (IBAction)editActions:(id)sender {
+    if (self.audioPlayer.audioPlayer.url != nil) {
+        UIButton *btn = (UIButton *)sender;
+        GridContainerView *containerView =(GridContainerView *) [self.gridScroller getCurrentView];
+        switch (btn.tag) {
+            case AddDancer:
+                [containerView addDancer];
+                break;
+            case AlignHorizontally:
+                [containerView alignHorizontally];
+                break;
+            case AlignVertically:
+                [containerView alignVertically];
+                break;
+            case Equidistant:
+                [containerView equiDistant];
+                break;
+            case Undo:
+                [containerView undoMove];
+                break;
+            case Redo:
+                [containerView redoMove];
+                break;
+            case SelectAll:
+                [containerView selectAll];
+                break;
+            case DeselectAll:
+                [containerView deselectAll];
+                break;
+            case Reset:
+                [self reset];
+                break;
+            default:
+                break;
+        }
+    } else {
+        [self showErrorAlert];
+    }
+}
+
+- (void)reset {
+    UIView *view =    [self.view viewWithTag:1000];
+    [view removeFromSuperview];
+}
 - (void)clearContainerView {
+
     for (GridContainerView *view in self.view.subviews) {
+
         if ([view isKindOfClass:[GridContainerView class]]) {
             [view removeFromSuperview];
         }
     }
 }
-- (IBAction)play:(id)sender {
-    [self clearContainerView];
 
+- (IBAction)playGrids:(id)sender {
+    [self clearContainerView];
     GridContainerView *containerView = [[GridContainerView alloc]initWithFrame:self.gridScroller.frame];
+    containerView.tag = 1000;
     [self.view addSubview:containerView];
     containerView.userInteractionEnabled = NO;
 
@@ -221,36 +239,58 @@
 
 - (IBAction)playAudioPressed:(id)playButton
 {
-    [self.timer invalidate];
-    [self.updateTimer invalidate];
-    //play audio for the first time or if pause was pressed
-    if (!self.isPaused) {
-        //        [self.playButton setBackgroundImage:[UIImage imageNamed:@"audioplayer_pause.png"]
-        //                                   forState:UIControlStateNormal];
-
-        //start a timer to update the time label display
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                      target:self
-                                                    selector:@selector(updateTime:)
-                                                    userInfo:nil
-                                                     repeats:YES];
-
-        [self.audioPlayer playAudio];
-        self.isPaused = TRUE;
-
+    if (self.audioPlayer.audioPlayer.url == nil) {
+        [self showErrorAlert];
     } else {
-        //player is paused and Button is pressed again
-        //        [self.playButton setBackgroundImage:[UIImage imageNamed:@"audioplayer_play.png"]
-        //                                   forState:UIControlStateNormal];
+        [self.timer invalidate];
+        [self.updateTimer invalidate];
+        //play audio for the first time or if pause was pressed
+        if (!self.isPaused) {
+            //        [self.playButton setBackgroundImage:[UIImage imageNamed:@"audioplayer_pause.png"]
+            //                                   forState:UIControlStateNormal];
 
-        [self.audioPlayer pauseAudio];
-        self.isPaused = FALSE;
+            //start a timer to update the time label display
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                          target:self
+                                                        selector:@selector(updateTime:)
+                                                        userInfo:nil
+                                                         repeats:YES];
+
+            [self.audioPlayer playAudio];
+            self.isPaused = TRUE;
+
+        } else {
+            //player is paused and Button is pressed again
+            //        [self.playButton setBackgroundImage:[UIImage imageNamed:@"audioplayer_play.png"]
+            //                                   forState:UIControlStateNormal];
+            
+            [self.audioPlayer pauseAudio];
+            self.isPaused = FALSE;
+        }
+
     }
 }
 
+- (void)showErrorAlert {
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"No media!" message:@"Please pick the media to play" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    [alert show];
+    alert.tag = 100;
+}
 
+#pragma mark - AlertView Delegate
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    [animation setFromValue:[NSNumber numberWithFloat:1.0]];
+    [animation setToValue:[NSNumber numberWithFloat:0.0]];
+    [animation setDuration:0.2f];
+    [animation setTimingFunction:[CAMediaTimingFunction
+                                  functionWithName:kCAMediaTimingFunctionLinear]];
+    [animation setAutoreverses:YES];
+    [animation setRepeatCount:2];
+    [[self.pickButton layer] addAnimation:animation forKey:@"alpha"];
+}
 
-
+#pragma mark -
 - (void)updateTime:(NSTimer *)timer {
     //to don't update every second. When scrubber is mouseDown the the slider will not set
     if (!self.scrubbing) {

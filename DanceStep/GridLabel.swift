@@ -15,12 +15,14 @@ import UIKit
         //        clipsToBounds = true
         text = "\(labelTitle)"
         sizeToFit()
-        backgroundColor = UIColor.grayColor()
-        var path:UIBezierPath = UIBezierPath(rect:bounds)
-        layer.shadowColor = UIColor.whiteColor().CGColor
-        layer.shadowOffset = CGSize(width:2,height:2)
-        layer.shadowOpacity = 0.6
-        layer.shadowPath = path.CGPath
+        backgroundColor = UIColor(red: 97/255, green: 128/255, blue: 185/255, alpha: 1)
+        layer.cornerRadius = 5.0
+        clipsToBounds = true
+//        var path:UIBezierPath = UIBezierPath(rect:bounds)
+//        layer.shadowColor = UIColor.whiteColor().CGColor
+//        layer.shadowOffset = CGSize(width:2,height:2)
+//        layer.shadowOpacity = 0.6
+//        layer.shadowPath = path.CGPath
     }
 
 }

@@ -40,5 +40,5 @@ typedef enum DancerActionNotifications {
 #define kDancerTouchBeganNotification @"DancerTouch"
 #define kDancerTouchMoveNotification @"DancerMove"
 #define kDancerTouchEndNotification @"DancerEnd"
-
+static const int ddLogLevel = DDLogLevelVerbose;
 #endif

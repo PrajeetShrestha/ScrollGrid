@@ -51,7 +51,7 @@
 }
 
 - (void)viewStateSelected {
-    self.layer.borderColor = [UIColor yellowColor].CGColor;
+    self.layer.borderColor = [UIColor orangeColor].CGColor;
     self.layer.borderWidth = 2.0f;
 }
 
@@ -77,9 +77,9 @@
 - (void)setColorWhenTouchedForFirstTime {
     if(!self.isColorSet) {
         self.alpha = 1.0f;
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = UIColorFromRGB(0x6180B9);//[UIColor whiteColor];
         self.isColorSet = YES;
-        self.tagTitle.textColor = UIColorFromRGB(0x486D42);
+        self.tagTitle.textColor =[UIColor whiteColor];//UIColorFromRGB(0x486D42);
     }
 }
 
@@ -133,7 +133,7 @@
 }
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
     [self shrink];
-     [[NSNotificationCenter defaultCenter]postNotificationName:kDancerTouchEndNotification object:nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:kDancerTouchEndNotification object:nil];
 }
 
 - (void)setAlphabetArray {

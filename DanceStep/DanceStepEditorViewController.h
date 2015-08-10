@@ -6,6 +6,17 @@
 //  Copyright (c) 2015 EK Solutions Pvt Ltd. All rights reserved.
 //
 @import AVFoundation;
+typedef enum EditActions {
+    AddDancer = 80,
+    AlignHorizontally = 81,
+    AlignVertically = 82,
+    Equidistant = 83,
+    Undo =85,
+    Redo = 86,
+    SelectAll = 90,
+    DeselectAll = 91,
+    Reset = 89
+} EditActions;
 
 #import <UIKit/UIKit.h>
 #import "GridScrollView.h"
@@ -16,18 +27,13 @@
 @property (weak, nonatomic) IBOutlet GridScrollView *gridScroller;
 
 #pragma mark - EDIT Actions
-- (IBAction)addDancer:(id)sender;
-
-- (IBAction)play:(id)sender;
-- (IBAction)alignHorizontally:(id)sender;
-- (IBAction)alignVertically:(id)sender;
-- (IBAction)equiDistant:(id)sender;
-- (IBAction)undo:(id)sender;
-- (IBAction)redo:(id)sender;
+- (IBAction)playGrids:(id)sender;
 - (IBAction)pickColor:(id)sender;
 - (IBAction)deselectAll:(id)sender;
 - (IBAction)selectAll:(id)sender;
+- (IBAction)editActions:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIButton *pickButton;
 
 - (void)clearContainerView;
 
@@ -44,5 +50,6 @@
 
 @property NSTimer *timer;
 @property NSTimer *updateTimer;
+
 
 @end
