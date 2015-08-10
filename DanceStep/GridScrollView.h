@@ -13,6 +13,7 @@
 @end
 @interface GridScrollView : UIScrollView
 @property (nonatomic) NSMutableArray *viewArray;
+
 @property (nonatomic) CGFloat indexPage;
 @property (nonatomic) UIView *firstView;
 

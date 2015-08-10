@@ -7,16 +7,28 @@
 //
 
 #import "AppDelegate.h"
-
+#import "DDLog.h"
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
-
-
+ static const int ddLogLevel = DDLogLevelVerbose;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    setenv("XcodeColors", "YES", 0);
+    [DDLog addLogger:[DDASLLogger sharedInstance]];
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    // Enable Colors
+    [[DDTTYLogger sharedInstance] setColorsEnabled:YES];
+    [[DDTTYLogger sharedInstance] setForegroundColor:UIColorFromRGB(0x5c9730) backgroundColor:nil forFlag:DDLogFlagInfo];
+    [[DDTTYLogger sharedInstance] setForegroundColor:UIColorFromRGB(0xFD7400) backgroundColor:nil forFlag:DDLogFlagWarning];
+    [[DDTTYLogger sharedInstance] setForegroundColor:UIColorFromRGB(0x9C0F5F) backgroundColor:nil forFlag:DDLogFlagDebug];
+    [[DDTTYLogger sharedInstance] setForegroundColor:UIColorFromRGB(0x20457C)backgroundColor:nil forFlag:DDLogFlagVerbose];
+    [[DDTTYLogger sharedInstance] setForegroundColor:UIColorFromRGB(0xC91B26) backgroundColor:nil forFlag:DDLogFlagError];
+
+    DDLogVerbose(@"HELLO");
+    DDLogError(@"Error");
     return YES;
 }
 

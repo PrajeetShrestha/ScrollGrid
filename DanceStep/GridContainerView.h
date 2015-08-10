@@ -14,15 +14,22 @@
 @property NSMutableArray *grids;
 @property NSInteger containerIndex;
 
-- (void)initializeGrids;
-
-- (void)addDancer;
-
 - (Grid *)getGridAtIndex:(NSInteger)index;
 
 - (void)setGridAtIndex:(Grid *)grid atIndex:(NSUInteger)index;
 
-- (void)replicateDancerAtPreviousPosition;
+- (void)addDancer;
+- (void)alignHorizontally;
+- (void)alignVertically;
+- (void)deselectAll;
+- (void)selectAll;
+- (void)equiDistant;
+- (void)undoMove;
+- (void)redoMove;
 
 - (void)addDancerInPositions:(NSArray *)positions previousPosition:(NSArray *)previousPositions;
+
+- (void)replicateDancerAtPreviousPosition;
+
+
 @end

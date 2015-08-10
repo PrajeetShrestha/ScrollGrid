@@ -324,7 +324,7 @@
         initialAngle = initialAngle + differenceAngle;
     }
 }
-- (IBAction)selectAll:(id)sender {
+- (void)selectAll:(id)sender {
     [self.selectedViews removeAllObjects];
     for (DancerView *view in self.dancers){
         [view viewStateSelected];
@@ -332,7 +332,7 @@
     }
 }
 
-- (IBAction)deselectAll:(id)sender {
+- (void)deselectAll:(id)sender {
     for (DancerView *view in self.dancers){
         [view viewStateDeselected];
         [self.selectedViews removeObject:view];

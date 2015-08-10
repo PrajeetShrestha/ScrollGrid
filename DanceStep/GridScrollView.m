@@ -7,10 +7,11 @@
 //
 
 #import "GridScrollView.h"
+#import "DanceStep-Swift.h"
 @interface GridScrollView ()<UIScrollViewDelegate>
 @property (nonatomic) CGFloat lastContentOffset;
 @property (nonatomic) NSMutableArray *gridViews;
-@property (nonatomic) UILabel *indexLabel;
+@property (nonatomic) GridLabel *indexLabel;
 @property (nonatomic) Class viewClass;
 @end
 
@@ -44,11 +45,20 @@
 
 #pragma mark - Notification Observers
 -(void)registerNotifications {
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(dancerTouchBeganNotification:) name:kDancerTouchBeganNotification  object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(dancerTouchBeganNotification:)
+                                                name:kDancerTouchBeganNotification
+                                              object:nil];
 
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(dancerTouchMovedNotification:) name:kDancerTouchMoveNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(dancerTouchMovedNotification:)
+                                                name:kDancerTouchMoveNotification
+                                              object:nil];
 
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(dancerTouchEndNotification:) name:kDancerTouchEndNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(dancerTouchEndNotification:)
+                                                name:kDancerTouchEndNotification
+                                              object:nil];
 }
 
 - (void)dancerTouchBeganNotification:(NSNotification *)notification {
@@ -90,19 +100,10 @@
 }
 // Method to display page number of scrollView.
 - (void)loadIndexLabel {
-    _indexLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.frame.origin.x + 2, self.frame.origin.y + 2, 100, 100)];
-    _indexLabel.textColor = [UIColor darkGrayColor];
-    _indexLabel.text = [NSString stringWithFormat:@" Grid-%d ",(int)_indexPage];
-    _indexLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    [_indexLabel sizeToFit];
-    //_indexLabel.clipsToBounds = YES;
-    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:_indexLabel.bounds];
-    _indexLabel.layer.masksToBounds = NO;
-    _indexLabel.layer.shadowColor = [UIColor whiteColor].CGColor;
-    _indexLabel.layer.shadowOffset = CGSizeMake(2.0f, 1.0f);
-    _indexLabel.layer.shadowOpacity = 0.6f;
-    _indexLabel.layer.shadowPath = shadowPath.CGPath;
-    [self.superview addSubview:_indexLabel];
+//    _indexLabel = [[GridLabel alloc]initWithLabelTitle:[NSString stringWithFormat:@" Grid-%d ",(int)_indexPage]
+//                                                 frame:CGRectMake(self.frame.origin.x + 2, self.frame.origin.y + 2, 100, 100)];
+//
+//    [self.superview addSubview:_indexLabel];
 }
 
 - (UIView *)getCurrentView {
@@ -133,7 +134,7 @@
     //If indexPage and View Array count is equal add another object to viewArray so that
     //Everytime we scroll left another view is added at the last.
     if (_indexPage == _viewArray.count) {
-        [_viewArray addObject:@"t3.png"];
+        [_viewArray addObject:@"newViewAdded"];
         //[self loadScroller:self.viewClass];
         [self appendNewViewInScroller];
     }

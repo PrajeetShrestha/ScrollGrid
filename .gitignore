@@ -1,5 +1,6 @@
 # Xcode
 #
+DanceStep/.DS_Store
 build/
 *.pbxuser
 !default.pbxuser

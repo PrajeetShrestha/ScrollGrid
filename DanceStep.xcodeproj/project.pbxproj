@@ -18,13 +18,17 @@
 		25691D6E1B60965200D28FDD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25691D6C1B60965200D28FDD /* LaunchScreen.xib */; };
 		25691D7A1B60965200D28FDD /* DanceStepTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 25691D791B60965200D28FDD /* DanceStepTests.m */; };
 		256E7AA21B68D25D000C1208 /* DancerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 256E7AA11B68D25D000C1208 /* DancerView.m */; };
+		2572669B1B746422001A15C3 /* GridLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2572669A1B746422001A15C3 /* GridLabel.swift */; };
 		2585A3521B6A145A001AAAFC /* brush.png in Resources */ = {isa = PBXBuildFile; fileRef = 2585A3511B6A145A001AAAFC /* brush.png */; };
 		259601CE1B6F7B5400C715CB /* ButtonWithThinBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 259601CD1B6F7B5400C715CB /* ButtonWithThinBorder.m */; };
+		25AEEEF51B7864820094164B /* AudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AEEEF41B7864820094164B /* AudioPlayer.m */; };
+		25AEEEF91B787EF60094164B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25AEEEF81B787EF60094164B /* Media.xcassets */; };
 		25B72FA41B73591A00D30E50 /* DanceStepEditorViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B72FA31B73591A00D30E50 /* DanceStepEditorViewControllerTests.m */; };
 		25DF1C6F1B70AE2400CDBE70 /* GridScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 25DF1C6E1B70AE2400CDBE70 /* GridScrollView.m */; };
 		25DF1C721B70AE7900CDBE70 /* DanceStepEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25DF1C711B70AE7900CDBE70 /* DanceStepEditorViewController.m */; };
 		25DF1C7B1B70B0E300CDBE70 /* GridContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 25DF1C7A1B70B0E300CDBE70 /* GridContainerView.m */; };
 		25ECB09A1B67321800B649A0 /* Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = 25ECB0991B67321800B649A0 /* Grid.m */; };
+		4BB57A5C33A6304A92F56F80 /* libPods-DanceStep.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 64ECB7081B510A79AAAB50DF /* libPods-DanceStep.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,11 +63,16 @@
 		25691D791B60965200D28FDD /* DanceStepTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DanceStepTests.m; sourceTree = "<group>"; };
 		256E7AA01B68D25D000C1208 /* DancerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DancerView.h; sourceTree = "<group>"; };
 		256E7AA11B68D25D000C1208 /* DancerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DancerView.m; sourceTree = "<group>"; };
+		257266991B746422001A15C3 /* DanceStep-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DanceStep-Bridging-Header.h"; sourceTree = "<group>"; };
+		2572669A1B746422001A15C3 /* GridLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLabel.swift; sourceTree = "<group>"; };
 		2585A34E1B6A12EF001AAAFC /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		2585A34F1B6A1341001AAAFC /* Constant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 		2585A3511B6A145A001AAAFC /* brush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brush.png; sourceTree = "<group>"; };
 		259601CC1B6F7B5400C715CB /* ButtonWithThinBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonWithThinBorder.h; sourceTree = "<group>"; };
 		259601CD1B6F7B5400C715CB /* ButtonWithThinBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonWithThinBorder.m; sourceTree = "<group>"; };
+		25AEEEF31B7864820094164B /* AudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioPlayer.h; sourceTree = "<group>"; };
+		25AEEEF41B7864820094164B /* AudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioPlayer.m; sourceTree = "<group>"; };
+		25AEEEF81B787EF60094164B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		25B72FA31B73591A00D30E50 /* DanceStepEditorViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DanceStepEditorViewControllerTests.m; sourceTree = "<group>"; };
 		25DF1C6D1B70AE2400CDBE70 /* GridScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridScrollView.h; sourceTree = "<group>"; };
 		25DF1C6E1B70AE2400CDBE70 /* GridScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridScrollView.m; sourceTree = "<group>"; };
@@ -73,6 +82,9 @@
 		25DF1C7A1B70B0E300CDBE70 /* GridContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridContainerView.m; sourceTree = "<group>"; };
 		25ECB0981B67321800B649A0 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
 		25ECB0991B67321800B649A0 /* Grid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Grid.m; sourceTree = "<group>"; };
+		64ECB7081B510A79AAAB50DF /* libPods-DanceStep.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DanceStep.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE544405F1E680E5FCF63124 /* Pods-DanceStep.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DanceStep.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DanceStep/Pods-DanceStep.debug.xcconfig"; sourceTree = "<group>"; };
+		E0F030C0BB0375CE15B08B4E /* Pods-DanceStep.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DanceStep.release.xcconfig"; path = "Pods/Target Support Files/Pods-DanceStep/Pods-DanceStep.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BB57A5C33A6304A92F56F80 /* libPods-DanceStep.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +132,8 @@
 				25691D591B60965200D28FDD /* DanceStep */,
 				25691D761B60965200D28FDD /* DanceStepTests */,
 				25691D581B60965200D28FDD /* Products */,
+				5FE5B675A82F01A3CEE0437E /* Pods */,
+				BA97967A72D4E9FAAE56CB6C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -139,10 +154,13 @@
 				25691D5F1B60965200D28FDD /* AppDelegate.m */,
 				25DF1C701B70AE7900CDBE70 /* DanceStepEditorViewController.h */,
 				25DF1C711B70AE7900CDBE70 /* DanceStepEditorViewController.m */,
+				25AEEEF31B7864820094164B /* AudioPlayer.h */,
+				25AEEEF41B7864820094164B /* AudioPlayer.m */,
 				25DF1C6D1B70AE2400CDBE70 /* GridScrollView.h */,
 				25DF1C6E1B70AE2400CDBE70 /* GridScrollView.m */,
 				25DF1C791B70B0E300CDBE70 /* GridContainerView.h */,
 				25DF1C7A1B70B0E300CDBE70 /* GridContainerView.m */,
+				2572669A1B746422001A15C3 /* GridLabel.swift */,
 				25ECB0981B67321800B649A0 /* Grid.h */,
 				25ECB0991B67321800B649A0 /* Grid.m */,
 				256E7AA01B68D25D000C1208 /* DancerView.h */,
@@ -158,6 +176,7 @@
 				25691D6C1B60965200D28FDD /* LaunchScreen.xib */,
 				25691D611B60965200D28FDD /* DanceStep.xcdatamodeld */,
 				25691D5A1B60965200D28FDD /* Supporting Files */,
+				257266991B746422001A15C3 /* DanceStep-Bridging-Header.h */,
 			);
 			path = DanceStep;
 			sourceTree = "<group>";
@@ -166,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				25691D5B1B60965200D28FDD /* Info.plist */,
+				25AEEEF81B787EF60094164B /* Media.xcassets */,
 				25691D5C1B60965200D28FDD /* main.m */,
 			);
 			name = "Supporting Files";
@@ -198,6 +218,23 @@
 			name = Globals;
 			sourceTree = "<group>";
 		};
+		5FE5B675A82F01A3CEE0437E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AE544405F1E680E5FCF63124 /* Pods-DanceStep.debug.xcconfig */,
+				E0F030C0BB0375CE15B08B4E /* Pods-DanceStep.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		BA97967A72D4E9FAAE56CB6C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				64ECB7081B510A79AAAB50DF /* libPods-DanceStep.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -205,9 +242,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 25691D7D1B60965200D28FDD /* Build configuration list for PBXNativeTarget "DanceStep" */;
 			buildPhases = (
+				D393B415567E1A4C204951EB /* Check Pods Manifest.lock */,
 				25691D531B60965200D28FDD /* Sources */,
 				25691D541B60965200D28FDD /* Frameworks */,
 				25691D551B60965200D28FDD /* Resources */,
+				9C05BBFA2F19615E7ABCC306 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -280,6 +319,7 @@
 			files = (
 				2585A3521B6A145A001AAAFC /* brush.png in Resources */,
 				25691D691B60965200D28FDD /* Main.storyboard in Resources */,
+				25AEEEF91B787EF60094164B /* Media.xcassets in Resources */,
 				25691D6E1B60965200D28FDD /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -293,17 +333,52 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9C05BBFA2F19615E7ABCC306 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DanceStep/Pods-DanceStep-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D393B415567E1A4C204951EB /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		25691D531B60965200D28FDD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2572669B1B746422001A15C3 /* GridLabel.swift in Sources */,
 				25DF1C721B70AE7900CDBE70 /* DanceStepEditorViewController.m in Sources */,
 				2539AAF51B60EB2800C92B8C /* ColorPicker.m in Sources */,
 				25ECB09A1B67321800B649A0 /* Grid.m in Sources */,
 				256E7AA21B68D25D000C1208 /* DancerView.m in Sources */,
 				25DF1C6F1B70AE2400CDBE70 /* GridScrollView.m in Sources */,
 				2511CC261B6B4CCC00BA28DC /* MainViewController.m in Sources */,
+				25AEEEF51B7864820094164B /* AudioPlayer.m in Sources */,
 				25691D601B60965200D28FDD /* AppDelegate.m in Sources */,
 				255B46A41B71EF6F00D8A7F8 /* Position.m in Sources */,
 				25691D631B60965200D28FDD /* DanceStep.xcdatamodeld in Sources */,
@@ -373,6 +448,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -417,6 +493,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -437,25 +514,32 @@
 		};
 		25691D7E1B60965200D28FDD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AE544405F1E680E5FCF63124 /* Pods-DanceStep.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PREFIX_HEADER = DanceStep/PrefixHeader.pch;
 				INFOPLIST_FILE = DanceStep/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DanceStep/DanceStep-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		25691D7F1B60965200D28FDD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E0F030C0BB0375CE15B08B4E /* Pods-DanceStep.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PREFIX_HEADER = DanceStep/PrefixHeader.pch;
 				INFOPLIST_FILE = DanceStep/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DanceStep/DanceStep-Bridging-Header.h";
 			};
 			name = Release;
 		};
