@@ -637,9 +637,6 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <variation key="widthClass=compact" misplaced="YES">
-                                                    <rect key="frame" x="78" y="7" width="44" height="30"/>
-                                                </variation>
                                                 <connections>
                                                     <action selector="playAudioPressed:" destination="0dt-ho-QGq" eventType="touchUpInside" id="PVo-yM-okO"/>
                                                 </connections>
@@ -675,6 +672,9 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="playAudioPressed:" destination="0dt-ho-QGq" eventType="touchUpInside" id="EdG-uw-IYY"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1183,6 +1183,7 @@
                         <outlet property="currentTimeSlider" destination="xFR-Qs-1on" id="NSD-an-nnF"/>
                         <outlet property="duration" destination="WVb-fb-QPj" id="iww-2Q-5Uz"/>
                         <outlet property="gridScroller" destination="KJe-l4-yf5" id="W9L-PS-5yE"/>
+                        <outlet property="pauseButton" destination="ZmD-52-VTd" id="jo7-F4-Rws"/>
                         <outlet property="pickButton" destination="J6C-iY-7Ti" id="eII-vH-edv"/>
                         <outlet property="playButton" destination="HDj-vd-hHk" id="eDb-at-SSU"/>
                         <outlet property="timeElapsed" destination="oZl-54-JZX" id="bRo-HT-qhU"/>

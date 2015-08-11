@@ -23,6 +23,8 @@
 		259601CE1B6F7B5400C715CB /* ButtonWithThinBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 259601CD1B6F7B5400C715CB /* ButtonWithThinBorder.m */; };
 		25AEEEF51B7864820094164B /* AudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AEEEF41B7864820094164B /* AudioPlayer.m */; };
 		25AEEEF91B787EF60094164B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25AEEEF81B787EF60094164B /* Media.xcassets */; };
+		25B011A51B79C3840069E91D /* EKToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B011A31B79C3840069E91D /* EKToast.m */; };
+		25B011A61B79C3840069E91D /* EKToast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25B011A41B79C3840069E91D /* EKToast.xib */; };
 		25B72FA41B73591A00D30E50 /* DanceStepEditorViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B72FA31B73591A00D30E50 /* DanceStepEditorViewControllerTests.m */; };
 		25DF1C6F1B70AE2400CDBE70 /* GridScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 25DF1C6E1B70AE2400CDBE70 /* GridScrollView.m */; };
 		25DF1C721B70AE7900CDBE70 /* DanceStepEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25DF1C711B70AE7900CDBE70 /* DanceStepEditorViewController.m */; };
@@ -73,6 +75,9 @@
 		25AEEEF31B7864820094164B /* AudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioPlayer.h; sourceTree = "<group>"; };
 		25AEEEF41B7864820094164B /* AudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioPlayer.m; sourceTree = "<group>"; };
 		25AEEEF81B787EF60094164B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		25B011A21B79C3840069E91D /* EKToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKToast.h; sourceTree = "<group>"; };
+		25B011A31B79C3840069E91D /* EKToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKToast.m; sourceTree = "<group>"; };
+		25B011A41B79C3840069E91D /* EKToast.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EKToast.xib; sourceTree = "<group>"; };
 		25B72FA31B73591A00D30E50 /* DanceStepEditorViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DanceStepEditorViewControllerTests.m; sourceTree = "<group>"; };
 		25DF1C6D1B70AE2400CDBE70 /* GridScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridScrollView.h; sourceTree = "<group>"; };
 		25DF1C6E1B70AE2400CDBE70 /* GridScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridScrollView.m; sourceTree = "<group>"; };
@@ -163,6 +168,7 @@
 				2572669A1B746422001A15C3 /* GridLabel.swift */,
 				25ECB0981B67321800B649A0 /* Grid.h */,
 				25ECB0991B67321800B649A0 /* Grid.m */,
+				25B011A71B79C3870069E91D /* Library */,
 				256E7AA01B68D25D000C1208 /* DancerView.h */,
 				256E7AA11B68D25D000C1208 /* DancerView.m */,
 				255B46A11B71EF3100D8A7F8 /* OldControllers */,
@@ -216,6 +222,16 @@
 				2585A34F1B6A1341001AAAFC /* Constant.h */,
 			);
 			name = Globals;
+			sourceTree = "<group>";
+		};
+		25B011A71B79C3870069E91D /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				25B011A21B79C3840069E91D /* EKToast.h */,
+				25B011A31B79C3840069E91D /* EKToast.m */,
+				25B011A41B79C3840069E91D /* EKToast.xib */,
+			);
+			name = Library;
 			sourceTree = "<group>";
 		};
 		5FE5B675A82F01A3CEE0437E /* Pods */ = {
@@ -317,6 +333,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25B011A61B79C3840069E91D /* EKToast.xib in Resources */,
 				2585A3521B6A145A001AAAFC /* brush.png in Resources */,
 				25691D691B60965200D28FDD /* Main.storyboard in Resources */,
 				25AEEEF91B787EF60094164B /* Media.xcassets in Resources */,
@@ -386,6 +403,7 @@
 				25691D661B60965200D28FDD /* GridViewController.m in Sources */,
 				25DF1C7B1B70B0E300CDBE70 /* GridContainerView.m in Sources */,
 				25691D5D1B60965200D28FDD /* main.m in Sources */,
+				25B011A51B79C3840069E91D /* EKToast.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

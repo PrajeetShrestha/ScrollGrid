@@ -103,7 +103,7 @@
     CGPoint point = CGPointMake(self.frame.origin.x/2 + self.frame.size.width/2 , self.frame.origin.y/2 + self.frame.size.height + 12);
     //_indexLabel = [[GridLabel alloc]initWithLabelTitle:[NSString stringWithFormat:@" Grid-%d ",(int)_indexPage]
                                                 // frame:CGRectMake(self.frame.origin.x + 2, self.frame.origin.y + 2, 100, 100)];
-    _indexLabel = [[GridLabel alloc]initWithLabelTitle:[NSString stringWithFormat:@" Grid-%d ",(int)_indexPage]
+    _indexLabel = [[GridLabel alloc]initWithLabelTitle:[NSString stringWithFormat:@"   Grid-%d   ",(int)_indexPage]
                                                  frame:CGRectMake(point.x, point.y,100, 100)];
     _indexLabel.center = point;
 
@@ -120,7 +120,7 @@
 {
     //Calculating which page is user in
     _indexPage = floor(scrollView.contentOffset.x / CGRectGetWidth(scrollView.bounds));
-    _indexLabel.text = [NSString stringWithFormat:@" Grid-%d ",(int)_indexPage];
+    _indexLabel.text = [NSString stringWithFormat:@"   Grid-%d   ",(int)_indexPage];
     [_indexLabel sizeToFit];
 
 

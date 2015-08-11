@@ -7,15 +7,15 @@
 //
 @import AVFoundation;
 typedef enum EditActions {
-    AddDancer = 80,
+    AddDancer         = 80,
     AlignHorizontally = 81,
-    AlignVertically = 82,
-    Equidistant = 83,
-    Undo =85,
-    Redo = 86,
-    SelectAll = 90,
-    DeselectAll = 91,
-    Reset = 89
+    AlignVertically   = 82,
+    Equidistant       = 83,
+    Undo              = 85,
+    Redo              = 86,
+    SelectAll         = 90,
+    DeselectAll       = 91,
+    Reset             = 89
 } EditActions;
 
 #import <UIKit/UIKit.h>
@@ -38,10 +38,11 @@ typedef enum EditActions {
 - (void)clearContainerView;
 
 
-#pragma media
+#pragma mark - Media
 @property (nonatomic) AudioPlayer *audioPlayer;
 @property (weak, nonatomic) IBOutlet UISlider *currentTimeSlider;
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
+@property (weak, nonatomic) IBOutlet UIButton *pauseButton;
 @property (weak, nonatomic) IBOutlet UILabel *duration;
 @property (weak, nonatomic) IBOutlet UILabel *timeElapsed;
 

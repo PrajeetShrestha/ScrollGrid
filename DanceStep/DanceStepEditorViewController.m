@@ -26,6 +26,7 @@
     [self.gridScroller loadScroller:[GridContainerView class]];
     [self.gridScroller loadIndexLabel];
     self.controlBackground.backgroundColor = UIColorFromRGB(0x6180B9);
+    self.currentTimeSlider.userInteractionEnabled = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -119,7 +120,7 @@
         [positionsByFrame addObject:positionsRow];
 
     }
-    
+
     int counter = 0;
     for (NSArray *currentPosition in positionsByFrame){
         NSDictionary *userInfo;
@@ -182,7 +183,7 @@
     NSError *error = nil;
     NSArray *fetchedObjects = [kAppDelegate.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects == nil) {
-        
+
     }
     return fetchedObjects;
 }
@@ -209,6 +210,7 @@
     //If url is selected then setupAudioPlayerWithURL
     if (url) {
         [self setupAudioPlayerWithURL:url];
+        self.currentTimeSlider.userInteractionEnabled = YES;
     } else [self displayMediaPicker];
 }
 
@@ -246,6 +248,7 @@
         [self.updateTimer invalidate];
         //play audio for the first time or if pause was pressed
         if (!self.isPaused) {
+
             //        [self.playButton setBackgroundImage:[UIImage imageNamed:@"audioplayer_pause.png"]
             //                                   forState:UIControlStateNormal];
 
@@ -258,27 +261,38 @@
 
             [self.audioPlayer playAudio];
             self.isPaused = TRUE;
+            self.playButton.userInteractionEnabled = NO;
+            self.pauseButton.userInteractionEnabled = YES;
+            self.playButton.superview.backgroundColor = [UIColor lightGrayColor];
+            self.pauseButton.superview.backgroundColor = [UIColor whiteColor];
+
+
 
         } else {
             //player is paused and Button is pressed again
             //        [self.playButton setBackgroundImage:[UIImage imageNamed:@"audioplayer_play.png"]
             //                                   forState:UIControlStateNormal];
-            
+
             [self.audioPlayer pauseAudio];
             self.isPaused = FALSE;
+            self.playButton.userInteractionEnabled = YES;
+            self.pauseButton.userInteractionEnabled = NO;
+            self.playButton.superview.backgroundColor = [UIColor whiteColor];
+            self.pauseButton.superview.backgroundColor = [UIColor lightGrayColor];
         }
-
     }
 }
 
 - (void)showErrorAlert {
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"No media!" message:@"Please pick the media to play" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-    [alert show];
-    alert.tag = 100;
+    EKToast *toast = [[EKToast alloc]initWithSize:CGSizeMake(0, 50) andMessage:@"Please pick the media to play!"];
+    toast.toastPosition = ToastPositionBottom;
+    [toast show:^{
+        [self animatePickButton];
+    }];
 }
 
 #pragma mark - AlertView Delegate
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+- (void)animatePickButton {
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
     [animation setFromValue:[NSNumber numberWithFloat:1.0]];
     [animation setToValue:[NSNumber numberWithFloat:0.0]];
