@@ -7,11 +7,8 @@
 //
 
 #import "EKToast.h"
-@interface EKToast() {
-    __weak IBOutlet NSLayoutConstraint *leadingSpace;
-    __weak IBOutlet NSLayoutConstraint *trailingSpace;
-}
-
+@interface EKToast()
+@property (nonatomic, copy) void (^completion)(void);
 @end
 @implementation EKToast
 
@@ -23,7 +20,7 @@
         self = (EKToast *) views[0];
         self.lblMessage.text = message;
         self.position = ToastPositionCenter;
-        self.horizontalOffset = 16;
+        self.horizontalOffset = 0;
         self.duration = 0.5f;
         self.delay = 1.6f;
         self.shouldAutoDestruct = YES;
@@ -36,7 +33,7 @@
 }
 
 - (void)show:(void (^)(void))completion {
-
+    self.completion = completion;
     UIWindow *window = [[UIApplication sharedApplication]windows][0];
     //If window already contains EKToast do not let add overlapping EKToast.
     for (id view in window.rootViewController.view.subviews) {
@@ -45,7 +42,10 @@
         }
     }
     [window.rootViewController.view addSubview:self];
-    window.windowLevel = UIWindowLevelStatusBar + 1;
+    if (self.position == ToastPositionTop) {
+        window.windowLevel = UIWindowLevelStatusBar + 1;
+    }
+
     [self addConstraintWithRespectToSuperView:self];
 
     //Trigger auto removal of toast
@@ -70,7 +70,9 @@
         self.alpha = 0.0f;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
+        self.completion();
     }];
+
 }
 
 - (void)setUpBackgroundView {
@@ -140,7 +142,7 @@
             [view.superview layoutIfNeeded];
         }];
     } else {//Center
-        self.transform = CGAffineTransformMakeScale(1.1, 1.1);
+        self.transform = CGAffineTransformMakeScale(0.8, 0.8);
         [UIView animateWithDuration:0.2 animations:^(void){
             self.transform = CGAffineTransformMakeScale(1.0, 1.0);
         }];

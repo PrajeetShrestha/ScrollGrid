@@ -275,7 +275,10 @@
 
 - (void)showErrorAlert {
     EKToast *toast = [[EKToast alloc]initWithMessage:@"Please pick the media to play!"];
-    toast.position = ToastPositionCenter;
+    toast.position = ToastPositionBottom;
+    toast.horizontalOffset = 0;
+    toast.duration = 0.4f;
+
     toast.shouldAutoDestruct = NO;
     [toast show:^{
         [self animatePickButton];

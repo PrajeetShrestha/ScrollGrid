@@ -10,9 +10,9 @@
             <rect key="frame" x="0.0" y="0.0" width="397" height="139"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dpo-PN-kBJ">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dpo-PN-kBJ" userLabel="Background View">
                     <rect key="frame" x="0.0" y="0.0" width="397" height="139"/>
-                    <color key="backgroundColor" red="0.28235294119999998" green="0.42745098040000001" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.73976934520000004" green="0.19352235540000001" blue="0.21513054949999999" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dGd-6u-6EP">
                     <rect key="frame" x="16" y="12" width="365" height="115"/>
@@ -38,8 +38,6 @@
             <connections>
                 <outlet property="backgroundView" destination="dpo-PN-kBJ" id="F2g-WE-OLz"/>
                 <outlet property="lblMessage" destination="dGd-6u-6EP" id="rRh-Xo-Udp"/>
-                <outlet property="leadingSpace" destination="ND1-a3-axn" id="LeJ-to-Rkl"/>
-                <outlet property="trailingSpace" destination="FKL-ql-fbl" id="enp-a0-8y6"/>
             </connections>
             <point key="canvasLocation" x="657.5" y="526.5"/>
         </view>
