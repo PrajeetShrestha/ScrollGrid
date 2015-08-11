@@ -248,10 +248,6 @@
         [self.updateTimer invalidate];
         //play audio for the first time or if pause was pressed
         if (!self.isPaused) {
-
-            //        [self.playButton setBackgroundImage:[UIImage imageNamed:@"audioplayer_pause.png"]
-            //                                   forState:UIControlStateNormal];
-
             //start a timer to update the time label display
             self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                           target:self
@@ -266,13 +262,7 @@
             self.playButton.superview.backgroundColor = [UIColor lightGrayColor];
             self.pauseButton.superview.backgroundColor = [UIColor whiteColor];
 
-
-
         } else {
-            //player is paused and Button is pressed again
-            //        [self.playButton setBackgroundImage:[UIImage imageNamed:@"audioplayer_play.png"]
-            //                                   forState:UIControlStateNormal];
-
             [self.audioPlayer pauseAudio];
             self.isPaused = FALSE;
             self.playButton.userInteractionEnabled = YES;
@@ -284,8 +274,9 @@
 }
 
 - (void)showErrorAlert {
-    EKToast *toast = [[EKToast alloc]initWithSize:CGSizeMake(0, 50) andMessage:@"Please pick the media to play!"];
-    toast.toastPosition = ToastPositionBottom;
+    EKToast *toast = [[EKToast alloc]initWithMessage:@"Please pick the media to play!"];
+    toast.position = ToastPositionCenter;
+    toast.shouldAutoDestruct = NO;
     [toast show:^{
         [self animatePickButton];
     }];
@@ -300,7 +291,7 @@
     [animation setTimingFunction:[CAMediaTimingFunction
                                   functionWithName:kCAMediaTimingFunctionLinear]];
     [animation setAutoreverses:YES];
-    [animation setRepeatCount:2];
+    [animation setRepeatCount:1];
     [[self.pickButton layer] addAnimation:animation forKey:@"alpha"];
 }
 
@@ -340,14 +331,4 @@
 - (IBAction)userIsScrubbing:(id)sender {
     self.scrubbing = TRUE;
 }
-
-//- (IBAction)getGridDetails:(id)sender {
-//    ClearConsole
-//    GridContainerView *containerView = (GridContainerView *)[self.gridScroller getCurrentView];
-//    for (Grid *grid in containerView.grids){
-//        [grid logContent];
-//    }
-//}
-
-
 @end
